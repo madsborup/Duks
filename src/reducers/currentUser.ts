@@ -1,5 +1,4 @@
-import { Action, ActionTypes } from '../actions'
-import { UserData } from '../interfaces/User'
+import { UserData, Action, ActionTypes } from '../actions'
 
 const INITIAL_STATE: UserData = {
     uid: null,
@@ -10,10 +9,10 @@ const INITIAL_STATE: UserData = {
 
 export const currentUser = (state: UserData = INITIAL_STATE, action: Action) => {
     switch (action.type) {
-        case ActionTypes.signIn:
+        case ActionTypes.SIGN_IN:
             return { ...state, ...action.payload }
-        case ActionTypes.signOut:
-            return { ...state, userId: null }
+        case ActionTypes.SIGN_OUT:
+            return state
         default:    
             return state;
     }

@@ -1,8 +1,8 @@
-import React from "react"
+import React, { Component } from "react"
 import { Route } from "react-router-dom"
 
 // Components
-import SideNav from "../../../components/SideNav/"
+import ProjectBar from "../../../components/ProjectBar"
 import DashboardSidebar from "../../../components/DashboardSidebar"
 import DashboardHeader from "../../../components/DashboardHeader"
 
@@ -10,7 +10,7 @@ import DashboardHeader from "../../../components/DashboardHeader"
 import DashboardColumn from "../../DashboardColumn"
 import DashboardPeople from "../../DashboardPeople"
 
-export const Main = () => {
+class Main extends React.Component {
 
     /* when user gets redirected here after logged in check, redirect to most recent project
     if (user) {
@@ -20,17 +20,21 @@ export const Main = () => {
     }
     */
 
-    return (
-        <div>
-            <SideNav />
-            <DashboardSidebar />
-            <DashboardHeader />
-            <Route
-                path="/:projectId/columns"
-                exact
-                component={DashboardColumn}
-            />
-            <Route path="/:projectId/people" exact component={DashboardPeople} />
-        </div>
-    );
+    render () {
+        return (
+            <div>
+                <ProjectBar />
+                <DashboardSidebar />
+                <DashboardHeader />
+                <Route
+                    path="/:projectId/columns"
+                    exact
+                    component={DashboardColumn}
+                />
+                <Route path="/:projectId/people" exact component={DashboardPeople} />
+            </div>
+        );
+    }
 }
+
+export default Main;

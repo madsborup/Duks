@@ -1,18 +1,17 @@
 import { combineReducers } from 'redux';
-import { UserData, ProjectData, TaskData, TaskGroupData } from '../interfaces'
-
+import { UserData, ProjectData, ModalData } from '../actions'
 import { currentUser } from './currentUser'
 import { projects } from './projects'
-import { taskGroups } from './taskGroups'
+import { modal } from './modal'
 
 export interface StoreState {
     currentUser: UserData;
     projects: ProjectData[];
-    taskGroups: TaskGroupData[];
+    modal: ModalData
 }
 
 export const reducers = combineReducers<StoreState> ({
-    currentUser: currentUser,
-    projects: projects,
-    taskGroups: taskGroups
+    currentUser,
+    projects,
+    modal
 });

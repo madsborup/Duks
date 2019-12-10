@@ -1,15 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Hidden } from "react-grid-system";
-import { ModalOverlay, ModalContainer, ModalActions } from './style'
-import H1 from '../designSystem/H1'
+import { ModalOverlay, ModalContainer, ModalActions } from "./style";
+import H1 from "../designSystem/H1";
 
 interface ModalProps {
     title: string;
     description?: string;
     //TODO: consider changing type
     content: React.ReactFragment;
-    actions: React.ReactFragment;
+    actions?: React.ReactFragment;
     onDismiss: () => void;
 }
 
@@ -19,7 +19,7 @@ export const Modal: React.FC<ModalProps> = props => {
             <ModalOverlay onClick={props.onDismiss}>
                 <ModalContainer onClick={e => e.stopPropagation()}>
                     <H1>{props.title}</H1>
-                    <div className="modal-content">{props.content}</div>
+                    {props.content}
                     <ModalActions>{props.actions}</ModalActions>
                 </ModalContainer>
             </ModalOverlay>

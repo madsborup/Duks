@@ -1,18 +1,37 @@
 import { firestore } from "../firebase";
 import { Dispatch } from "redux";
 import { ActionTypes } from "../actions";
-import { ProjectData } from "../interfaces";
+
+export interface ProjectData {
+    id: string;
+    title: string;
+    members: string[];
+}
 
 export interface FetchProjectsAction {
-    type: ActionTypes.fetchProjects;
+    type: ActionTypes.FETCH_PROJECTS;
     payload: ProjectData[];
+}
+
+export interface CreateProjectAction {
+    type: ActionTypes.CREATE_PROJECT;
+
+}
+
+export interface EditProjectAction {
+
+}
+
+export interface DeleteProjectAction {
+    type: ActionTypes.DELETE_PROJECT;
+    id: number;
 }
 
 export const fetchProjects = (uid: string) => {
     return async (dispatch: Dispatch) => {
         let projects: ProjectData[] = []
         const snapshot = await firestore
-            .collection("projects")
+            .collection("projects") 
             .where("members", "array-contains", uid)
             .get();
 
@@ -29,11 +48,11 @@ export const fetchProjects = (uid: string) => {
             }
         } catch {}
 
-        //dispatch is a generic function, so we pass in an interface that describes the structure
-        //of action that we expect to disptach. We do this to make sure we always dispatch the right action
         dispatch<FetchProjectsAction>({
-            type: ActionTypes.fetchProjects,
+            type: ActionTypes.FETCH_PROJECTS,
             payload: projects
         });
     };
 };
+
+

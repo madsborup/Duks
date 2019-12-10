@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { StoreState } from "../../reducers";
-import { fetchProjects } from "../../actions";
-import { UserData } from "../../interfaces/User";
+import { UserData, ProjectData, fetchProjects, showModal } from "../../actions";
 import {
     Container,
     ProjectLinkContainer,
@@ -11,19 +10,17 @@ import {
     ProjectLink
 } from "./style";
 import { addDocToCollection } from "../../firebase/utils/addDocToCollection";
-import { ProjectData } from "../../interfaces/Project";
+import CreateProjectModal from "../modals/CreateProjectModal";
+import ModalContainer from "../modals/ModalRoot";
 
-interface SideNavProps {
+interface Props {
     projects: ProjectData[];
     currentUser: UserData;
     fetchProjects: Function;
+    showModal: Function;
 }
 
-class SideNav extends Component<SideNavProps> {
-    state = {
-        user: this.props.currentUser
-    };
-
+class ProjectBar extends Component<Props> {
     componentDidMount() {
         this.props.fetchProjects(this.props.currentUser.uid);
     }
@@ -42,16 +39,18 @@ class SideNav extends Component<SideNavProps> {
     render() {
         return (
             <Container>
-                <ProjectLinkContainer>
-                    {this.renderList()}
-                </ProjectLinkContainer>
+                <ProjectLinkContainer>{this.renderList()}</ProjectLinkContainer>
                 <AddProjectIcon
                     onClick={() =>
-                        addDocToCollection<ProjectData>("projects", {
-                            id: "test",
-                            title: "test",
-                            members: [this.state.user.uid as string]
-                        })
+                        // addDocToCollection<ProjectData>("projects", {
+                        //     id: "test",
+                        //     title: "test",
+                        //     members: [this.props.currentUser.uid as string]
+                        // })
+                        this.props.showModal({
+                            modalProps: { open: true },
+                            modalType: "CREATE_PROJECT_MODAL"}
+                        )
                     }
                 />
             </Container>
@@ -68,5 +67,5 @@ const mapStateToProps = ({
 
 export default connect(
     mapStateToProps,
-    { fetchProjects }
-)(SideNav);
+    { fetchProjects, showModal }
+)(ProjectBar);

@@ -1,10 +1,11 @@
-import { Action, ActionTypes } from '../actions'
-import { ProjectData } from '../interfaces'
+import { ProjectData, Action, ActionTypes } from '../actions'
 
 export const projects = (state: ProjectData[] = [], action: Action) => {
     switch (action.type) {
-        case ActionTypes.fetchProjects:
+        case ActionTypes.FETCH_PROJECTS:
             return action.payload
+
+        
         default:    
             return state;
     }

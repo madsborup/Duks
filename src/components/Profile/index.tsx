@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { StoreState } from "../../reducers";
-import { UserData } from "../../interfaces/User";
+import { UserData } from "../../actions";
 import { ReactComponent as ArrowIcon } from "../../assets/svg/DropdownArrow.svg";
 import {
     Container,

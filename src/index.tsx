@@ -8,8 +8,10 @@ import { auth } from "./firebase";
 import history from "./helpers/history";
 import { signIn, signOut } from "./actions";
 import { createUserDocument } from './firebase/utils/createUserDocument';
+import Modal from 'react-modal'
 
 let hasRendered = false;
+Modal.setAppElement('#root');
 
 const renderApp = () => {
     if (!hasRendered) {

@@ -1,24 +1,30 @@
 import { ActionTypes } from "./types";
-import { UserData } from '../interfaces/User'
+
+export interface UserData {
+    uid: string | null;
+    displayName: string | null;
+    email: string | null;
+    photoURL: string | null;
+}
 
 export interface SignInAction {
-    type: ActionTypes.signIn;
+    type: ActionTypes.SIGN_IN;
     payload: UserData;
 }
 
 export interface SignOutAction {
-    type: ActionTypes.signOut;
+    type: ActionTypes.SIGN_OUT;
 }
 
 export const signIn = (user: UserData) => {
     return {
-        type: ActionTypes.signIn,
+        type: ActionTypes.SIGN_IN,
         payload: user
     };
 };
 
 export const signOut = () => {
     return {
-        type: ActionTypes.signOut
+        type: ActionTypes.SIGN_OUT
     };
 };
