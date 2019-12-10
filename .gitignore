@@ -6,9 +6,10 @@
 .pnp.js
 
 # firebase
+/.firebase
+.firebaserc
 firestore.rules
 firebase.json
-.firebaserc
 
 # testing
 /coverage
