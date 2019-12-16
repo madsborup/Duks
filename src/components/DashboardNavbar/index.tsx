@@ -2,34 +2,27 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { StoreState } from "../../reducers";
-import { UserData, ProjectData, fetchProjects, showModal } from "../../actions";
+import { AuthData, ProjectData, fetchProjects, showModal } from "../../actions";
 import {
     Container,
     ProjectLinkContainer,
     AddProjectIcon,
     ProjectLink
 } from "./style";
-import { addDocToCollection } from "../../firebase/utils/addDocToCollection";
-import CreateProjectModal from "../modals/CreateProjectModal";
-import ModalContainer from "../modals/ModalRoot";
 
-interface Props {
+interface DashboardNavbarProps {
     projects: ProjectData[];
-    currentUser: UserData;
+    auth: AuthData;
     fetchProjects: Function;
     showModal: Function;
 }
 
-class ProjectBar extends Component<Props> {
-    componentDidMount() {
-        this.props.fetchProjects(this.props.currentUser.uid);
-    }
+class DashboardNavbar extends Component<DashboardNavbarProps> {
 
     renderList() {
         return this.props.projects.map((doc: ProjectData) => {
-            console.log(doc);
             return (
-                <Link to={`/${doc.id}`}>
+                <Link to={`/${doc.id}`} key={doc.id}>
                     <ProjectLink />
                 </Link>
             );
@@ -37,6 +30,7 @@ class ProjectBar extends Component<Props> {
     }
 
     render() {
+        
         return (
             <Container>
                 <ProjectLinkContainer>{this.renderList()}</ProjectLinkContainer>
@@ -59,13 +53,13 @@ class ProjectBar extends Component<Props> {
 }
 
 const mapStateToProps = ({
-    currentUser,
+    auth,
     projects
-}: StoreState): { currentUser: UserData; projects: ProjectData[] } => {
-    return { currentUser, projects };
+}: StoreState): { auth: AuthData; projects: ProjectData[] } => {
+    return { auth, projects };
 };
 
 export default connect(
     mapStateToProps,
     { fetchProjects, showModal }
-)(ProjectBar);
+)(DashboardNavbar);

@@ -10,8 +10,4 @@ export const firestore = firebase.firestore();
 
 export const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
 
-//Google sign-in with redirect
-export const signInWithGoogle = () => auth.signInWithRedirect(googleAuthProvider);
-export const signOut = () => auth.signOut();
-
 export default firebase;

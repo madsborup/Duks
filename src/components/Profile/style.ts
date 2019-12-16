@@ -9,16 +9,21 @@ export const Container = styled.div`
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    transition: box-shadow 0.2s ease-in-out;
+
+    &:hover {
+        box-shadow: ${base.colors.boxShadow};
+    }
 `;
 
 export const ProfileImage = styled.img`
-    border-radius: 25px;
-    height: 50px;
-    width: 50px;
+    border-radius: 27px;
+    height: 54px;
+    width: 54px;
 `;
 
 export const ProfileDetails = styled.div`
-    padding-left: ${base.spacing.xsmall};
+    padding: 0 ${base.spacing.xsmall};
     display: flex;
     flex-direction: column;
     justify-content: center;

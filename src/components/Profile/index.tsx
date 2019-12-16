@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { StoreState } from "../../reducers";
-import { UserData } from "../../actions";
+import { AuthData } from "../../actions";
 import { ReactComponent as ArrowIcon } from "../../assets/svg/DropdownArrow.svg";
 import {
     Container,
@@ -12,19 +12,19 @@ import {
 } from "./style";
 
 interface ProfileProps {
-    currentUser: UserData;
+    auth: AuthData;
 }
 
 class Profile extends Component<ProfileProps> {
     render() {
         return (
             <Container>
-                <ProfileImage src={this.props.currentUser.photoURL as string} />
+                <ProfileImage src={this.props.auth.user.photoURL as string} />
                 <ProfileDetails>
                     <ProfileName>
-                        {this.props.currentUser.displayName}
+                        {this.props.auth.user.displayName}
                     </ProfileName>
-                    <ProfileEmail>{this.props.currentUser.email}</ProfileEmail>
+                    <ProfileEmail>{this.props.auth.user.email}</ProfileEmail>
                 </ProfileDetails>
                 <ArrowIcon />
             </Container>
@@ -33,9 +33,9 @@ class Profile extends Component<ProfileProps> {
 }
 
 const mapStateToProps = ({
-    currentUser
-}: StoreState): { currentUser: UserData } => {
-    return { currentUser };
+    auth
+}: StoreState): { auth: AuthData } => {
+    return { auth };
 };
 
 export default connect(mapStateToProps)(Profile);

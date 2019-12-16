@@ -9,7 +9,8 @@ const scales = {
     small: 0.75,
     medium: 1,
     large: 1.5,
-    xlarge: 3,
+    xlarge: 2,
+    xxlarge: 3,
   }
 
 export default {
@@ -17,10 +18,12 @@ export default {
         blackAlpha: "rgba(0, 0, 0, 0.1)",
         whiteAlpha: "rgba(255, 255, 255, 0.2)",
         white: "#FFFFFF",
-        wash: "#F5F5FA",
+        bg: "#F5F5FA",
         text: "#1B172D",
-        meta: "#A4A2AB",
+        meta: "#3d3c40",
+        border: "#d2d5d9",
         highlight: "#4A8EFF",
+        boxShadow: "0 4px 20px rgba(0,0,0,0.30)",
         task: {
             focus1: "#FF5267",
             focus2: "#FFB951",
@@ -35,7 +38,10 @@ export default {
             small: `${scales.small}rem`,
             regular: `${scales.medium}rem`,
             h1: `${scales.xlarge}rem`,
-            h2: `${scales.large}rem`
+            h2: `${scales.large}rem`,
+        },
+        letterSpacing: {
+            heading: `-0.2px`
         }
     },
     spacing: {

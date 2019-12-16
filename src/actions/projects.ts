@@ -10,49 +10,43 @@ export interface ProjectData {
 
 export interface FetchProjectsAction {
     type: ActionTypes.FETCH_PROJECTS;
-    payload: ProjectData[];
+    projects: ProjectData[];
 }
 
 export interface CreateProjectAction {
     type: ActionTypes.CREATE_PROJECT;
-
 }
 
-export interface EditProjectAction {
-
-}
+export interface EditProjectAction {}
 
 export interface DeleteProjectAction {
     type: ActionTypes.DELETE_PROJECT;
     id: number;
 }
 
-export const fetchProjects = (uid: string) => {
-    return async (dispatch: Dispatch) => {
-        let projects: ProjectData[] = []
+export const fetchProjects = (uid: string) => async (dispatch: Dispatch) => {
+    let projects: ProjectData[] = [];
+
+    try {
         const snapshot = await firestore
-            .collection("projects") 
-            .where("members", "array-contains", uid)
-            .get();
+        .collection("projects")
+        .where("members", "array-contains", uid)
+        .get();
 
-        try {
-            if (!snapshot.empty) {
-                projects = snapshot.docs.map<ProjectData>((doc) => {
-                    const id = doc.id;
-                    const data = doc.data();
+        if (!snapshot.empty) {
+            projects = snapshot.docs.map<ProjectData>(doc => {
+                const id = doc.id;
+                const data = doc.data();
 
-                    return {id, ...data} as ProjectData;
-                });
-            } else {
-                console.log("Action: fetchProjects. No projects found")
-            }
-        } catch {}
+                return { id, ...data } as ProjectData;
+            });
+        }
+    } catch (error) {
+        console.log(error);
+    }
 
-        dispatch<FetchProjectsAction>({
-            type: ActionTypes.FETCH_PROJECTS,
-            payload: projects
-        });
-    };
+    dispatch<FetchProjectsAction>({
+        type: ActionTypes.FETCH_PROJECTS,
+        projects
+    });
 };
-
-

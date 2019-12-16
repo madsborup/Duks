@@ -1,51 +1,53 @@
-import React from "react";
-import { Router, Route, Switch } from "react-router-dom";
+import React, { Component } from "react";
 import history from "./helpers/history";
-import { createGlobalStyle } from "styled-components";
-import base from './components/designSystem/base'
-import ModalRoot from './components/modals/ModalRoot'
-import { hideModal } from "./actions";
-//Pages
+import ModalRoot from "./components/modals/ModalRoot";
+import { StoreState } from "./reducers";
+import { AuthData, signIn } from "./actions";
 import Login from "./views/pages/Login";
-import Main from "./views/pages/Main";
+import Dashboard from "./views/pages/Dashboard";
 import { connect } from "react-redux";
+import { Router, Route, Switch } from "react-router-dom";
+import ProtectedRoute from "./utils/ProtectedRoute";
+import { GlobalStyle } from "./globalStyles";
+import { ThemeProvider } from "styled-components";
+import theme from "./components/designSystem/base";
 
-interface Props {
-    hideModal: Function
+interface AppProps {
+    isAuthenticated: boolean;
+    isVerifying: boolean;
 }
 
-const GlobalStyle = createGlobalStyle`
-    html {
-        font-family: ${base.font.family.display};
-        background-color: ${base.colors.wash};
-    }
-
-    body {
-        margin: ${base.spacing.small};
-        color: ${base.colors.text};
-    }
-`;
-
-class App extends React.Component<Props> {
-
+class App extends Component<AppProps> {
     render() {
         return (
             <Router history={history}>
-                <div>
+                <ThemeProvider theme={theme}>
                     <GlobalStyle />
                     <ModalRoot />
                     <Switch>
-                        <Route path="/login" exact component={Login} />
-                        <Route path="/" component={Main} />
+                        <ProtectedRoute
+                            exact
+                            path="/"
+                            component={Dashboard}
+                            isAuthenticated={this.props.isAuthenticated}
+                            isVerifying={this.props.isVerifying}
+                        />
+                        <Route path="/login" component={Login} />
                     </Switch>
-                </div>
+                </ThemeProvider>
             </Router>
         );
     }
 }
 
-export default connect(
-    null,
-    { hideModal }
-)(App);
+const mapStateToProps = ({auth}: StoreState) => {
+    return {
+        isAuthenticated: auth.isAuthenticated,
+        isVerifying: auth.isVerifying
+    };
+};
 
+export default connect(
+    mapStateToProps,
+    {}
+)(App);

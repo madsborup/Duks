@@ -1,5 +1,5 @@
 import React from 'react'
-import {  hideModal } from "../../../actions";
+import { CloseButton } from "../styles";
 
 interface Props {
     closeModal: Function
@@ -9,8 +9,8 @@ const CreateTaskModal: React.FC<Props> = ({closeModal}) => {
     
     return (
         <div>
+            <CloseButton onClick={() => closeModal()} />
             <h2>Modal title</h2>
-            <button onClick={() => closeModal()}>Close</button>
         </div>
     )
 }

@@ -1,17 +1,17 @@
 import { combineReducers } from 'redux';
-import { UserData, ProjectData, ModalData } from '../actions'
-import { currentUser } from './currentUser'
+import { AuthData, ProjectData, ModalData } from '../actions'
+import { auth } from './auth'
 import { projects } from './projects'
 import { modal } from './modal'
 
 export interface StoreState {
-    currentUser: UserData;
+    auth: AuthData;
     projects: ProjectData[];
-    modal: ModalData
+    modal: ModalData;
 }
 
 export const reducers = combineReducers<StoreState> ({
-    currentUser,
+    auth,
     projects,
     modal
 });

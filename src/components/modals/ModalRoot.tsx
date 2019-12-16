@@ -1,10 +1,11 @@
 import React, { Component, ReactNode, ComponentClass } from "react";
 import { connect } from "react-redux";
-import { ModalData, hideModal, showModal } from "../../actions";
+import { ModalData, hideModal } from "../../actions";
 import { StoreState } from "../../reducers";
 import ReactModal from "react-modal";
 import CreateProjectModal from "./CreateProjectModal";
 import CreateTaskModal from "./CreateTaskModal";
+import { modalStyles } from "./styles";
 
 interface State {
     modalIsOpen: boolean;
@@ -12,7 +13,7 @@ interface State {
 
 interface Props {
     hideModal: Function;
-    modal: ModalData
+    modal: ModalData;
 }
 
 const MODAL_COMPONENTS = {
@@ -33,13 +34,11 @@ class ModalRoot extends Component<Props, State> {
         this.closeModal = this.closeModal.bind(this);
     }
 
-    closeModal= () => {
-        console.log('hide');
+    closeModal = () => {
         this.props.hideModal();
-    }
+    };
 
     render() {
-
         if (!this.props.modal.modalType) {
             return null;
         }
@@ -50,10 +49,13 @@ class ModalRoot extends Component<Props, State> {
             <ReactModal
                 isOpen={this.state.modalIsOpen}
                 onRequestClose={this.closeModal}
-                contentLabel="Example Modal"
                 ariaHideApp={false}
+                style={modalStyles}
             >
-                <ModalComponent closeModal={this.closeModal} {...this.props.modal.modalProps} />
+                <ModalComponent
+                    closeModal={this.closeModal}
+                    {...this.props.modal.modalProps}
+                />
             </ReactModal>
         );
     }
