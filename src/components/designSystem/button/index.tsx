@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { StyledComponent } from 'styled-components'
-import { StyledButton, StyledPrimaryButton } from "./style";
+import { StyledButton, StyledPrimaryButton, StyledTextButton } from "./style";
 
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
     big?: boolean;
@@ -29,4 +29,8 @@ export const Button = (props: ButtonProps) => {
 
 export const PrimaryButton = (props: ButtonProps): JSX.Element => {
     return handleButtonLinking(StyledPrimaryButton, props);
+};
+
+export const TextButton = (props: ButtonProps): JSX.Element => {
+    return handleButtonLinking(StyledTextButton, props);
 };

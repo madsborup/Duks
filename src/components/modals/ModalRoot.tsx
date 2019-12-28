@@ -5,6 +5,7 @@ import { StoreState } from "../../reducers";
 import ReactModal from "react-modal";
 import CreateProjectModal from "./CreateProjectModal";
 import CreateTaskModal from "./CreateTaskModal";
+import CreateTGModal from "./CreateTGModal";
 import { modalStyles } from "./styles";
 
 interface State {
@@ -18,7 +19,8 @@ interface Props {
 
 const MODAL_COMPONENTS = {
     CREATE_TASK_MODAL: CreateTaskModal,
-    CREATE_PROJECT_MODAL: CreateProjectModal
+    CREATE_PROJECT_MODAL: CreateProjectModal,
+    CREATE_TASK_GROUP_MODAL: CreateTGModal
 };
 
 export type ModalTypes = keyof typeof MODAL_COMPONENTS;

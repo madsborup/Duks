@@ -7,7 +7,8 @@ import {
     SignOutAction
 } from "./auth";
 
-import { FetchProjectsAction } from "./projects";
+import { FetchProjectsRequestAction, FetchProjectsAction, FetchProjectsSuccessAction } from "./projects";
+import { CreateTGAction, FetchTaskGroupsAction } from './taskGroups'
 import { ShowModalAction, HideModalAction } from "./modal";
 
 export enum ActionTypes {
@@ -17,10 +18,16 @@ export enum ActionTypes {
     SIGN_IN_SUCCESS,
     VERIFY_REQUEST,
     VERIFY_SUCCESS,
+    FECTH_PROJECTS_REQUEST,
     FETCH_PROJECTS,
+    FETCH_PROJECTS_SUCCESS,
     CREATE_PROJECT,
     EDIT_PROJECT,
     DELETE_PROJECT,
+    CREATE_TASK_GROUP,
+    FETCH_TASK_GROUP,
+    EDIT_TASK_GROUP,
+    DELETE_TASK_GROUP,
     SHOW_MODAL,
     HIDE_MODAL
 }
@@ -33,5 +40,9 @@ export type Action =
     | VerifyRequestAction
     | VerifySuccesAction
     | FetchProjectsAction
+    | FetchProjectsRequestAction
+    | FetchProjectsSuccessAction
+    | CreateTGAction
+    | FetchTaskGroupsAction
     | ShowModalAction
     | HideModalAction;

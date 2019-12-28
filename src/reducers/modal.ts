@@ -7,7 +7,7 @@ const INITIAL_STATE: ModalData = {
     modalType: null
 }
 
-export const modal = (state: ModalData = INITIAL_STATE, action: Action) => {
+const modal = (state: ModalData = INITIAL_STATE, action: Action) => {
     switch (action.type) {
         case ActionTypes.SHOW_MODAL:
             return { ...action.payload }
@@ -17,3 +17,5 @@ export const modal = (state: ModalData = INITIAL_STATE, action: Action) => {
             return state;
     }
 }
+
+export default modal;

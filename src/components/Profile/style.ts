@@ -37,7 +37,7 @@ export const ProfileName = styled.span`
 `;
 
 export const ProfileEmail = styled.span`
-    color: ${base.colors.meta};
+    color: ${base.colors.textFaded};
     font-weight: 500;
     font-size: ${base.font.size.small};
 `;

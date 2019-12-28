@@ -6,15 +6,22 @@ interface ContainerProps {
 }
 
 export const Container = styled.div<ContainerProps>`
-    position: absolute;
+    position: relative;
     height: 68px;
-    width: calc((100% - 320px) - (2 * ${base.spacing.medium}));
-    top: ${base.spacing.large};
-    margin-left: ${base.spacing.medium};
-    margin-right: ${base.spacing.medium};
-    left: 320px;
+    margin-top: ${base.spacing.large};
     display: flex;
     justify-content: space-between;
+`;
+
+export const DescriptionContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
+export const DescriptionMeta = styled.span`
+    font-size: ${base.font.size.regular};
+    color: ${base.colors.border};
+
 `;
 
 export const ActionsContainer = styled.div`

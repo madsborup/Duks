@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import base from '../../designSystem/base'
 
 export const Form = styled.form`
     flex: 1 0 auto;

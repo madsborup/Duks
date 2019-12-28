@@ -8,7 +8,7 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     body {
-        margin: ${base.spacing.small};
+        margin: 0;
         color: ${base.colors.text};
     }
 `;

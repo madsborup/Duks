@@ -19,7 +19,7 @@ class Profile extends Component<ProfileProps> {
     render() {
         return (
             <Container>
-                <ProfileImage src={this.props.auth.user.photoURL as string} />
+                <ProfileImage src={`${this.props.auth.user.photoURL}=s64-c`} />
                 <ProfileDetails>
                     <ProfileName>
                         {this.props.auth.user.displayName}

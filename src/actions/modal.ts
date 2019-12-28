@@ -1,11 +1,13 @@
 import { ActionTypes } from "./types";
 import { ModalTypes } from "../components/modals/ModalRoot";
 
+//change this 
 export interface ModalData {
     modalProps: {
         open: boolean;
         title?: string;
         description?: string;
+        projectId?: string
         closeModal?: typeof hideModal;
     };
     modalType: ModalTypes | null;

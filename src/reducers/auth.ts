@@ -7,7 +7,7 @@ const INITIAL_STATE: AuthData = {
     user: {} as firebase.User
 };
 
-export const auth = (state: AuthData = INITIAL_STATE, action: Action) => {
+const auth = (state: AuthData = INITIAL_STATE, action: Action) => {
     switch (action.type) {
         case ActionTypes.SIGN_IN_REQUEST:
             return {
@@ -37,3 +37,5 @@ export const auth = (state: AuthData = INITIAL_STATE, action: Action) => {
             return state;
     }
 };
+
+export default auth;

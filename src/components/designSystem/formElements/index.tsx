@@ -1,21 +1,19 @@
 import React, { ReactNode } from "react";
 import { StyledLabel, StyledInput } from "./style";
 
-interface InputProps {
+interface InputProps extends React.HTMLAttributes<HTMLInputElement> {
     children?: ReactNode;
     value?: string | number;
-    placeholder?: string;
-    autofocus?: boolean;
 }
 
 export const Input = (props: InputProps) => {
+
+    const {children, ...rest} = props;
     return (
         <StyledLabel>
-            {props.children}
+            {children}
             <StyledInput
-                value={props.value}
-                placeholder={props.placeholder}
-                autoFocus={props.autofocus}
+                {...rest}
             />
         </StyledLabel>
     );

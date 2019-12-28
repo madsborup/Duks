@@ -53,8 +53,8 @@ export const ModalBody = styled.div`
 `;
 
 export const ModalTitle = styled.div`
-    font-size: ${base.font.size.h1};
-    font-weight: 700;
+    font-size: ${base.font.size.h2};
+    font-weight: 600;
 `;
 
 export const ModalActions = styled.div`

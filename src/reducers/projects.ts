@@ -1,10 +1,19 @@
-import { ProjectData, Action, ActionTypes } from '../actions'
+import { ProjectsData, Action, ActionTypes } from "../actions";
 
-export const projects = (state: ProjectData[] = [], action: Action) => {
-    switch (action.type) {
-        case ActionTypes.FETCH_PROJECTS:
-            return action.projects
-        default:    
-            return state;
-    }
-}
+const INITIAL_STATE: ProjectsData = {
+  isFetching: false,
+  items: {}
+};
+
+const projects = (state: ProjectsData = INITIAL_STATE, action: Action) => {
+  switch (action.type) {
+    case ActionTypes.FECTH_PROJECTS_REQUEST:
+      return { ...state, isFetching: true };
+    case ActionTypes.FETCH_PROJECTS_SUCCESS:
+      return { ...state, items: action.projects, isFetching: false };
+    default:
+      return state;
+  }
+};
+
+export default projects;

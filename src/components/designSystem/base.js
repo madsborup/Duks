@@ -15,19 +15,19 @@ const scales = {
 
 export default {
     colors: {
-        blackAlpha: "rgba(0, 0, 0, 0.1)",
-        whiteAlpha: "rgba(255, 255, 255, 0.2)",
         white: "#FFFFFF",
         bg: "#F5F5FA",
         text: "#1B172D",
-        meta: "#3d3c40",
+        textFaded: "rgba(27, 23, 45, 0.25)",
+        meta: "rgba(27,23,45,.8)",
         border: "#d2d5d9",
-        highlight: "#4A8EFF",
+        highlight: "#2442F0",
+        highlightFaded: "rgba(36, 66, 240, 0.25)",
         boxShadow: "0 4px 20px rgba(0,0,0,0.30)",
         task: {
-            focus1: "#FF5267",
-            focus2: "#FFB951",
-            focus3: "#00C39C"
+            green: "#00CC51",
+            orange: "#FFA621",
+            red: "#FF222F"
         }
     },
     font: {
@@ -39,6 +39,8 @@ export default {
             regular: `${scales.medium}rem`,
             h1: `${scales.xlarge}rem`,
             h2: `${scales.large}rem`,
+            h3: `${scales.medium + 0.25}rem`,
+            h4: `${scales.medium + 0.125}rem`,
         },
         letterSpacing: {
             heading: `-0.2px`
