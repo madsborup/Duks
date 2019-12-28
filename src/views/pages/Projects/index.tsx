@@ -5,11 +5,11 @@ import history from '../../../helpers/history'
 import { StoreState } from "../../../reducers";
 import { AuthData, ProjectData, ProjectsData, fetchProjects } from "../../../actions";
 import DashboardNavbar from "../../../components/Navbar";
-import DashboardSidebar from "../../../components/Sidebar";
+import Sidebar from "../../../components/Sidebar";
 import DashboardHeader from "../../../components/Header";
-import DashboardColumn from "../../ProjectColumnView";
-import DashboardPeople from "../../ProjectPeopleView";
-import DashboardTaskGroup from '../../ProjectTaskGroupView'
+import ProjectColumnView from "../../ProjectColumnView";
+import ProjectPeopleView from "../../ProjectPeopleView";
+import ProjectTaskGroupView from '../../ProjectTaskGroupView'
 import DashboardWelcome from '../../DashboardWelcome'
 import ProjectViewWrapper from "../../../components/ProjectViewWrapper";
 import { Container } from "./style";
@@ -46,12 +46,12 @@ class Dashboard extends React.Component<DashboardProps> {
         <Container>
           <Redirect to={`/${this.props.projects[0].slug}`} />
           <DashboardNavbar isFetching={this.props.isFetching}/>
-          <Route path="/:projectSlug" component={DashboardSidebar} />
+          <Route path="/:projectSlug" component={Sidebar} />
           <ProjectViewWrapper>
             <Route path="/:projectSlug" component={DashboardHeader} />
-            <Route path="/:projectSlug/column" exact component={DashboardColumn} />
-            <Route path="/:projectSlug/people" exact component={DashboardPeople} />
-            <Route path="/:projectSlug/tg/:taskgroupSlug" exact component={DashboardTaskGroup} />
+            <Route path="/:projectSlug/column" exact component={ProjectColumnView} />
+            <Route path="/:projectSlug/people" exact component={ProjectPeopleView} />
+            <Route path="/:projectSlug/:taskgroupSlug" exact component={ProjectTaskGroupView} />
           </ProjectViewWrapper>
         </Container>
       );

@@ -55,7 +55,7 @@ class DashboardSidebar extends Component<DashboardSidebarProps> {
       return (
         <TaskGroupLink
           activeClassName="selected"
-          to={`/${this.props.match.params.projectSlug}/tg/${doc.slug}`}
+          to={`/${this.props.match.params.projectSlug}/${doc.slug}`}
           key={doc.slug}
         >
           {doc.title}
