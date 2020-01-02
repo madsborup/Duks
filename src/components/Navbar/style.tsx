@@ -1,18 +1,22 @@
 import styled from "styled-components";
 import base from "../designSystem/base";
 import { NavLink } from "react-router-dom";
+import { NAVBAR_WIDTH } from '../designSystem/layout'
 import { ReactComponent as AddIcon } from "../../assets/svg/AddIcon.svg";
 
-export const Container = styled.div`
+export const StyledNavbar = styled.div`
+  display: grid;
+  grid-area: nav;
   position: fixed;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  align-content: start;
+  justify-items: center;
+  grid-template-columns: minmax(0px, 1fr);
+  grid-template-rows: auto;
   top: 0;
-  left: 0;
-  height: 100%;
-  width: 80px;
-  background-color: ${base.colors.bg};
+  height: 100vh;
+  width: ${NAVBAR_WIDTH}px;
+  background-color: ${base.colors.white};
+  border-right: 1px solid ${base.colors.border};
   overflow: scroll;
   /* box-shadow: inset 0 16px 8px -4px black, inset 0 -16px 8px -4px black; */
 
@@ -22,12 +26,12 @@ export const Container = styled.div`
 `;
 
 export const ProjectLinkContainer = styled.div`
-  margin-top: ${base.spacing.large};
+  margin-top: ${base.spacing.medium}px;
   display: flex;
   flex-direction: column;
 
   a {
-    margin-bottom: ${base.spacing.small};
+    margin-bottom: ${base.spacing.small}px;
   }
 `;
 
@@ -48,10 +52,10 @@ export const AddProjectIcon = styled(AddIcon)`
   cursor: pointer;
   min-width: 35px;
   min-height: 35px;
-  padding-bottom: ${base.spacing.medium};
+  padding-bottom: ${base.spacing.medium}px;
 
   circle {
-    fill: ${base.colors.meta};
+    fill: ${base.colors.border};
   }
 
   rect {
@@ -60,7 +64,7 @@ export const AddProjectIcon = styled(AddIcon)`
 
   &:hover {
     circle {
-      fill: ${base.colors.highlight};
+      fill: ${base.colors.meta};
     }
   }
 `;

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { ProjectData, signOut } from "../../actions";
-import { StoreState } from "../../reducers";
+import {  signOut, showModal } from "../../actions";
 import Profile from "../Profile";
 import {
   Container,
@@ -10,45 +9,32 @@ import {
   ActionsContainer
 } from "./style";
 import H1 from "../designSystem/H1";
-import history from '../../helpers/history'
-import { RouteComponentProps } from "react-router-dom";
+import { Button, PrimaryButton } from '../designSystem/button'
 
-interface Match {
+interface HeaderProps{
+  title: string;
   projectSlug: string;
-}
-
-interface DashboardHeaderProps extends RouteComponentProps<Match>{
   signOut: Function;
+  showModal: Function;
 }
 
+class Header extends Component<HeaderProps> {
 
-class DashboardHeader extends Component<DashboardHeaderProps> {
-
-  constructor (props: DashboardHeaderProps) {
+  constructor (props: HeaderProps) {
     super (props);
-
   }
   
-
   render() {
-
-    let title: string = ""
-
-    if (history.location.pathname.includes("people")) {
-      title = "People";
-    } else if (history.location.pathname.includes("column")) {
-      title = "Column"
-    }
-
     return (
       <Container>
         <DescriptionContainer>
-          <H1>{title}</H1>
+          <H1>{this.props.title}</H1>
           <DescriptionMeta>Members of this project and their tasks.</DescriptionMeta>
         </DescriptionContainer>
         <ActionsContainer>
+          <PrimaryButton onClick={() => this.props.showModal({modalProps: {open: true, projectSlug: this.props.projectSlug}, modalType: 'CREATE_TASK_MODAL'})}>New Task</PrimaryButton>
           <Profile />
-          <button onClick={() => this.props.signOut()}>Logout</button>
+          <Button onClick={() => this.props.signOut()}>Logout</Button>
         </ActionsContainer>
       </Container>
     );
@@ -57,5 +43,5 @@ class DashboardHeader extends Component<DashboardHeaderProps> {
 
 export default connect(
   null,
-  { signOut }
-)(DashboardHeader);
+  { showModal, signOut }
+)(Header);

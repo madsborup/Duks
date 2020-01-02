@@ -8,7 +8,7 @@ interface ContainerProps {
 export const Container = styled.div<ContainerProps>`
     position: relative;
     height: 68px;
-    margin-top: ${base.spacing.large};
+    margin-top: ${base.spacing.medium}px;
     display: flex;
     justify-content: space-between;
 `;
@@ -27,4 +27,5 @@ export const DescriptionMeta = styled.span`
 export const ActionsContainer = styled.div`
     display: flex;
     justify-content: flex-end;
+    align-items: flex-end;
 `;

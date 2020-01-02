@@ -3,127 +3,128 @@ import { connect } from "react-redux";
 import _ from "lodash";
 import {
   ProjectData,
-  TaskGroupData,
+  FlowData,
+  TaskData,
   showModal,
-  fetchTaskGroups
+  fetchFlows,
+  fetchTasks
 } from "../../actions";
 import { StoreState } from "../../reducers";
 import {
-  Container,
   ProjectTitle,
+  ProjectDescription,
   ViewLinkContainer,
   ViewLink,
-  TaskGroupContainer,
-  TaskGroupTitle,
-  TaskGroupLink,
-  AddTaskGroupButton,
+  SidebarSection,
+  SidebarSectionHeader,
+  SidebarSectionRow,
+  AddFlowButton,
   DropdownIcon
 } from "./style";
-import { RouteComponentProps } from "react-router-dom";
 
-interface Match {
-  projectSlug: string;
-}
 
-interface DashboardSidebarProps extends RouteComponentProps<Match> {
-  projects: ProjectData[];
+interface SidebarProps {
+  projects: { [key: string]: ProjectData };
   isFetching: boolean;
-  taskGroups: TaskGroupData[];
+  flows: FlowData[];
+  projectSlug: string;
   showModal: Function;
-  fetchTaskGroups: Function;
+  fetchFlows: Function;
+  fetchTasks: Function;
 }
 
-class DashboardSidebar extends Component<DashboardSidebarProps> {
-  constructor(props: DashboardSidebarProps) {
+class Sidebar extends Component<SidebarProps> {
+  constructor(props: SidebarProps) {
     super(props);
   }
 
   componentDidMount() {
-    this.props.fetchTaskGroups(this.props.match.params.projectSlug);
+    this.props.fetchFlows(this.props.projectSlug);
+    this.props.fetchTasks(this.props.projectSlug);
   }
 
-  componentDidUpdate(prevProps: DashboardSidebarProps) {
+  componentDidUpdate(prevProps: SidebarProps) {
     if (
-      prevProps.match.params.projectSlug !== this.props.match.params.projectSlug
+      prevProps.projectSlug !== this.props.projectSlug
     ) {
-      this.props.fetchTaskGroups(this.props.match.params.projectSlug);
+      this.props.fetchFlows(this.props.projectSlug);
+      this.props.fetchTasks(this.props.projectSlug);
+      console.log(this.props.projectSlug)
     }
   }
 
-  renderTaskGroupLinks() {
-    return this.props.taskGroups.map((doc: TaskGroupData) => {
+  renderFlowLinks() {
+    return this.props.flows.map((flow: FlowData) => {
       return (
-        <TaskGroupLink
+        <SidebarSectionRow
           activeClassName="selected"
-          to={`/${this.props.match.params.projectSlug}/${doc.slug}`}
-          key={doc.slug}
+          to={`/${this.props.projectSlug}/flow/${flow.slug}`}
+          key={flow.slug}
         >
-          {doc.title}
-        </TaskGroupLink>
+          {flow.title}
+        </SidebarSectionRow>
       );
     });
   }
 
-  showCreateTaskModal(projectSlug: string) {
+  showCreateFlowModal(projectSlug: string) {
     this.props.showModal({
       modalProps: {
         open: true,
         projectSlug
       },
-      modalType: "CREATE_TASK_GROUP_MODAL"
+      modalType: "CREATE_FLOW_MODAL"
     });
   }
 
   render() {
-    if (!this.props.isFetching) {
-      return (
-        <Container>
+    const { projectSlug } = this.props;
+
+    return (
+      <React.Fragment>
+        <SidebarSection>
           <ProjectTitle>
-            This is a Project Title <DropdownIcon />
+            {this.props.projects[projectSlug].title}
+            <DropdownIcon />
           </ProjectTitle>
+          <ProjectDescription>
+            {this.props.projects[projectSlug].description}
+          </ProjectDescription>
           <ViewLinkContainer>
-            <ViewLink
-              activeClassName="selected"
-              to={`/${this.props.match.params.projectSlug}/column`}
-            >
-              Column
+            <ViewLink activeClassName="selected" to={`/${projectSlug}/board`}>
+              Board
             </ViewLink>
-            <ViewLink
-              activeClassName="selected"
-              to={`/${this.props.match.params.projectSlug}/people`}
-            >
+            <ViewLink activeClassName="selected" to={`/${projectSlug}/people`}>
               People
             </ViewLink>
+            <ViewLink activeClassName="selected" to={`/${projectSlug}/outcomes`}>
+              Outcomes
+            </ViewLink>
           </ViewLinkContainer>
-          <TaskGroupContainer>
-            <TaskGroupTitle>Task Groups</TaskGroupTitle>
-            {this.renderTaskGroupLinks()}
-            <AddTaskGroupButton
-              onClick={() =>
-                this.showCreateTaskModal(this.props.match.params.projectSlug)
-              }
-            >
-              + Add task group
-            </AddTaskGroupButton>
-          </TaskGroupContainer>
-        </Container>
-      );
-    }
+        </SidebarSection>
+        <SidebarSection>
+          <SidebarSectionHeader>Flows</SidebarSectionHeader>
+          {this.renderFlowLinks()}
+          <AddFlowButton
+            onClick={() => this.showCreateFlowModal(projectSlug)}
+          >
+            New flow
+          </AddFlowButton>
+        </SidebarSection>
+      </React.Fragment>
+    );
   }
 }
 
-const mapStateToProps = (
-  { projects, taskGroups }: StoreState,
-  ownProps: DashboardSidebarProps
-) => {
+const mapStateToProps = ({ projects, flows }: StoreState) => {
   return {
-    projects: Object.values(projects.items),
+    projects: projects.items,
     isFetching: projects.isFetching,
-    taskGroups: taskGroups.items
+    flows: Object.values(flows.items),
   };
 };
 
 export default connect(
   mapStateToProps,
-  { showModal, fetchTaskGroups }
-)(DashboardSidebar);
+  { showModal, fetchFlows, fetchTasks }
+)(Sidebar);

@@ -2,8 +2,9 @@ import styled from 'styled-components'
 import base from '../designSystem/base'
 
 export const Container = styled.div`
-    padding: ${base.spacing.xsmall};
+    padding: ${base.spacing.xxsmall}px ${base.spacing.xsmall}px;
     border-radius: ${base.BORDER_RADIUS}px;
+    border: 1px solid ${base.colors.border};
     background: ${base.colors.white};
     display: flex;
     justify-content: center;
@@ -18,12 +19,12 @@ export const Container = styled.div`
 
 export const ProfileImage = styled.img`
     border-radius: 27px;
-    height: 54px;
-    width: 54px;
+    height: 50px;
+    width: 50px;
 `;
 
 export const ProfileDetails = styled.div`
-    padding: 0 ${base.spacing.xsmall};
+    padding: 0 ${base.spacing.xsmall}px;
     display: flex;
     flex-direction: column;
     justify-content: center;

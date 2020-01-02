@@ -5,31 +5,24 @@ import { NavLink } from "react-router-dom";
 import { ReactComponent as CircleDropdown } from "../../assets/svg/CircleDropdown.svg";
 import { ReactComponent as ViewIcon } from "../../assets/svg/ColumnsIcon.svg";
 
-export const Container = styled.div`
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  width: 240px;
-  height: 100%;
-  top: 0;
-  left: 80px;
-  background-color: ${base.colors.white};
-`;
-
 export const ProjectTitle = styled.span`
   font-size: ${base.font.size.h2};
   font-weight: 600;
-  padding-top: ${base.spacing.large};
   letter-spacing: ${base.font.letterSpacing.heading};
-  margin-left: ${base.spacing.medium};
-  margin-right: ${base.spacing.medium};
+`;
+
+export const ProjectDescription = styled.span`
+  padding-top: ${base.spacing.xsmall};
+  font-size: ${base.font.size.regular};
+  font-weight: 400;
+  color: ${base.colors.meta};
 `;
 
 export const DropdownIcon = styled(CircleDropdown)`
   height: 15px;
   width: 15px;
   cursor: pointer;
-  margin-left: ${base.spacing.xxsmall};
+  margin-left: ${base.spacing.xxsmall}px;
 
   circle {
     fill: ${base.colors.border};
@@ -45,9 +38,9 @@ export const DropdownIcon = styled(CircleDropdown)`
 export const ViewLinkContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: ${base.spacing.large};
-  margin-left: ${base.spacing.medium};
-  margin-right: ${base.spacing.medium};
+  margin-top: ${base.spacing.small}px;
+  padding-top: ${base.spacing.small}px;
+  border-top: 1px solid ${base.colors.border};
 `;
 
 export const ViewLink = styled(NavLink)`
@@ -56,7 +49,7 @@ export const ViewLink = styled(NavLink)`
   font-weight: 700;
   display: flex;
   align-items: center;
-  margin-bottom: ${base.spacing.xxsmall};
+  margin-bottom: ${base.spacing.xxsmall}px;
   color: ${base.colors.textFaded};
   border-radius: ${base.BORDER_RADIUS}px;
 
@@ -70,38 +63,42 @@ export const ViewLink = styled(NavLink)`
 `;
 
 export const ColumnsIcon = styled(ViewIcon)`
-  margin-right: ${base.spacing.xxsmall};
+  margin-right: ${base.spacing.xxsmall}px;
   height: 18px;
   width: 18px;
 `;
 
-export const TaskGroupContainer = styled.div`
+export const SidebarSection = styled.div`
   display: flex;
   flex-direction: column;
-  border-top: 2px solid ${base.colors.bg};
-  margin-top: ${base.spacing.large};
-  margin-left: ${base.spacing.medium};
-  margin-right: ${base.spacing.medium};
+  border: 1px solid ${base.colors.border};
+  padding: ${base.spacing.small}px;
+  margin-top: ${base.spacing.medium}px;
+  background: ${base.colors.white};
+  border-radius: ${base.BORDER_RADIUS}px;
 `;
 
-export const TaskGroupTitle = styled.span`
-  font-size: ${base.font.size.small};
-  color: ${base.colors.border};
-  margin-top: ${base.spacing.xxsmall};
-  margin-bottom: ${base.spacing.small};
+export const SidebarSectionHeader = styled.span`
+  font-size: ${base.font.size.regular};
+  font-weight: 600;
+  color: ${base.colors.meta};
+  margin-bottom: ${base.spacing.small}px;
+  border-bottom: 1px solid ${base.colors.textFaded};
   text-transform: uppercase;
   letter-spacing: ${base.font.letterSpacing.heading};
 `;
 
-export const TaskGroupLink = styled(ViewLink)`
-  font-size: ${base.font.size.regular};
+export const SidebarSectionRow = styled(ViewLink)`
+  font-size: ${base.font.size.h5};
+  margin-bottom: ${base.spacing.xxsmall}px;
   font-weight: 400;
 `;
 
-export const AddTaskGroupButton = styled(TextButton)`
+export const AddFlowButton = styled(TextButton)`
   color: ${base.colors.textFaded};
-  justify-content: flex-start;
-  padding: ${base.spacing.xxsmall} ${base.spacing.xsmall};
+  margin-top: ${base.spacing.xsmall}px;
+  padding: ${base.spacing.xxsmall}px ${base.spacing.xsmall}px;
+  border: 1px solid ${base.colors.textFaded};
 
   &:hover {
     color: ${base.colors.text};

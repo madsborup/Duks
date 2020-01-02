@@ -6,8 +6,8 @@ export interface ModalData {
     modalProps: {
         open: boolean;
         title?: string;
+        projectSlug?: string | undefined;
         description?: string;
-        projectId?: string
         closeModal?: typeof hideModal;
     };
     modalType: ModalTypes | null;
@@ -15,18 +15,17 @@ export interface ModalData {
 
 export interface ShowModalAction {
     type: ActionTypes.SHOW_MODAL;
-    payload: ModalData
+    modal: ModalData
 }
 
 export interface HideModalAction {
     type: ActionTypes.HIDE_MODAL;
 }
 
-export const showModal = ({ modalProps, modalType }: ModalData) => {
-    console.log("show modal");
+export const showModal = (modal: ModalData) => {
     return {
         type: ActionTypes.SHOW_MODAL,
-        payload: {modalProps, modalType}
+        modal
     };
 };
 

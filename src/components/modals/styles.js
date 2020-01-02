@@ -25,7 +25,7 @@ export const modalStyles = {
         bottom: "auto",
         left: "auto",
         right: "auto",
-        padding: `${base.spacing.xsmall}`,
+        padding: `${base.spacing.xsmall}px`,
         width: "100%",
         maxWidth: "460px",
         borderRadius: `${base.BORDER_RADIUS}px`,
@@ -35,8 +35,8 @@ export const modalStyles = {
 
 export const CloseButton = styled(CloseIcon)`
     position: absolute;
-    top: ${base.spacing.xsmall};
-    right: ${base.spacing.xsmall};
+    top: ${base.spacing.xsmall}px;
+    right: ${base.spacing.xsmall}px;
     cursor: pointer;
 
     &:hover {
@@ -49,7 +49,7 @@ export const ModalBody = styled.div`
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
-    padding: ${base.spacing.small};
+    padding: ${base.spacing.small}px;
 `;
 
 export const ModalTitle = styled.div`
@@ -61,5 +61,5 @@ export const ModalActions = styled.div`
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    margin-top: ${base.spacing.small};
+    margin-top: ${base.spacing.small}px;
 `;

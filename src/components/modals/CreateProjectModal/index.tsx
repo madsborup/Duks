@@ -13,15 +13,12 @@ interface CreateProjectModalProps {
   createProject: Function;
 }
 
-interface CreateProjectModalState {
+interface State {
   title: string;
   description: string;
 }
 
-class CreateProjectModal extends Component<
-  CreateProjectModalProps,
-  CreateProjectModalState
-> {
+class CreateProjectModal extends Component<CreateProjectModalProps, State> {
   constructor(props: CreateProjectModalProps) {
     super(props);
 
@@ -52,7 +49,7 @@ class CreateProjectModal extends Component<
       <ModalBody>
         <CloseButton onClick={() => this.props.closeModal()} />
         <ModalTitle>Create project</ModalTitle>
-        <Form onSubmit={(e) => this.handleProjectSubmit(e)}>
+        <Form onSubmit={e => this.handleProjectSubmit(e)}>
           <Input
             placeholder="New project"
             value={this.state.title}

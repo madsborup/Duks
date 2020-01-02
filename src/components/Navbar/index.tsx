@@ -10,7 +10,7 @@ import {
 } from "../../actions";
 import { ReactComponent as ProjectIconDefault } from "../../assets/svg/ProjectIconDefault.svg";
 import {
-  Container,
+  StyledNavbar,
   ProjectLinkContainer,
   AddProjectIcon,
   ProjectLink
@@ -41,7 +41,7 @@ class DashboardNavbar extends Component<DashboardNavbarProps> {
 
   render() {
     return (
-      <Container>
+      <StyledNavbar>
         <ProjectLinkContainer>{this.renderProjectLinks()}</ProjectLinkContainer>
         <AddProjectIcon
           onClick={() =>
@@ -51,7 +51,7 @@ class DashboardNavbar extends Component<DashboardNavbarProps> {
             })
           }
         />
-      </Container>
+      </StyledNavbar>
     );
   }
 }

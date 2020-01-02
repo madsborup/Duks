@@ -9,7 +9,7 @@ export const StyledLabel = styled.label`
     color: ${base.colors.meta};
     width: 100%;
     letter-spacing: ${base.font.letterSpacing.heading};
-    margin-top: ${base.spacing.medium};
+    margin-top: ${base.spacing.medium}px;
     position: relative;
 `;
 
@@ -20,7 +20,7 @@ export const StyledInput = styled.input`
     border: 1px solid ${base.colors.border};
     border-radius: ${base.BORDER_RADIUS}px;
     padding: 10px 14px;
-    margin-top: ${base.spacing.xxsmall};
+    margin-top: ${base.spacing.xxsmall}px;
     box-shadow: none;
     /* outline: none; */
 

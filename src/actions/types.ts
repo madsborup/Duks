@@ -8,8 +8,9 @@ import {
 } from "./auth";
 
 import { FetchProjectsRequestAction, FetchProjectsAction, FetchProjectsSuccessAction } from "./projects";
-import { CreateTGAction, FetchTaskGroupsAction } from './taskGroups'
+import { CreateFlowAction, FetchFlowsAction } from './flows'
 import { ShowModalAction, HideModalAction } from "./modal";
+import { CreateTaskAction, FetchTasksRequestAction, FetchTasksSuccessAction } from "./tasks";
 
 export enum ActionTypes {
     SIGN_IN,
@@ -18,16 +19,22 @@ export enum ActionTypes {
     SIGN_IN_SUCCESS,
     VERIFY_REQUEST,
     VERIFY_SUCCESS,
-    FECTH_PROJECTS_REQUEST,
+    FETCH_PROJECTS_REQUEST,
     FETCH_PROJECTS,
     FETCH_PROJECTS_SUCCESS,
     CREATE_PROJECT,
     EDIT_PROJECT,
     DELETE_PROJECT,
-    CREATE_TASK_GROUP,
-    FETCH_TASK_GROUP,
-    EDIT_TASK_GROUP,
-    DELETE_TASK_GROUP,
+    CREATE_FLOW,
+    FETCH_FLOWS,
+    EDIT_FLOW,
+    DELETE_FLOW,
+    CREATE_TASK,
+    FETCH_TASKS_REQUEST,
+    FETCH_TASKS,
+    FETCH_TASKS_SUCCESS,
+    EDIT_TASK,
+    DELETE_TASK,
     SHOW_MODAL,
     HIDE_MODAL
 }
@@ -42,7 +49,10 @@ export type Action =
     | FetchProjectsAction
     | FetchProjectsRequestAction
     | FetchProjectsSuccessAction
-    | CreateTGAction
-    | FetchTaskGroupsAction
+    | CreateFlowAction
+    | FetchFlowsAction
+    | CreateTaskAction
+    | FetchTasksRequestAction
+    | FetchTasksSuccessAction
     | ShowModalAction
     | HideModalAction;

@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import { store } from "./store";
 import { verifyAuthentication } from './actions'
 import Modal from 'react-modal'
-import App from './App'
+import Routes from './Routes'
 
 let hasRendered = false;
 Modal.setAppElement('#root');
@@ -13,7 +13,7 @@ store.dispatch(verifyAuthentication());
 
 ReactDOM.render(
     <Provider store={store}>
-        <App />
+        <Routes />
     </Provider>,
     document.getElementById("root")
 );

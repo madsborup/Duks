@@ -10,8 +10,8 @@ export const StyledButton = styled.button<ButtonProps>`
   background: ${base.colors.white};
   padding: ${props =>
     props.big
-      ? `${base.spacing.small} ${base.spacing.large}`
-      : `${base.spacing.xsmall} ${base.spacing.medium}`};
+      ? `${base.spacing.small}px ${base.spacing.large}px`
+      : `${base.spacing.xsmall}px ${base.spacing.small}px`};
   border-radius: ${base.BORDER_RADIUS}px;
   display: flex;
   flex: none;

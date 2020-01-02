@@ -1,7 +1,7 @@
 import { firestore } from "../../firebase";
 import generate from "nanoid/generate";
 import slugify from "slugify";
-import { TaskGroupData, ProjectData } from "../../actions";
+import { FlowData, ProjectData, TaskData } from "../../actions";
 
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const numbers = "0123456789";
@@ -14,30 +14,19 @@ const isProject = (project: any): project is ProjectData => {
   return "members" in project;
 };
 
-const isTaskGroup = (taskGroup: any): taskGroup is TaskGroupData => {
-  return "projectSlug" in taskGroup;
+const isFlow = (flow: any): flow is FlowData => {
+  return "projectSlug" in flow;
 };
 
-export const addDocToCollection = async <T extends Doc>(
-  collectionKey: string,
-  doc: T
-) => {
-  const { title } = doc;
-  let slug = "";
+const isTask = (task: any): task is TaskData => {
+  return "taskGroupSlug" in task;
+};
 
-  if (isProject(doc)) {
-    if (title && title.length > 0) {
-      slug = `${generate(alphabet, 10)}`;
-    }
-  } else if (isTaskGroup(doc)) {
-    if (title && title.length > 0) {
-      slug = `${slugify(title, {
-        remove: /[%€#=*+~.()'"!:@]/g,
-        lower: true
-      })}${generate(numbers, 4)}`;
-    }
-  }
-  const docRef = firestore.collection(collectionKey).doc();
+const setDocument = async (
+  doc: any,
+  docRef: firebase.firestore.DocumentReference,
+  slug?: string
+) => {
   const createdAt = new Date();
 
   try {
@@ -46,8 +35,36 @@ export const addDocToCollection = async <T extends Doc>(
       slug,
       createdAt
     });
-    console.log("set succesful");
   } catch (err) {
-    console.log("Error creating document", err.message);
+    console.log("Error creating document:", err.message);
+  }
+};
+
+export const addDocToCollection = <T extends Doc>(
+  collectionKey: string,
+  doc: T
+) => {
+  const { title } = doc;
+  let slug = "";
+  const docRef = firestore.collection(collectionKey).doc();
+
+  if (isProject(doc)) {
+    if (title && title.length > 0) {
+      slug = `${generate(alphabet, 10)}`;
+    }
+    setDocument(doc, docRef, slug);
+  } else if (isFlow(doc)) {
+    if (title && title.length > 0) {
+      slug = `${slugify(title, {
+        remove: /[%€#=*+~.()'"!:@]/g,
+        lower: true
+      })}${generate(numbers, 4)}`;
+      setDocument(doc, docRef, slug);
+    } 
+  } else if (isTask(doc)) {
+    if (title && title.length > 0) {
+      slug = slugify(title);
+      setDocument(doc, docRef, slug);
+    } 
   }
 };

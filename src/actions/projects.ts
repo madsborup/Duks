@@ -27,7 +27,7 @@ export interface EditProjectAction {
 }
 
 export interface FetchProjectsRequestAction {
-  type: ActionTypes.FECTH_PROJECTS_REQUEST;
+  type: ActionTypes.FETCH_PROJECTS_REQUEST;
 }
 
 export interface FetchProjectsAction {
@@ -66,7 +66,7 @@ export const createProject = (title: string, description: string) => async (
 
 export const fetchProjectsRequest = () => {
   return {
-    type: ActionTypes.FECTH_PROJECTS_REQUEST
+    type: ActionTypes.FETCH_PROJECTS_REQUEST
   };
 };
 
@@ -86,7 +86,6 @@ export const fetchProjects = (uid: string) => async (dispatch: Dispatch) => {
       .where("members", "array-contains", uid)
       .onSnapshot(snapshot => {
         let projects = {};
-
         if (!snapshot.empty) {
           projects = snapshot.docs.reduce(
             (prev, doc) => ({
@@ -99,11 +98,10 @@ export const fetchProjects = (uid: string) => async (dispatch: Dispatch) => {
           );
           if (projects !== null) {
             dispatch(fetchProjectsSuccess(projects));
-            // dispatch<FetchProjectsAction>({
-            //   type: ActionTypes.FETCH_PROJECTS,
-            //   items: projects
-            // });
           }
+        } else {
+          //TODO: handle case when user has no projects
+          dispatch(fetchProjectsSuccess(projects));
         }
       });
   } catch (error) {
