@@ -1,6 +1,6 @@
 import "../../assets/font/inter.css";
 
-const BASELINE = 24;
+const BASELINE = 22;
 const BORDER_RADIUS = 4;
 
 const SCALES = {
@@ -20,7 +20,7 @@ export default {
     text: "#1B172D",
     textFaded: "rgba(27, 23, 45, 0.25)",
     meta: "rgba(27,23,45,.8)",
-    border: "#e1e5eb",
+    border: "#e6e8ed",
     highlight: "#2442F0",
     highlightFaded: "rgba(36, 66, 240, 0.25)",
     boxShadow: "0 4px 20px rgba(0,0,0,0.30)",

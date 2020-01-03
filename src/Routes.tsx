@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import history from "./helpers/history";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { Router, Route, Redirect, Switch } from "react-router-dom";
+import { Route, Redirect, Switch, withRouter } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import ModalRoot from "./components/modals/ModalRoot";
 import { StoreState } from "./reducers";
@@ -38,27 +37,33 @@ class Routes extends React.Component<Props> {
     }
 
     return (
-      <Router history={history}>
-        <ThemeProvider theme={theme}>
-          <GlobalStyle />
-          <ModalRoot />
-          <AppViewWrapper>
-            <Navbar isFetching={false} />
-            <Switch>
-              <Route path="/" exact component={AppViewRedirect} />
-              <Route path="/login" exact component={Login} />
-              {/* <Route path="/:projectSlug" component={ProjectView} /> */}
-              <Route path="/:projectSlug/board" exact component={ProjectBoardView} />
-              <Route path="/:projectSlug/people" exact component={ProjectPeopleView} />
-              <Route
-                path="/:projectSlug/flow/:flowSlug"
-                exact
-                component={ProjectFlowView}
-              />
-            </Switch>
-          </AppViewWrapper>
-        </ThemeProvider>
-      </Router>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <ModalRoot />
+        <AppViewWrapper>
+          <Navbar isFetching={false} />
+          <Switch>
+            <Route path="/" exact component={AppViewRedirect} />
+            <Route path="/login" exact component={Login} />
+            <Route path="/:projectSlug" exact component={ProjectView} />
+            <Route
+              path="/:projectSlug/board"
+              exact
+              component={ProjectBoardView}
+            />
+            <Route
+              path="/:projectSlug/people"
+              exact
+              component={ProjectPeopleView}
+            />
+            <Route
+              path="/:projectSlug/:flowSlug"
+              exact
+              component={ProjectFlowView}
+            />
+          </Switch>
+        </AppViewWrapper>
+      </ThemeProvider>
     );
   }
 }
@@ -75,4 +80,7 @@ const mapStateToProps = ({ auth }: StoreState) => {
 //   {}
 // )(Routes);
 
-export default connect(mapStateToProps)(Routes);
+export default compose<React.ComponentType>(
+  connect(mapStateToProps),
+  withRouter
+)(Routes);

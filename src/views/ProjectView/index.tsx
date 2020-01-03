@@ -1,15 +1,23 @@
 import React from 'react'
 import history from '../../helpers/history'
-import { Redirect } from 'react-router-dom'
-import { withProjectsSubscription} from '../../components/withProjectsSubscription'
+import { Redirect, RouteComponentProps } from 'react-router-dom'
 
 //TODO: implement logic that gets current user most recent location and redirect the user
 //to that path
-const ProjectView: React.FC = () => {
+
+interface Match {
+  projectSlug: string;
+}
+
+interface Props extends RouteComponentProps<Match> {
+  
+}
+
+const ProjectView: React.FC<Props> = (props: Props) => {
 
   return (
-    <Redirect to={`/`} />
+    <Redirect to={`/${props.match.params.projectSlug}/board`} />
   )
 }
 
-export default withProjectsSubscription(ProjectView);
+export default ProjectView;

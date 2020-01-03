@@ -49,7 +49,7 @@ export const ModalBody = styled.div`
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
-    padding: ${base.spacing.small}px;
+    padding: ${base.spacing.xsmall}px;
 `;
 
 export const ModalTitle = styled.div`

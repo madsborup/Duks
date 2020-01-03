@@ -56,7 +56,7 @@ export const addDocToCollection = <T extends Doc>(
   } else if (isFlow(doc)) {
     if (title && title.length > 0) {
       slug = `${slugify(title, {
-        remove: /[%€#=*+~.()'"!:@]/g,
+        remove: /[%€#=?*+~.()'"!:@]/g,
         lower: true
       })}${generate(numbers, 4)}`;
       setDocument(doc, docRef, slug);

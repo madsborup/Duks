@@ -1,40 +1,32 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { compose } from 'redux'
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import _ from "lodash";
 import {
   ProjectData,
   FlowData,
-  TaskData,
   showModal,
   fetchFlows,
   fetchTasks
 } from "../../actions";
 import { StoreState } from "../../reducers";
-import {
-  ProjectTitle,
-  ProjectDescription,
-  ViewLinkContainer,
-  ViewLink,
-  SidebarSection,
-  SidebarSectionHeader,
-  SidebarSectionRow,
-  AddFlowButton,
-  DropdownIcon
-} from "./style";
+import ProjectCard from "../ProjectCard";
+import SidebarLinkSection from "../SidebarLinkSection";
+import { SidebarSection, SidebarSectionHeader } from "./style";
 
-
-interface SidebarProps {
+interface Props extends RouteComponentProps {
   projects: { [key: string]: ProjectData };
   isFetching: boolean;
-  flows: FlowData[];
+  flows: { [key: string]: FlowData };
   projectSlug: string;
   showModal: Function;
   fetchFlows: Function;
   fetchTasks: Function;
 }
 
-class Sidebar extends Component<SidebarProps> {
-  constructor(props: SidebarProps) {
+class Sidebar extends Component<Props> {
+  constructor(props: Props) {
     super(props);
   }
 
@@ -43,31 +35,17 @@ class Sidebar extends Component<SidebarProps> {
     this.props.fetchTasks(this.props.projectSlug);
   }
 
-  componentDidUpdate(prevProps: SidebarProps) {
-    if (
-      prevProps.projectSlug !== this.props.projectSlug
-    ) {
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps.projectSlug !== this.props.projectSlug) {
       this.props.fetchFlows(this.props.projectSlug);
       this.props.fetchTasks(this.props.projectSlug);
-      console.log(this.props.projectSlug)
+      console.log(this.props.projectSlug);
     }
   }
 
-  renderFlowLinks() {
-    return this.props.flows.map((flow: FlowData) => {
-      return (
-        <SidebarSectionRow
-          activeClassName="selected"
-          to={`/${this.props.projectSlug}/flow/${flow.slug}`}
-          key={flow.slug}
-        >
-          {flow.title}
-        </SidebarSectionRow>
-      );
-    });
-  }
+  showCreateFlowModal = () => {
+    const projectSlug = this.props.projectSlug;
 
-  showCreateFlowModal(projectSlug: string) {
     this.props.showModal({
       modalProps: {
         open: true,
@@ -75,41 +53,26 @@ class Sidebar extends Component<SidebarProps> {
       },
       modalType: "CREATE_FLOW_MODAL"
     });
-  }
+  };
 
   render() {
     const { projectSlug } = this.props;
+    const currentProject = this.props.projects[projectSlug];
 
     return (
       <React.Fragment>
         <SidebarSection>
-          <ProjectTitle>
-            {this.props.projects[projectSlug].title}
-            <DropdownIcon />
-          </ProjectTitle>
-          <ProjectDescription>
-            {this.props.projects[projectSlug].description}
-          </ProjectDescription>
-          <ViewLinkContainer>
-            <ViewLink activeClassName="selected" to={`/${projectSlug}/board`}>
-              Board
-            </ViewLink>
-            <ViewLink activeClassName="selected" to={`/${projectSlug}/people`}>
-              People
-            </ViewLink>
-            <ViewLink activeClassName="selected" to={`/${projectSlug}/outcomes`}>
-              Outcomes
-            </ViewLink>
-          </ViewLinkContainer>
+          <ProjectCard project={currentProject} />
         </SidebarSection>
         <SidebarSection>
-          <SidebarSectionHeader>Flows</SidebarSectionHeader>
-          {this.renderFlowLinks()}
-          <AddFlowButton
-            onClick={() => this.showCreateFlowModal(projectSlug)}
-          >
-            New flow
-          </AddFlowButton>
+          <SidebarLinkSection
+            title="Flows"
+            items={Object.values(this.props.flows)}
+            buttonProps={{
+              content: "Add flow",
+              onButtonClick: this.showCreateFlowModal
+            }}
+          />
         </SidebarSection>
       </React.Fragment>
     );
@@ -120,11 +83,14 @@ const mapStateToProps = ({ projects, flows }: StoreState) => {
   return {
     projects: projects.items,
     isFetching: projects.isFetching,
-    flows: Object.values(flows.items),
+    flows: flows.items
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { showModal, fetchFlows, fetchTasks }
+export default compose<React.ComponentType<{projectSlug: string}>>(
+  connect(
+    mapStateToProps,
+    { showModal, fetchFlows, fetchTasks }
+  ),
+  withRouter
 )(Sidebar);

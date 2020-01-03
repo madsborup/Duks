@@ -10,5 +10,6 @@ export const GlobalStyle = createGlobalStyle`
     body {
         margin: 0;
         color: ${base.colors.text};
+        overscroll-behavior-y: none;
     }
 `;

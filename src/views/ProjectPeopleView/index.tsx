@@ -28,7 +28,7 @@ class PeopleView extends Component<Props> {
       <ViewGrid>
         <TwoColumnGrid>
           <FirstColumn>
-            <Sidebar projectSlug={projectSlug} />
+            <Sidebar projectSlug={projectSlug}/>
           </FirstColumn>
           <SecondColumn>
             <Header title="Board" projectSlug={projectSlug} />
