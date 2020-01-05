@@ -1,12 +1,17 @@
 import styled from "styled-components";
 import base from "../../components/designSystem/base";
 
-export const ColumnContainer = styled.div`
-    display: flex;
-    justify-content: space-between;
+export const StyledProjectBoardView = styled.section`
+  display: flex;
+  flex-direction: column;
+  margin-top: ${base.spacing.small}px;
+  border-radius: ${base.BORDER_RADIUS};
 `;
 
-export const Message = styled.h1`
-  font-size: ${base.font.size.h1};
-  color: ${base.colors.border};
+export const ColumnContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-gap: ${base.spacing.small}px;
+  padding: ${base.spacing.small}px;
+  margin-top: ${base.spacing.small}px;
 `;

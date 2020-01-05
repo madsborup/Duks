@@ -20,13 +20,6 @@ class Profile extends Component<ProfileProps> {
         return (
             <Container>
                 <ProfileImage src={`${this.props.auth.user.photoURL}=s64-c`} />
-                <ProfileDetails>
-                    <ProfileName>
-                        {this.props.auth.user.displayName}
-                    </ProfileName>
-                    <ProfileEmail>{this.props.auth.user.email}</ProfileEmail>
-                </ProfileDetails>
-                <ArrowIcon />
             </Container>
         );
     }

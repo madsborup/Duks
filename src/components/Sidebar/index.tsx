@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { compose } from 'redux'
+import { compose } from "redux";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import _ from "lodash";
 import {
@@ -12,8 +12,9 @@ import {
 } from "../../actions";
 import { StoreState } from "../../reducers";
 import ProjectCard from "../ProjectCard";
-import SidebarLinkSection from "../SidebarLinkSection";
-import { SidebarSection, SidebarSectionHeader } from "./style";
+import LinkList from "../LinkList";
+import CollectionList from "../CollectionList";
+import { SidebarSection, ColumnsIcon } from "./style";
 
 interface Props extends RouteComponentProps {
   projects: { [key: string]: ProjectData };
@@ -65,11 +66,29 @@ class Sidebar extends Component<Props> {
           <ProjectCard project={currentProject} />
         </SidebarSection>
         <SidebarSection>
-          <SidebarLinkSection
+        <LinkList
+            links={[
+              { content: {text: "Board", IconComponent: ColumnsIcon}, path: `/${projectSlug}/board` },
+              { content: {text: "Reports", IconComponent: ColumnsIcon}, path: `/${projectSlug}/reports` }
+            ]}
+          />
+        </SidebarSection>
+        <SidebarSection>
+          <CollectionList
             title="Flows"
-            items={Object.values(this.props.flows)}
+            collection={Object.values(this.props.flows)}
             buttonProps={{
-              content: "Add flow",
+              content: "+ Create a flow",
+              onButtonClick: this.showCreateFlowModal
+            }}
+          />
+        </SidebarSection>
+        <SidebarSection>
+          <CollectionList
+            title="Flows"
+            collection={Object.values(this.props.flows)}
+            buttonProps={{
+              content: "+ Create a flow",
               onButtonClick: this.showCreateFlowModal
             }}
           />
@@ -87,10 +106,10 @@ const mapStateToProps = ({ projects, flows }: StoreState) => {
   };
 };
 
-export default compose<React.ComponentType<{projectSlug: string}>>(
+export default compose<React.ComponentType<{ projectSlug: string }>>(
+  withRouter,
   connect(
     mapStateToProps,
     { showModal, fetchFlows, fetchTasks }
-  ),
-  withRouter
+  )
 )(Sidebar);

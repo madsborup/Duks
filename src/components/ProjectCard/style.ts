@@ -12,7 +12,7 @@ export const ProjectImageHeader = styled.div`
   position: relative;
   background: ${base.colors.meta};
   border-radius: 4px 4px 0 0;
-  height: 120px;
+  height: 118px;
 `;
 
 export const ProjectAvatarContainer = styled.div`
@@ -20,7 +20,7 @@ export const ProjectAvatarContainer = styled.div`
   margin-left: ${base.spacing.small}px;
   top: -36px;
   height: 100%;
-  margin-bottom: -${base.spacing.xlarge}px;
+  margin-bottom: -44px;
 `;
 
 export const ProjectAvatar = styled(NavLink)`
@@ -39,14 +39,14 @@ export const ProjectMetaContainer = styled.div`
 `;
 
 export const ProjectTitle = styled.span`
-  font-size: ${base.font.size.h2};
+  font-size: ${base.font.size.h4};
   font-weight: 700;
   letter-spacing: ${base.font.letterSpacing.heading};
 `;
 
 export const ProjectDescription = styled.span`
-  padding-top: ${base.spacing.small}px;
-  font-size: ${base.font.size.regular};
+  padding-top: ${base.spacing.xxsmall}px;
+  font-size: ${base.font.size.h5};
   letter-spacing: ${base.font.letterSpacing.heading};
   line-height: 1.4;
   font-weight: 400;
@@ -73,9 +73,8 @@ export const DropdownIcon = styled(CircleDropdown)`
 export const ViewLinkContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0 ${base.spacing.small}px ${base.spacing.small}px
-    ${base.spacing.small}px;
-  padding-top: ${base.spacing.small}px;
+  padding:${base.spacing.small}px;
+  margin-top: ${base.spacing.small}px;
   border-top: 1px solid ${base.colors.border};
 `;
 

@@ -1,17 +1,22 @@
 import React, { Component } from "react";
+import { compose } from "redux";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, withRouter, RouteComponentProps } from "react-router-dom";
 import { StoreState } from "../../reducers";
 import { signIn } from "../../actions";
 import { PrimaryButton } from "../../components/designSystem/button";
 
-interface LoginProps {
+interface Props extends RouteComponentProps {
   isLoggingIn: boolean;
   isAuthenticated: boolean;
   signIn: Function;
 }
 
-class Login extends Component<LoginProps> {
+class Login extends Component<Props> {
+  componentDidMount() {
+    console.log("mounted");
+  }
+
   render() {
     if (this.props.isAuthenticated) {
       return <Redirect to="/" />;
@@ -38,7 +43,10 @@ const mapStateToProps = ({ auth }: StoreState) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { signIn }
+export default compose<React.ComponentType>(
+  withRouter,
+  connect(
+    mapStateToProps,
+    { signIn }
+  )
 )(Login);

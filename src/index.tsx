@@ -7,7 +7,7 @@ import history from "./helpers/history";
 import { store } from "./store";
 import { verifyAuthentication } from "./actions";
 import Modal from "react-modal";
-import Routes from "./Routes";
+import RedirectHandler from "./components/RedirectHandler";
 
 let hasRendered = false;
 Modal.setAppElement("#root");
@@ -16,7 +16,7 @@ store.dispatch(verifyAuthentication());
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <Routes />
+      <RedirectHandler />
     </Router>
   </Provider>,
   document.getElementById("root")

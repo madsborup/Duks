@@ -3,13 +3,14 @@ import { connect } from "react-redux";
 import { RouteComponentProps } from "react-router-dom";
 import { StoreState } from "../../reducers";
 import { TaskData, TASK_STATUS } from "../../actions";
-import { ColumnContainer } from "./style";
+import { StyledProjectBoardView, ColumnContainer } from "./style";
 import {
   ViewGrid,
   TwoColumnGrid,
   FirstColumn,
   SecondColumn
 } from "../../components/designSystem/layout";
+import SegmentedControl from "../../components/SegmentedControl";
 import BoardTaskColumn from "../../components/BoardTaskColumn";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
@@ -24,8 +25,14 @@ interface Props extends RouteComponentProps<Match> {
 
 class BoardView extends Component<Props> {
   renderTaskColumns() {
-    Object.values(TASK_STATUS).forEach(status => {
-      return <BoardTaskColumn></BoardTaskColumn>;
+    return Object.values(TASK_STATUS).map(status => {
+      if (typeof status !== "string") {
+        let columnTasks = Object.values(this.props.tasks).filter(task => {
+          return task.status === status;
+        });
+
+        return <BoardTaskColumn status={status} tasks={columnTasks} />;
+      }
     });
   }
 
@@ -38,8 +45,17 @@ class BoardView extends Component<Props> {
             <Sidebar projectSlug={projectSlug} />
           </FirstColumn>
           <SecondColumn>
-            <Header title="Board" projectSlug={projectSlug} />
-            <ColumnContainer></ColumnContainer>
+            <StyledProjectBoardView>
+              <Header title="Board" projectSlug={projectSlug} />
+              <SegmentedControl
+                controls={[
+                  { title: "Status", path: `/${projectSlug}/board` },
+                  { title: "People", path: `/${projectSlug}/board/people` },
+                  { title: "Table", path: `/${projectSlug}/board/people` }
+                ]}
+              />
+              <ColumnContainer>{this.renderTaskColumns()}</ColumnContainer>
+            </StyledProjectBoardView>
           </SecondColumn>
         </TwoColumnGrid>
       </ViewGrid>

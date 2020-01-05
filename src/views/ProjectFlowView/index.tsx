@@ -13,7 +13,7 @@ import {
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
 
-import { TaskCard } from "../../components/TaskCard";
+import TaskCard from "../../components/TaskCard";
 
 interface Match {
   projectSlug: string;

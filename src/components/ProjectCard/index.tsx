@@ -9,8 +9,7 @@ import {
   ProjectTitle,
   ProjectDescription,
   ViewLinkContainer,
-  ViewLink,
-  DropdownIcon
+  ViewLink
 } from "./style";
 
 interface Props {
@@ -29,21 +28,9 @@ const ProjectCard: React.FC<Props> = (props: Props) => {
       <ProjectMetaContainer>
         <ProjectTitle>
           {title}
-          <DropdownIcon />
         </ProjectTitle>
         <ProjectDescription>{description}</ProjectDescription>
       </ProjectMetaContainer>
-      <ViewLinkContainer>
-        <ViewLink activeClassName="selected" to={`/${slug}/board`}>
-          Board
-        </ViewLink>
-        <ViewLink activeClassName="selected" to={`/${slug}/people`}>
-          People
-        </ViewLink>
-        <ViewLink activeClassName="selected" to={`/${slug}/outcomes`}>
-          Outcomes
-        </ViewLink>
-      </ViewLinkContainer>
     </StyledProjectCard>
   );
 };

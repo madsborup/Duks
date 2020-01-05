@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import isEmpty from 'lodash/isEmpty'
-import { AuthData, ProjectData, ProjectsData, fetchProjects } from "../../actions";
+import { ProjectsData, fetchProjects } from "../../actions";
 import { StoreState } from '../../reducers'
 
 interface Props {
@@ -14,8 +14,6 @@ export const withProjectsSubscription = (Component: React.ComponentType): React.
   class WithProjectsSubscription extends React.Component<Props> {
     componentDidMount() {
       if (this.props.currentUser.uid) {
-        console.log(this.props.currentUser.uid)
-        console.log(this.props.projects.isFetching)
         this.props.fetchProjects(this.props.currentUser.uid);
       }
     }

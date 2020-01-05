@@ -26,15 +26,6 @@ interface Props {
 
 class Routes extends React.Component<Props> {
   render() {
-    const { isVerifyingUser, isAuthenticated } = this.props;
-
-    if (isVerifyingUser) {
-      return <div>Verifying user...</div>;
-    }
-
-    if (!isAuthenticated) {
-      return <Redirect to={{ pathname: "login" }} />;
-    }
 
     return (
       <ThemeProvider theme={theme}>
@@ -44,17 +35,11 @@ class Routes extends React.Component<Props> {
           <Navbar isFetching={false} />
           <Switch>
             <Route path="/" exact component={AppViewRedirect} />
-            <Route path="/login" exact component={Login} />
             <Route path="/:projectSlug" exact component={ProjectView} />
             <Route
               path="/:projectSlug/board"
               exact
               component={ProjectBoardView}
-            />
-            <Route
-              path="/:projectSlug/people"
-              exact
-              component={ProjectPeopleView}
             />
             <Route
               path="/:projectSlug/:flowSlug"
@@ -75,12 +60,7 @@ const mapStateToProps = ({ auth }: StoreState) => {
   };
 };
 
-// export default connect(
-//   mapStateToProps,
-//   {}
-// )(Routes);
-
 export default compose<React.ComponentType>(
-  connect(mapStateToProps),
-  withRouter
+  withRouter,
+  connect(mapStateToProps)
 )(Routes);

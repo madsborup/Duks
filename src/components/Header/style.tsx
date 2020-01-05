@@ -7,15 +7,16 @@ interface ContainerProps {
 
 export const Container = styled.div<ContainerProps>`
     position: relative;
-    height: 68px;
-    margin-top: ${base.spacing.medium}px;
     display: flex;
     justify-content: space-between;
+    border-bottom: 1px solid ${base.colors.border};
+    padding: ${base.spacing.small}px;
 `;
 
 export const DescriptionContainer = styled.div`
     display: flex;
     flex-direction: column;
+    justify-content: flex-end;
 `;
 
 export const DescriptionMeta = styled.span`

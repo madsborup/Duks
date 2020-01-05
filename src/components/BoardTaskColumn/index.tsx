@@ -1,11 +1,49 @@
-import React from 'react'
+import React from "react";
+import { TASK_STATUS, TaskData } from "../../actions";
+import H2 from "../designSystem/H2";
+import TaskCard from "../TaskCard";
+import { StyledBoardTaskColumn, ColumnHeader } from "./style";
 
-const BoardTaskColumn: React.SFC = () => {
-  return (
-    <div>
-      
-    </div>
-  )
+interface Props {
+  status: TASK_STATUS;
+  tasks: TaskData[];
 }
 
-export default BoardTaskColumn
+const BoardTaskColumn: React.FC<Props> = (props: Props) => {
+  const statusTitles = {
+    [TASK_STATUS.UNASSIGNED]: "Unassigned",
+    [TASK_STATUS.NOT_STARTED]: "Not started",
+    [TASK_STATUS.STARTED]: "Started",
+    [TASK_STATUS.STUCK]: "Stuck",
+    [TASK_STATUS.REVIEW]: "Ready for Review",
+    [TASK_STATUS.COMPLETED]: "Completed"
+  };
+
+  const renderTaskCards = () => {
+    return props.tasks.map((task: TaskData) => {
+      return (
+        <React.Fragment>
+          <TaskCard
+            title={task.title}
+            status={task.status}
+            flowTitle="Flow title"
+            assigned={task.assigned}
+            date={task.date}
+            key={task.id}
+          />
+        </React.Fragment>
+      );
+    });
+  };
+
+  return (
+    <StyledBoardTaskColumn>
+      <ColumnHeader status={props.status}>
+        {statusTitles[props.status]}
+      </ColumnHeader>
+      {renderTaskCards()}
+    </StyledBoardTaskColumn>
+  );
+};
+
+export default BoardTaskColumn;

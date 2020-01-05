@@ -8,6 +8,7 @@ import {
   fetchProjects,
   showModal
 } from "../../actions";
+import Profile from '../Profile'
 import { ReactComponent as ProjectIconDefault } from "../../assets/svg/ProjectIconDefault.svg";
 import {
   StyledNavbar,
@@ -16,7 +17,7 @@ import {
   ProjectLink
 } from "./style";
 
-interface DashboardNavbarProps {
+interface Props {
   projects: ProjectData[];
   isFetching: boolean;
   auth: AuthData;
@@ -24,7 +25,7 @@ interface DashboardNavbarProps {
   showModal: Function;
 }
 
-class DashboardNavbar extends Component<DashboardNavbarProps> {
+class Navbar extends Component<Props> {
   renderProjectLinks() {
     return this.props.projects.map((doc: ProjectData) => {
       return (
@@ -42,6 +43,7 @@ class DashboardNavbar extends Component<DashboardNavbarProps> {
   render() {
     return (
       <StyledNavbar>
+        <Profile />
         <ProjectLinkContainer>{this.renderProjectLinks()}</ProjectLinkContainer>
         <AddProjectIcon
           onClick={() =>
@@ -63,4 +65,4 @@ const mapStateToProps = ({ auth, projects }: StoreState) => {
 export default connect(
   mapStateToProps,
   { fetchProjects, showModal }
-)(DashboardNavbar);
+)(Navbar);

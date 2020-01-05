@@ -4,7 +4,7 @@ import { ReactComponent as ViewIcon } from "../../assets/svg/ColumnsIcon.svg";
 
 export const SidebarSection = styled.div`
   border: 1px solid ${base.colors.border};
-  margin-top: ${base.spacing.medium}px;
+  margin-top: ${base.spacing.small}px;
   background: ${base.colors.white};
   border-radius: ${base.BORDER_RADIUS}px;
 `;
@@ -20,7 +20,7 @@ export const SidebarSectionHeader = styled.span`
 `;
 
 export const ColumnsIcon = styled(ViewIcon)`
-  margin-right: ${base.spacing.xxsmall}px;
-  height: 18px;
-  width: 18px;
+  margin-right: ${base.spacing.xsmall}px;
+  height: 20px;
+  width: 20px;
 `;

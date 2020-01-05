@@ -10,7 +10,7 @@ export interface Props {
   date: Date;
 }
 
-export const TaskCard: React.FunctionComponent<Props>  = (props: Props) => {
+const TaskCard: React.FunctionComponent<Props>  = (props: Props) => {
   return (
     <Container status={props.status}>
       <FlowTitle>
@@ -22,3 +22,5 @@ export const TaskCard: React.FunctionComponent<Props>  = (props: Props) => {
     </Container>
   )
 }
+
+export default TaskCard;

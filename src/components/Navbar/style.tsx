@@ -13,11 +13,12 @@ export const StyledNavbar = styled.div`
   grid-template-columns: minmax(0px, 1fr);
   grid-template-rows: auto;
   top: 0;
+  padding-top: ${base.spacing.large}px;
   height: 100vh;
   width: ${NAVBAR_WIDTH}px;
   background-color: ${base.colors.white};
   border-right: 1px solid ${base.colors.border};
-  overflow: scroll;
+  overflow: hidden auto;
   /* box-shadow: inset 0 16px 8px -4px black, inset 0 -16px 8px -4px black; */
 
   &::-webkit-scrollbar {
@@ -26,9 +27,14 @@ export const StyledNavbar = styled.div`
 `;
 
 export const ProjectLinkContainer = styled.div`
-  margin-top: ${base.spacing.medium}px;
+  margin-top: ${base.spacing.small}px;
+  padding-top: ${base.spacing.small}px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  border-top: 1px solid ${base.colors.border};
 
   a {
     margin-bottom: ${base.spacing.small}px;

@@ -4,6 +4,15 @@ import { ActionTypes } from "../actions";
 import { StoreState } from "../reducers";
 import { addDocToCollection } from "../firebase/utils/addDocToCollection";
 
+export enum TASK_STATUS {
+  UNASSIGNED,
+  NOT_STARTED,
+  STARTED,
+  STUCK,
+  REVIEW,
+  COMPLETED
+}
+
 export interface TaskData {
   id: string;
   flowSlug: string;
@@ -13,15 +22,6 @@ export interface TaskData {
   assigned: string[];
   status: TASK_STATUS;
   date: Date;
-}
-
-export enum TASK_STATUS {
-  UNASSIGNED,
-  NOT_STARTED,
-  STARTED,
-  STUCK,
-  REVIEW,
-  COMPLETED
 }
 
 export interface TasksData {

@@ -8,19 +8,19 @@ import {
   DescriptionMeta,
   ActionsContainer
 } from "./style";
-import H1 from "../designSystem/H1";
+import H2 from "../designSystem/H2";
 import { Button, PrimaryButton } from '../designSystem/button'
 
-interface HeaderProps{
+interface Props{
   title: string;
   projectSlug: string;
   signOut: Function;
   showModal: Function;
 }
 
-class Header extends Component<HeaderProps> {
+class Header extends Component<Props> {
 
-  constructor (props: HeaderProps) {
+  constructor (props: Props) {
     super (props);
   }
   
@@ -28,12 +28,10 @@ class Header extends Component<HeaderProps> {
     return (
       <Container>
         <DescriptionContainer>
-          <H1>{this.props.title}</H1>
-          <DescriptionMeta>Members of this project and their tasks.</DescriptionMeta>
+          <H2>{this.props.title}</H2>
         </DescriptionContainer>
         <ActionsContainer>
           <PrimaryButton onClick={() => this.props.showModal({modalProps: {open: true, projectSlug: this.props.projectSlug}, modalType: 'CREATE_TASK_MODAL'})}>New Task</PrimaryButton>
-          <Profile />
           <Button onClick={() => this.props.signOut()}>Logout</Button>
         </ActionsContainer>
       </Container>
