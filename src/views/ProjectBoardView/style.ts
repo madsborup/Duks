@@ -6,7 +6,7 @@ export const StyledProjectBoardView = styled.section`
   flex-direction: column;
   height: 100%;
   border-radius: ${base.BORDER_RADIUS};
-  background: ${base.colors.white};
+  background: ${base.colors.viewBg};
 `;
 
 export const ColumnContainer = styled.div`
@@ -14,5 +14,4 @@ export const ColumnContainer = styled.div`
   grid-template-columns: repeat(6, 1fr);
   grid-gap: ${base.spacing.small}px;
   padding: ${base.spacing.small}px;
-  margin-top: ${base.spacing.small}px;
 `;

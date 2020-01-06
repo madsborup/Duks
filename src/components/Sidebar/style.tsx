@@ -3,7 +3,7 @@ import base from "../designSystem/base";
 import { ReactComponent as ViewIcon } from "../../assets/svg/ColumnsIcon.svg";
 
 export const StyledSidebar = styled.div`
-  margin-top: ${base.spacing.small}px;
+  margin-top: ${base.spacing.large}px;
 `;
 
 export const SidebarSection = styled.div`

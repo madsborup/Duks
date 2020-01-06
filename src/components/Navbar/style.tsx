@@ -16,7 +16,7 @@ export const StyledNavbar = styled.div`
   padding-top: ${base.spacing.large}px;
   height: 100vh;
   width: ${NAVBAR_WIDTH}px;
-  background-color: ${base.colors.white};
+  background-color: ${base.colors.navbar};
   border-right: 1px solid ${base.colors.border};
   overflow: hidden auto;
   /* box-shadow: inset 0 16px 8px -4px black, inset 0 -16px 8px -4px black; */
@@ -42,12 +42,18 @@ export const ProjectLinkContainer = styled.div`
 `;
 
 export const ProjectLink = styled(NavLink)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
 
   rect {
     fill: ${base.colors.border};
   }
 
   &.${props => props.activeClassName} {
+
     rect {
       fill: ${base.colors.meta};
     }

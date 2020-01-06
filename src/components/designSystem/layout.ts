@@ -6,7 +6,7 @@ export const MIN_FIRST_COLUMN_WIDTH = 260;
 export const MAX_FIRST_COLUMN_WIDTH = 280;
 export const MIN_SECOND_COLUMN_WIDTH = 880;
 export const MAX_SECOND_COLUMN_WIDTH = 1600;
-export const GRID_GAP = base.spacing.small;
+export const GRID_GAP = base.spacing.medium;
 export const MAX_WIDTH =
   MAX_FIRST_COLUMN_WIDTH + MAX_SECOND_COLUMN_WIDTH + GRID_GAP;
 export const MEDIA_BREAK =

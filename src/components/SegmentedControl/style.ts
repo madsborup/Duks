@@ -5,12 +5,13 @@ import base from "../designSystem/base";
 export const StyledSegmentedControl = styled.div`
   display: flex;
   border-bottom: 1px solid ${base.colors.border};
+  background: ${base.colors.white};
 `;
 
 export const Control = styled(NavLink)`
   display: flex;
   justify-content: center;
-  padding: ${base.spacing.xsmall}px ${base.spacing.large}px;
+  padding: ${base.spacing.xsmall}px ${base.spacing.small}px;
   background: ${base.colors.white};
   color: ${base.colors.textFaded};
   text-decoration: none;

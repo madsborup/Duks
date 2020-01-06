@@ -10,7 +10,7 @@ export const StyledCollectionList = styled.div`
 `;
 
 export const ListHeader = styled.span`
-  font-size: ${base.font.size.h5};
+  font-size: ${base.font.size.h6};
   font-weight: 600;
   color: ${base.colors.text};
   padding: ${base.spacing.xsmall}px;
@@ -21,7 +21,7 @@ export const ListHeader = styled.span`
 export const IconContainer = styled.div`
   display: flex;
   z-index: 999;
-  box-shadow: -8px 1px 9px 9px ${base.colors.white};
+  /* box-shadow: -8px 1px 9px 9px ${base.colors.white}; */
   margin: 0 ${base.spacing.xxsmall}px;
 `;
 
@@ -39,7 +39,7 @@ export const ListLink = styled(NavLink)`
 
   &:hover {
     color: ${base.colors.meta};
-    background:  ${base.colors.bg};
+    background:  ${base.colors.viewBg};
 
     &.${IconContainer} {
       box-shadow: -16px 0px 1px 7px ${base.colors.selected};

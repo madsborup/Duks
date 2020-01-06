@@ -69,8 +69,8 @@ class Sidebar extends Component<Props> {
         <SidebarSection>
         <LinkList
             links={[
-              { content: {text: "Board", IconComponent: BoardIcon}, path: `/${projectSlug}/board` },
-              { content: {text: "Reports", IconComponent: BoardIcon}, path: `/${projectSlug}/reports` }
+              { content: {text: "Board"}, path: `/${projectSlug}/board` },
+              { content: {text: "Reports"}, path: `/${projectSlug}/reports` }
             ]}
           />
         </SidebarSection>

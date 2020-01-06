@@ -1,13 +1,12 @@
 import firebase, { auth, googleAuthProvider } from '../index'
 
-
-export const signInWithGoogle = (): Promise<firebase.User> => {
+export const signInWithGoogle = (): Promise<firebase.User> => {   
     return new Promise<firebase.User> ((resolve, reject) => {
-        auth.setPersistence(firebase.auth.Auth.Persistence.SESSION)
+        auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
         .then(() => {
-        return auth.signInWithRedirect(googleAuthProvider)
+        auth.signInWithRedirect(googleAuthProvider)
         })
-        .then((user) => {
+        .then((user) => {   
             resolve(user as any); 
         })
     });

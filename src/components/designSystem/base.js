@@ -17,15 +17,17 @@ const SCALES = {
 export default {
   colors: {
     white: "#FFFFFF",
-    bg: "#F6F7F9",
+    bg: "#FFF",
+    viewBg: "#F1F4F5",
+    navbar: "#FFFFFF",
     text: "#1B172D",
     textFaded: `${rgba("#1B172D", 0.6)}`,
     meta: "rgba(27,23,45,.8)",
-    border: "#e8e8e8",
+    border: "#E6EAEC",
     borderFocus: "#d9d9d9",
     highlight: "#2442F0",
     highlightFaded: `${tint(0.1, "#2442F0")};`,
-    selected: "#f2f2f2",
+    selected: "#ebeff0",
     boxShadow: "0 4px 20px rgba(0,0,0,0.30)",
     task: {
       unassigned: "#666373",

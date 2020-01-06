@@ -22,14 +22,14 @@ export const Link = styled(NavLink)`
   }
 
   svg {
-    height: 24px;
-    width: 24px;
+    height: 20px;
+    width: 20px;
     margin-right: ${base.spacing.xsmall}px;
   }
 
   &:hover {
     color: ${base.colors.meta};
-    background: ${base.colors.bg};
+    background: ${base.colors.viewBg};
   }
 
   &.${props => props.activeClassName} {

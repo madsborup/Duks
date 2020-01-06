@@ -30,41 +30,44 @@ const setDocument = async (
   const createdAt = new Date();
 
   try {
-    await docRef.set({
-      ...doc,
-      slug,
-      createdAt
-    });
+    slug
+      ? await docRef.set({
+          ...doc,
+          slug,
+          createdAt
+        })
+      : await docRef.set({
+          ...doc,
+          createdAt
+        });
   } catch (err) {
     console.log("Error creating document:", err.message);
   }
 };
 
-export const addDocToCollection = <T extends Doc>(
-  collectionKey: string,
-  doc: T
-) => {
-  const { title } = doc;
+export const addDocToCollection = async <T>(collectionKey: string, doc: T) => {
   let slug = "";
   const docRef = firestore.collection(collectionKey).doc();
 
   if (isProject(doc)) {
-    if (title && title.length > 0) {
+    if (doc.title && doc.title.length > 0) {
       slug = `${generate(alphabet, 10)}`;
     }
     setDocument(doc, docRef, slug);
   } else if (isFlow(doc)) {
-    if (title && title.length > 0) {
-      slug = `${slugify(title, {
+    if (doc.title && doc.title.length > 0) {
+      slug = `${slugify(doc.title, {
         remove: /[%€#=?*+~.()'"!:@]/g,
         lower: true
       })}${generate(numbers, 4)}`;
       setDocument(doc, docRef, slug);
-    } 
+    }
   } else if (isTask(doc)) {
-    if (title && title.length > 0) {
-      slug = slugify(title);
+    if (doc.title && doc.title.length > 0) {
+      slug = slugify(doc.title);
       setDocument(doc, docRef, slug);
-    } 
+    }
+  } else {
+    setDocument(doc, docRef);
   }
 };

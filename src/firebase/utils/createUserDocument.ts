@@ -1,7 +1,7 @@
 import { firestore } from "../../firebase";
 
 export const createUserDocument = async (user: firebase.User) => {
-    const userRef = firestore.doc(`users/${user.uid}`);
+    const userRef = firestore.collection("users").doc(`${user.uid}`);
     const snapshot = await userRef.get();
 
     if (!snapshot.exists) {
@@ -15,10 +15,8 @@ export const createUserDocument = async (user: firebase.User) => {
                 photoURL,
                 createdAt
             });
-        } catch (err) {
-            console.log("Error creating user", err.message);
+        } catch (e) {
+            console.log("Error creating user", e.message);
         }
     }
-    
-    return userRef;
 }
