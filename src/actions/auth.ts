@@ -1,6 +1,7 @@
 import { Dispatch } from "redux";
 import { ActionTypes } from "./types";
 import { auth } from "../firebase";
+import { createUserDocument } from '../firebase/utils/createUserDocument'
 import { signInWithGoogle } from '../firebase/utils/signInWithGoogle'
 
 export interface AuthData {
@@ -66,6 +67,8 @@ export const signIn = () => async (dispatch: Dispatch) => {
     try {
         const user = await signInWithGoogle();
 
+        createUserDocument(user);
+        
         dispatch(signInSucces(user));
     } catch (error) {
         console.log("Sign in failed:", error)
