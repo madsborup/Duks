@@ -1,4 +1,5 @@
 import "../../assets/font/inter.css";
+import { rgba, tint } from 'polished'
 
 const BASELINE = 20;
 const BORDER_RADIUS = 4;
@@ -18,20 +19,27 @@ export default {
     white: "#FFFFFF",
     bg: "#F6F7F9",
     text: "#1B172D",
-    textFaded: "rgba(27, 23, 45, 0.60)",
+    textFaded: `${rgba("#1B172D", 0.6)}`,
     meta: "rgba(27,23,45,.8)",
     border: "#e8e8e8",
+    borderFocus: "#d9d9d9",
     highlight: "#2442F0",
-    highlightFaded: "rgba(36, 66, 240, 0.25)",
+    highlightFaded: `${tint(0.1, "#2442F0")};`,
     selected: "#f2f2f2",
     boxShadow: "0 4px 20px rgba(0,0,0,0.30)",
     task: {
       unassigned: "#666373",
+      unassignedFaded: `${rgba("#666373", 0.25)}`,
       notStarted: "#666373",
+      notStartedFaded: `${rgba("#666373", 0.25)}`,
       started: "#FFA621",
+      startedFaded: `${rgba("#FFA621", 0.25)}`,
       stuck: "#FF222F",
+      stuckFaded: `${rgba("#FF222F", 0.25)}`,
       review: "#2442F0",
+      reviewFaded: `${rgba("#2442F0", 0.25)}`,
       completed: "#00CC51",
+      completedFaded: `${rgba("#00CC51", 0.25)}`,
     }
   },
   font: {

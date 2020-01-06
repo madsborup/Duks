@@ -24,6 +24,7 @@ interface Props extends RouteComponentProps<Match> {
 }
 
 class BoardView extends Component<Props> {
+
   renderTaskColumns() {
     return Object.values(TASK_STATUS).map(status => {
       if (typeof status !== "string") {
@@ -49,9 +50,9 @@ class BoardView extends Component<Props> {
               <Header title="Board" projectSlug={projectSlug} />
               <SegmentedControl
                 controls={[
-                  { title: "Status", path: `/${projectSlug}/board` },
-                  { title: "People", path: `/${projectSlug}/board/people` },
-                  { title: "Table", path: `/${projectSlug}/board/people` }
+                  { label: "Status", path: `/${projectSlug}/board` },
+                  { label: "People", path: `/${projectSlug}/board/people` },
+                  { label: "Table", path: `/${projectSlug}/board/table` }
                 ]}
               />
               <ColumnContainer>{this.renderTaskColumns()}</ColumnContainer>

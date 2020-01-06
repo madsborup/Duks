@@ -29,7 +29,7 @@ export const FlowTitle = styled.span`
 
 export const TaskTitle = styled.span`
   color: ${base.colors.text};
-  font-size: ${base.font.size.h5};
+  font-size: ${base.font.size.h6};
   margin-top: ${base.spacing.xxsmall}px;
 `;
 

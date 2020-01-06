@@ -1,9 +1,11 @@
 import React from "react";
-import { withRouter, RouteComponentProps } from 'react-router-dom'
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import {
   StyledCollectionList,
   ListHeader,
   ListLink,
+  ListLinkContent,
+  IconContainer,
   ListLinkIcon,
   CollectionAddButton
 } from "./style";
@@ -14,7 +16,7 @@ interface Match {
 
 interface Props extends RouteComponentProps<Match> {
   title?: string;
-  collection: {title: string, slug?:string}[];
+  collection: { title: string; slug?: string }[];
   buttonProps: {
     content: string;
     onButtonClick: Function;
@@ -22,7 +24,6 @@ interface Props extends RouteComponentProps<Match> {
 }
 
 const CollectionList: React.FC<Props> = (props: Props) => {
-
   const renderListLinks = () => {
     return props.collection.map(item => {
       return (
@@ -31,8 +32,10 @@ const CollectionList: React.FC<Props> = (props: Props) => {
           to={`/${props.match.params.projectSlug}/${item.slug}`}
           key={item.slug}
         >
-          {item.title}
-          <ListLinkIcon />
+          <ListLinkContent>{item.title}</ListLinkContent>
+          <IconContainer>
+            <ListLinkIcon />
+          </IconContainer>
         </ListLink>
       );
     });
@@ -43,7 +46,9 @@ const CollectionList: React.FC<Props> = (props: Props) => {
       <StyledCollectionList>
         <ListHeader>{props.title}</ListHeader>
         {renderListLinks()}
-        <CollectionAddButton onClick={() => props.buttonProps.onButtonClick()}>{props.buttonProps.content}</CollectionAddButton>
+        <CollectionAddButton onClick={() => props.buttonProps.onButtonClick()}>
+          {props.buttonProps.content}
+        </CollectionAddButton>
       </StyledCollectionList>
     </div>
   );

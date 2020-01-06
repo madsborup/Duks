@@ -56,8 +56,8 @@ export const ProjectLink = styled(NavLink)`
 
 export const AddProjectIcon = styled(AddIcon)`
   cursor: pointer;
-  min-width: 35px;
-  min-height: 35px;
+  width: 32px;
+  height: 32px;
   padding-bottom: ${base.spacing.medium}px;
 
   circle {

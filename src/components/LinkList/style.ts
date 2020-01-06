@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import { NavLink } from 'react-router-dom'
 import base from '../designSystem/base'
-import { ReactComponent as RightArrow } from "../../assets/svg/RightArrow.svg";
 
 export const StyledLinkList = styled.div`
   display: flex;
@@ -22,8 +21,10 @@ export const Link = styled(NavLink)`
     border-top: 0;
   }
 
-  rect {
-    fill: ${base.colors.border};
+  svg {
+    height: 24px;
+    width: 24px;
+    margin-right: ${base.spacing.xsmall}px;
   }
 
   &:hover {
@@ -32,16 +33,8 @@ export const Link = styled(NavLink)`
   }
 
   &.${props => props.activeClassName} {
-    color: ${base.colors.highlight};
+    color: ${base.colors.text};
     background: ${base.colors.selected};
-    
-    rect {
-      fill: ${base.colors.highlight};
-    }
-
-    svg path{
-      stroke: ${base.colors.highlight};
-    }
   }
 `;
 
@@ -50,13 +43,4 @@ export const LinkContent = styled.div`
   align-items: center;
   font-size: ${base.font.size.h5};
   font-weight: 600;
-`;
-
-export const ListLinkIcon = styled(RightArrow)`
-  height: 12px;
-  width: 12px;
-
-  path {
-  stroke: ${base.colors.textFaded};
-  }
 `;

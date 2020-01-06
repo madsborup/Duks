@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import {  signOut, showModal } from "../../actions";
-import Profile from "../Profile";
 import {
   Container,
   DescriptionContainer,
   DescriptionMeta,
   ActionsContainer
 } from "./style";
-import H2 from "../designSystem/H2";
+import H1 from "../designSystem/H1";
 import { Button, PrimaryButton } from '../designSystem/button'
 
 interface Props{
@@ -28,7 +27,7 @@ class Header extends Component<Props> {
     return (
       <Container>
         <DescriptionContainer>
-          <H2>{this.props.title}</H2>
+          <H1>{this.props.title}</H1>
         </DescriptionContainer>
         <ActionsContainer>
           <PrimaryButton onClick={() => this.props.showModal({modalProps: {open: true, projectSlug: this.props.projectSlug}, modalType: 'CREATE_TASK_MODAL'})}>New Task</PrimaryButton>

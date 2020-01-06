@@ -2,6 +2,10 @@ import styled from "styled-components";
 import base from "../designSystem/base";
 import { ReactComponent as ViewIcon } from "../../assets/svg/ColumnsIcon.svg";
 
+export const StyledSidebar = styled.div`
+  margin-top: ${base.spacing.small}px;
+`;
+
 export const SidebarSection = styled.div`
   border: 1px solid ${base.colors.border};
   margin-top: ${base.spacing.small}px;

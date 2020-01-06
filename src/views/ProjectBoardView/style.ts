@@ -4,8 +4,9 @@ import base from "../../components/designSystem/base";
 export const StyledProjectBoardView = styled.section`
   display: flex;
   flex-direction: column;
-  margin-top: ${base.spacing.small}px;
+  height: 100%;
   border-radius: ${base.BORDER_RADIUS};
+  background: ${base.colors.white};
 `;
 
 export const ColumnContainer = styled.div`

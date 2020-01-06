@@ -12,13 +12,13 @@ export const ProjectImageHeader = styled.div`
   position: relative;
   background: ${base.colors.meta};
   border-radius: 4px 4px 0 0;
-  height: 118px;
+  height: 86px;
 `;
 
 export const ProjectAvatarContainer = styled.div`
   position: relative;
   margin-left: ${base.spacing.small}px;
-  top: -36px;
+  top: -30px;
   height: 100%;
   margin-bottom: -44px;
 `;
@@ -28,8 +28,8 @@ export const ProjectAvatar = styled(NavLink)`
   border-radius: ${base.BORDER_RADIUS}px;
   border: 4px solid ${base.colors.white};
   background: ${base.colors.border};
-  height: 60px;
-  width: 60px;
+  height: 50px;
+  width: 50px;
 `;
 
 export const ProjectMetaContainer = styled.div`
@@ -40,12 +40,13 @@ export const ProjectMetaContainer = styled.div`
 
 export const ProjectTitle = styled.span`
   font-size: ${base.font.size.h4};
-  font-weight: 700;
+  font-weight: 600;
+  line-height: 1.3;
   letter-spacing: ${base.font.letterSpacing.heading};
 `;
 
 export const ProjectDescription = styled.span`
-  padding-top: ${base.spacing.xxsmall}px;
+  padding: ${base.spacing.xxsmall}px 0;
   font-size: ${base.font.size.h5};
   letter-spacing: ${base.font.letterSpacing.heading};
   line-height: 1.4;

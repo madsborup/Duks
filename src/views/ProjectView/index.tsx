@@ -1,6 +1,6 @@
 import React from 'react'
 import history from '../../helpers/history'
-import { Redirect, RouteComponentProps } from 'react-router-dom'
+import { Redirect, RouteComponentProps, withRouter } from 'react-router-dom'
 
 //TODO: implement logic that gets current user most recent location and redirect the user
 //to that path
@@ -20,4 +20,4 @@ const ProjectView: React.FC<Props> = (props: Props) => {
   )
 }
 
-export default ProjectView;
+export default withRouter(ProjectView);

@@ -4,7 +4,8 @@ import { connect } from "react-redux";
 import { Redirect, withRouter, RouteComponentProps } from "react-router-dom";
 import { StoreState } from "../../reducers";
 import { signIn } from "../../actions";
-import { PrimaryButton } from "../../components/designSystem/button";
+import H1 from '../../components/designSystem/H1'
+import { LoginView, Container, GoogleSigninButton } from "./style";
 
 interface Props extends RouteComponentProps {
   isLoggingIn: boolean;
@@ -12,29 +13,24 @@ interface Props extends RouteComponentProps {
   signIn: Function;
 }
 
-class Login extends Component<Props> {
-  componentDidMount() {
-    console.log("mounted");
+const Login: React.FC<Props> = (props: Props) => {
+  if (props.isAuthenticated) {
+    return <Redirect to="/" />;
   }
 
-  render() {
-    if (this.props.isAuthenticated) {
-      return <Redirect to="/" />;
-    } else {
-      if (!this.props.isLoggingIn) {
-        return (
-          <div>
-            <PrimaryButton onClick={() => this.props.signIn()}>
-              Login
-            </PrimaryButton>
-          </div>
-        );
-      } else {
-        return <div>Logging in...</div>;
-      }
-    }
+  if (!props.isLoggingIn) {
+    return (
+      <LoginView>
+        <Container>
+          <H1>Login</H1>
+          <GoogleSigninButton onClick={() => props.signIn()}>Sign-in with Google</GoogleSigninButton>
+        </Container>
+      </LoginView>
+    );
+  } else {
+    return <div>Logging in...</div>;
   }
-}
+};
 
 const mapStateToProps = ({ auth }: StoreState) => {
   return {

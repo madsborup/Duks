@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { Route, Redirect, Switch, withRouter } from "react-router-dom";
+import { Route, Redirect, Switch, withRouter, RouteComponentProps } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import ModalRoot from "./components/modals/ModalRoot";
 import { StoreState } from "./reducers";
@@ -13,19 +13,25 @@ import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
 import ProjectView from "./views/ProjectView";
-import ProjectPeopleView from "./views/ProjectPeopleView";
+import ProjectBoardPeopleView from "./views/ProjectBoardPeopleView";
 import ProjectBoardView from "./views/ProjectBoardView";
 import ProjectFlowView from "./views/ProjectFlowView";
 import AppViewRedirect from "./views/AppViewRedirect";
 import { ViewGrid } from "./components/designSystem/layout";
+import { withProjectsSubscription } from "./components/withProjectsSubscription";
 
-interface Props {
+interface Match {
+  projectSlug: string;
+}
+
+interface Props extends RouteComponentProps<Match>{
   isAuthenticated: boolean;
   isVerifyingUser: boolean;
 }
 
 class Routes extends React.Component<Props> {
   render() {
+    const { projectSlug } = this.props.match.params;
 
     return (
       <ThemeProvider theme={theme}>
@@ -37,9 +43,14 @@ class Routes extends React.Component<Props> {
             <Route path="/" exact component={AppViewRedirect} />
             <Route path="/:projectSlug" exact component={ProjectView} />
             <Route
-              path="/:projectSlug/board"
+              path="/:projectSlug/board/"
               exact
               component={ProjectBoardView}
+            />
+            <Route
+              path="/:projectSlug/board/people"
+              exact
+              component={ProjectBoardPeopleView}
             />
             <Route
               path="/:projectSlug/:flowSlug"

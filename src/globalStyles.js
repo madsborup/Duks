@@ -7,6 +7,7 @@ export const GlobalStyle = createGlobalStyle`
         text-rendering: optimizelegibility;
         margin: 0;
         padding: 0;
+        -webkit-appearance: none;
     }
 
     html {
@@ -17,7 +18,7 @@ export const GlobalStyle = createGlobalStyle`
     body {
         color: ${base.colors.text};
         font-size: ${base.font.size.regular};
-        line-height: 1.4;
+        line-height: 1.5;
         overscroll-behavior-y: none;
     }
 `;

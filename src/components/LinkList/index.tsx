@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-import { StyledLinkList, Link, LinkContent, ListLinkIcon } from "./style";
+import { StyledLinkList, Link, LinkContent } from "./style";
 
 interface Match {
   projectSlug: string;
@@ -22,7 +22,6 @@ const LinkList: React.FC<Props> = (props: Props) => {
             {link.content.IconComponent ? <link.content.IconComponent /> : null}
             {link.content.text}
           </LinkContent>
-          <ListLinkIcon />
         </Link>
       );
     });

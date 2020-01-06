@@ -13,6 +13,7 @@ export const StyledButton = styled.button<ButtonProps>`
       ? `${base.spacing.small}px ${base.spacing.large}px`
       : `${base.spacing.xsmall}px ${base.spacing.small}px`};
   border-radius: ${base.BORDER_RADIUS}px;
+  border: 1px solid ${base.colors.border};
   display: flex;
   flex: none;
   align-items: center;
@@ -20,7 +21,7 @@ export const StyledButton = styled.button<ButtonProps>`
   cursor: pointer;
 
   &:hover {
-    background: ${base.colors.border};
+    border: 1px solid ${base.colors.borderFocus};
   }
 
   &:focus {
@@ -36,15 +37,15 @@ export const StyledButton = styled.button<ButtonProps>`
 export const StyledPrimaryButton = styled(StyledButton)`
   background: ${base.colors.highlight};
   color: ${base.colors.white};
+  border: 1px solid ${base.colors.highlight};
   transition: box-shadow 0.2s ease-in-out;
-  border: 1px solid ${tint(0.2, base.colors.highlight)};
 
   &:hover {
-    background: ${tint(0.1, base.colors.highlight)};
+    background: ${base.colors.highlightFaded};
   }
 `;
 
 export const StyledTextButton = styled(StyledButton)`
   background: none;
-  border: 0;
+  border: 1px solid transparent;
 `;

@@ -26,7 +26,7 @@ export interface TaskData {
 
 export interface TasksData {
   isFetching: boolean;
-  items: {[key: string]: TaskData};
+  items: { [key: string]: TaskData };
 }
 
 export interface CreateTaskAction {
@@ -55,10 +55,11 @@ export interface DeleteTaskAction {
   id: number;
 }
 
-export const createTask = (title: string, projectSlug: string, flowSlug: string) => async (
-  dispatch: Dispatch,
-  getState: () => StoreState
-) => {
+export const createTask = (
+  title: string,
+  projectSlug: string,
+  flowSlug: string
+) => async (dispatch: Dispatch, getState: () => StoreState) => {
   const creator = getState().auth.user.uid;
 
   addDocToCollection("tasks", {
@@ -67,7 +68,7 @@ export const createTask = (title: string, projectSlug: string, flowSlug: string)
     createdBy: creator,
     title: title,
     assigned: [],
-    status: TASK_STATUS.UNASSIGNED,
+    status: TASK_STATUS.UNASSIGNED
   });
 
   dispatch<CreateTaskAction>({
@@ -84,11 +85,13 @@ export const fetchTasksRequest = () => {
 export const fetchTasksSuccess = (tasks: { [key: string]: TaskData }) => {
   return {
     type: ActionTypes.FETCH_TASKS_SUCCESS,
-    tasks 
+    tasks
   };
 };
 
-export const fetchTasks = (projectSlug: string) => async (dispatch: Dispatch) => {
+export const fetchTasks = (projectSlug: string) => async (
+  dispatch: Dispatch
+) => {
   dispatch(fetchTasksRequest());
 
   try {
@@ -98,19 +101,15 @@ export const fetchTasks = (projectSlug: string) => async (dispatch: Dispatch) =>
       .onSnapshot(snapshot => {
         let tasks = {};
 
-        if (!snapshot.empty) {
-          tasks = snapshot.docs.reduce(
-            (prev, doc) => ({
-              // let id = doc.id;
-              // return {id, ...data} as ProjectData;
-              ...prev,
-              [doc.data().slug]: doc.data()
-            }),
-            {}
-          );
-          if (tasks !== null) {
-            dispatch(fetchTasksSuccess(tasks));
-          }
+        tasks = snapshot.docs.reduce(
+          (prev, doc) => ({
+            ...prev,
+            [doc.data().slug]: doc.data()
+          }),
+          {}
+        );
+        if (tasks !== null) {
+          dispatch(fetchTasksSuccess(tasks));
         }
       });
   } catch (error) {

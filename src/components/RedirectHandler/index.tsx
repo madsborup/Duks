@@ -26,6 +26,7 @@ class RedirectHandler extends Component<Props> {
       return <Route path="/login" component={Login} />
     }
 
+    history.replace("/");
     return <Routes />;
   }
 }

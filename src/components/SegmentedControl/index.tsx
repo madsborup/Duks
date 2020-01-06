@@ -2,7 +2,7 @@ import React from 'react'
 import { StyledSegmentedControl, Control } from './style'
 
 interface Props {
-  controls: {title: string, path:string}[];
+  controls: {label: string, path:string}[];
 }
 
 const SegmentedControl: React.FC<Props> = (props: Props) => {
@@ -15,7 +15,7 @@ const SegmentedControl: React.FC<Props> = (props: Props) => {
           to={`${control.path}`}
           key={control.path}
         >
-          {control.title}
+          {control.label}
         </Control>
       );
     });

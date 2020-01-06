@@ -4,23 +4,21 @@ import base from "../designSystem/base";
 
 export const StyledSegmentedControl = styled.div`
   display: flex;
+  border-bottom: 1px solid ${base.colors.border};
 `;
 
 export const Control = styled(NavLink)`
   display: flex;
   justify-content: center;
-  padding: ${base.spacing.xsmall}px 0;
+  padding: ${base.spacing.xsmall}px ${base.spacing.large}px;
   background: ${base.colors.white};
   color: ${base.colors.textFaded};
   text-decoration: none;
   font-weight: 600;
-  border-bottom: 1px solid ${base.colors.border};
-  flex: 1;
 
   &:hover {
     background: ${base.colors.bg};
     color: ${base.colors.meta};
-    border-bottom: 2px solid ${base.colors.textFaded};
   }
 
   &.${props => props.activeClassName} {

@@ -14,7 +14,8 @@ import { StoreState } from "../../reducers";
 import ProjectCard from "../ProjectCard";
 import LinkList from "../LinkList";
 import CollectionList from "../CollectionList";
-import { SidebarSection, ColumnsIcon } from "./style";
+import { ReactComponent as BoardIcon } from "../../assets/svg/BoardIcon.svg";
+import { StyledSidebar, SidebarSection, ColumnsIcon } from "./style";
 
 interface Props extends RouteComponentProps {
   projects: { [key: string]: ProjectData };
@@ -61,15 +62,15 @@ class Sidebar extends Component<Props> {
     const currentProject = this.props.projects[projectSlug];
 
     return (
-      <React.Fragment>
+      <StyledSidebar>
         <SidebarSection>
           <ProjectCard project={currentProject} />
         </SidebarSection>
         <SidebarSection>
         <LinkList
             links={[
-              { content: {text: "Board", IconComponent: ColumnsIcon}, path: `/${projectSlug}/board` },
-              { content: {text: "Reports", IconComponent: ColumnsIcon}, path: `/${projectSlug}/reports` }
+              { content: {text: "Board", IconComponent: BoardIcon}, path: `/${projectSlug}/board` },
+              { content: {text: "Reports", IconComponent: BoardIcon}, path: `/${projectSlug}/reports` }
             ]}
           />
         </SidebarSection>
@@ -83,17 +84,7 @@ class Sidebar extends Component<Props> {
             }}
           />
         </SidebarSection>
-        <SidebarSection>
-          <CollectionList
-            title="Flows"
-            collection={Object.values(this.props.flows)}
-            buttonProps={{
-              content: "+ Create a flow",
-              onButtonClick: this.showCreateFlowModal
-            }}
-          />
-        </SidebarSection>
-      </React.Fragment>
+      </StyledSidebar>
     );
   }
 }

@@ -14,7 +14,7 @@ export interface FlowData {
 
 export interface FlowsData {
   isFetching: boolean;
-  items: {[key: string]: FlowData};
+  items: { [key: string]: FlowData };
 }
 
 export interface CreateFlowAction {
@@ -27,7 +27,7 @@ export interface EditFlowAction {
 
 export interface FetchFlowsAction {
   type: ActionTypes.FETCH_FLOWS;
-  flows: {[key: string]: FlowData};
+  flows: { [key: string]: FlowData };
 }
 
 export interface DeleteFlowAction {
@@ -36,7 +36,7 @@ export interface DeleteFlowAction {
 }
 
 //TODO: consider adding current project slug to store and access data their instead of passing in to this action creator
-export const createFlow = (title: string, projectSlug: string ) => async (
+export const createFlow = (title: string, projectSlug: string) => async (
   dispatch: Dispatch,
   getState: () => StoreState
 ) => {
@@ -53,7 +53,9 @@ export const createFlow = (title: string, projectSlug: string ) => async (
   });
 };
 
-export const fetchFlows = (projectSlug: string) => async (dispatch: Dispatch) => {
+export const fetchFlows = (projectSlug: string) => async (
+  dispatch: Dispatch
+) => {
   let flows: FlowData[] = [];
 
   try {
@@ -63,22 +65,20 @@ export const fetchFlows = (projectSlug: string) => async (dispatch: Dispatch) =>
       .onSnapshot(snapshot => {
         let flows = {};
 
-        if (!snapshot.empty) {
-          flows = snapshot.docs.reduce(
-            (prev, doc) => ({
-              // let id = doc.id;
-              // return {id, ...data} as ProjectData;
-              ...prev,
-              [doc.data().slug]: doc.data()
-            }),
-            {}
-          );
+        flows = snapshot.docs.reduce(
+          (prev, doc) => ({
+            // let id = doc.id;
+            // return {id, ...data} as ProjectData;
+            ...prev,
+            [doc.data().slug]: doc.data()
+          }),
+          {}
+        );
 
-          dispatch<FetchFlowsAction>({
-            type: ActionTypes.FETCH_FLOWS,
-            flows: flows
-          });
-        }
+        dispatch<FetchFlowsAction>({
+          type: ActionTypes.FETCH_FLOWS,
+          flows: flows
+        });
       });
   } catch (error) {
     console.log(error);
