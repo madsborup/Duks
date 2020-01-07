@@ -7,7 +7,6 @@ export const StyledSidebar = styled.div`
 `;
 
 export const SidebarSection = styled.div`
-  border: 1px solid ${base.colors.border};
   margin-top: ${base.spacing.small}px;
   background: ${base.colors.white};
   border-radius: ${base.BORDER_RADIUS}px;

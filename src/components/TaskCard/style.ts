@@ -12,14 +12,14 @@ export const StyledTaskCard = styled.div<ContainerProps>`
   display: flex;
   flex-direction: column;
   padding: ${base.spacing.xsmall}px;
-  margin-top: ${base.spacing.small}px;
+  margin-top: ${base.spacing.xsmall}px;
   border-radius: ${base.BORDER_RADIUS}px;
   background: ${base.colors.white};
   cursor: pointer;
   border-top: 1px solid ${base.colors.border}; 
   border-bottom: 1px solid ${base.colors.border}; 
   border-right: 1px solid ${base.colors.border}; 
-  border-left: 6px solid ${({ status }) => rgba(handleTaskColor(status), 0.30)};
+  border-left: 6px solid ${({ status }) => rgba(handleTaskColor(status), 0.50)};
 `;
 
 export const FlowTitle = styled.span`

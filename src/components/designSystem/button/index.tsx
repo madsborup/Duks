@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { StyledComponent } from 'styled-components'
 import { StyledButton, StyledPrimaryButton, StyledTextButton } from "./style";
 
-export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     big?: boolean;
     to?: string;
     children: ReactNode;

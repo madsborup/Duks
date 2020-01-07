@@ -19,6 +19,7 @@ export interface TaskData {
   projectSlug: string;
   createdBy: string;
   title: string;
+  description: string;
   assigned: string[];
   status: TASK_STATUS;
   date: Date;
@@ -35,6 +36,7 @@ export interface CreateTaskAction {
 
 export interface EditTaskAction {
   type: ActionTypes.EDIT_TASK;
+  task: TaskData;
 }
 
 export interface FetchTasksRequestAction {
@@ -104,7 +106,7 @@ export const fetchTasks = (projectSlug: string) => async (
         tasks = snapshot.docs.reduce(
           (prev, doc) => ({
             ...prev,
-            [doc.data().slug]: doc.data()
+            [doc.id]: doc.data()
           }),
           {}
         );
@@ -116,3 +118,13 @@ export const fetchTasks = (projectSlug: string) => async (
     console.log(error);
   }
 };
+
+export const editTask = (id: string, values: {}) => async (dispatch: Dispatch) => {
+
+  try {
+    firestore.collection('tasks').doc(id).update(values);
+  }
+  catch(e) {
+    console.log("Error updating task", e)
+  }
+} 

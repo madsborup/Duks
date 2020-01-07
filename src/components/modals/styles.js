@@ -15,7 +15,7 @@ export const modalStyles = {
         justifyContent: "center",
         alignItems: 'center',
         position: "fixed",
-        background: `${rgba(base.colors.meta, 0.5)}`,
+        background: `${rgba(base.colors.meta, 0.6)}`,
         overflowX: "hidden",
         overflowY: "visible"
     },

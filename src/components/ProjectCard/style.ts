@@ -20,14 +20,14 @@ export const ProjectAvatarContainer = styled.div`
   margin-left: ${base.spacing.small}px;
   top: -30px;
   height: 100%;
-  margin-bottom: -44px;
+  margin-bottom: -38px;
 `;
 
 export const ProjectAvatar = styled(NavLink)`
   display: inline-block;
   border-radius: ${base.BORDER_RADIUS}px;
   border: 4px solid ${base.colors.white};
-  background: ${base.colors.border};
+  background: ${base.colors.meta};
   height: 50px;
   width: 50px;
 `;

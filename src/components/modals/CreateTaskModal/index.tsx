@@ -41,7 +41,6 @@ class CreateTaskModal extends Component<CreateTaskModalProps, State> {
   handleFlowSubmit = (e: any) => {
     const { title } = this.state;
     this.props.createTask(title, this.props.projectSlug, this.state.flowSlug);
-    console.log(this.state.flowSlug)
     this.props.closeModal();
     e.preventDefault();
   };

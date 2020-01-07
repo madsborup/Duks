@@ -42,5 +42,5 @@ export const LinkContent = styled.div`
   display: flex;
   align-items: center;
   font-size: ${base.font.size.h5};
-  font-weight: 600;
+  font-weight: 500;
 `;
