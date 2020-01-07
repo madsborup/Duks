@@ -46,8 +46,6 @@ export const ProjectLink = styled(NavLink)`
   align-items: center;
   justify-content: center;
 
-  width: 100%;
-
   rect {
     fill: ${base.colors.border};
   }
@@ -62,8 +60,8 @@ export const ProjectLink = styled(NavLink)`
 
 export const AddProjectIcon = styled(AddIcon)`
   cursor: pointer;
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   padding-bottom: ${base.spacing.medium}px;
 
   circle {

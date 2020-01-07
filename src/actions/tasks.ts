@@ -7,8 +7,8 @@ import { addDocToCollection } from "../firebase/utils/addDocToCollection";
 export enum TASK_STATUS {
   UNASSIGNED,
   NOT_STARTED,
-  STARTED,
   STUCK,
+  STARTED,
   REVIEW,
   COMPLETED
 }

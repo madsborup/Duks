@@ -1,6 +1,8 @@
-import React from 'react'
-import { TASK_STATUS } from '../../actions'
-import { Container, FlowTitle, TaskTitle } from './style'
+import React from "react";
+import { connect } from 'react-redux'
+import { TASK_STATUS } from "../../actions";
+import { StyledTaskCard, FlowTitle, TaskTitle } from "./style";
+import { showModal } from "../../actions";
 
 export interface Props {
   title: string;
@@ -8,19 +10,24 @@ export interface Props {
   assigned: string[];
   status: TASK_STATUS;
   date: Date;
+  showModal: Function;
 }
 
-const TaskCard: React.FunctionComponent<Props>  = (props: Props) => {
+const TaskCard: React.FunctionComponent<Props> = (props: Props) => {
   return (
-    <Container status={props.status}>
-      <FlowTitle>
-        {props.flowTitle}
-      </FlowTitle>
-      <TaskTitle>
-        {props.title}
-      </TaskTitle>
-    </Container>
-  )
-}
+    <StyledTaskCard
+      status={props.status}
+      onClick={() =>
+        props.showModal({
+          modalProps: { open: true },
+          modalType: "CREATE_TASK_MODAL"
+        })
+      }
+    >
+      <FlowTitle>{props.flowTitle}</FlowTitle>
+      <TaskTitle>{props.title}</TaskTitle>
+    </StyledTaskCard>
+  );
+};
 
-export default TaskCard;
+export default connect(null, { showModal })(TaskCard);

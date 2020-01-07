@@ -16,7 +16,7 @@ interface Props extends RouteComponentProps<Match> {
 const ProjectView: React.FC<Props> = (props: Props) => {
 
   return (
-    <Redirect to={`/${props.match.params.projectSlug}/board`} />
+    <Redirect to={`/${props.match.params.projectSlug}/boards`} />
   )
 }
 

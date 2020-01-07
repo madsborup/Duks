@@ -64,12 +64,13 @@ class Sidebar extends Component<Props> {
     return (
       <StyledSidebar>
         <SidebarSection>
-          <ProjectCard project={currentProject} />
+          <ProjectCard project={currentProject}/>
         </SidebarSection>
         <SidebarSection>
         <LinkList
             links={[
-              { content: {text: "Board"}, path: `/${projectSlug}/board` },
+              { content: {text: "Boards"}, path: `/${projectSlug}/boards` },
+              { content: {text: "Unassigned tasks"}, path: `/${projectSlug}/reports` },
               { content: {text: "Reports"}, path: `/${projectSlug}/reports` }
             ]}
           />

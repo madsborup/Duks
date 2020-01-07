@@ -43,12 +43,12 @@ class Routes extends React.Component<Props> {
             <Route path="/" exact component={AppViewRedirect} />
             <Route path="/:projectSlug" exact component={ProjectView} />
             <Route
-              path="/:projectSlug/board/"
+              path="/:projectSlug/boards/"
               exact
               component={ProjectBoardView}
             />
             <Route
-              path="/:projectSlug/board/people"
+              path="/:projectSlug/boards/people"
               exact
               component={ProjectBoardPeopleView}
             />

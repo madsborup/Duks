@@ -11,8 +11,8 @@ export const StyledButton = styled.button<ButtonProps>`
   padding: ${props =>
     props.big
       ? `${base.spacing.small}px ${base.spacing.large}px`
-      : `${base.spacing.xsmall}px ${base.spacing.small}px`};
-  border-radius: ${base.BORDER_RADIUS}px;
+      : `${base.spacing.xsmall}px ${base.spacing.medium}px`};
+  border-radius: ${base.spacing.medium}px;
   border: 1px solid ${base.colors.border};
   display: flex;
   flex: none;

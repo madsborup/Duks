@@ -39,7 +39,7 @@ export const ListLink = styled(NavLink)`
 
   &:hover {
     color: ${base.colors.meta};
-    background:  ${base.colors.viewBg};
+    background:  ${base.colors.hover};
 
     &.${IconContainer} {
       box-shadow: -16px 0px 1px 7px ${base.colors.selected};

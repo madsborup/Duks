@@ -8,7 +8,7 @@ interface ContainerProps {
   status: TASK_STATUS;
 }
 
-export const Container = styled.div<ContainerProps>`
+export const StyledTaskCard = styled.div<ContainerProps>`
   display: flex;
   flex-direction: column;
   padding: ${base.spacing.xsmall}px;
@@ -19,7 +19,7 @@ export const Container = styled.div<ContainerProps>`
   border-top: 1px solid ${base.colors.border}; 
   border-bottom: 1px solid ${base.colors.border}; 
   border-right: 1px solid ${base.colors.border}; 
-  border-left: 5px solid ${({ status }) => rgba(handleTaskColor(status), 0.25)};
+  border-left: 6px solid ${({ status }) => rgba(handleTaskColor(status), 0.30)};
 `;
 
 export const FlowTitle = styled.span`

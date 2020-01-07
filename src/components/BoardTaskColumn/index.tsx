@@ -2,7 +2,11 @@ import React from "react";
 import { TASK_STATUS, TaskData } from "../../actions";
 import H2 from "../designSystem/H2";
 import TaskCard from "../TaskCard";
-import { StyledBoardTaskColumn, ColumnHeader } from "./style";
+import {
+  StyledBoardTaskColumn,
+  ColumnHeader,
+  ColumnHeaderCounter
+} from "./style";
 
 interface Props {
   status: TASK_STATUS;
@@ -15,7 +19,7 @@ const BoardTaskColumn: React.FC<Props> = (props: Props) => {
     [TASK_STATUS.NOT_STARTED]: "Not started",
     [TASK_STATUS.STARTED]: "Started",
     [TASK_STATUS.STUCK]: "Stuck",
-    [TASK_STATUS.REVIEW]: "Ready for Review",
+    [TASK_STATUS.REVIEW]: "Ready to be checked",
     [TASK_STATUS.COMPLETED]: "Completed"
   };
 
@@ -40,6 +44,7 @@ const BoardTaskColumn: React.FC<Props> = (props: Props) => {
     <StyledBoardTaskColumn>
       <ColumnHeader status={props.status}>
         {statusTitles[props.status]}
+        <ColumnHeaderCounter>{props.tasks.length}</ColumnHeaderCounter>
       </ColumnHeader>
       {renderTaskCards()}
     </StyledBoardTaskColumn>

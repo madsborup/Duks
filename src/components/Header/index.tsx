@@ -30,7 +30,6 @@ class Header extends Component<Props> {
           <H1>{this.props.title}</H1>
         </DescriptionContainer>
         <ActionsContainer>
-          <PrimaryButton onClick={() => this.props.showModal({modalProps: {open: true, projectSlug: this.props.projectSlug}, modalType: 'CREATE_TASK_MODAL'})}>New Task</PrimaryButton>
           <Button onClick={() => this.props.signOut()}>Logout</Button>
         </ActionsContainer>
       </Container>

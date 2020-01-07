@@ -11,14 +11,15 @@ export const StyledSegmentedControl = styled.div`
 export const Control = styled(NavLink)`
   display: flex;
   justify-content: center;
-  padding: ${base.spacing.xsmall}px ${base.spacing.small}px;
+  padding: ${base.spacing.xsmall}px 0;
+  width: 100%;
   background: ${base.colors.white};
   color: ${base.colors.textFaded};
   text-decoration: none;
   font-weight: 600;
 
   &:hover {
-    background: ${base.colors.bg};
+    background: ${base.colors.hover};
     color: ${base.colors.meta};
   }
 

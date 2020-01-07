@@ -12,7 +12,7 @@ export const ProjectImageHeader = styled.div`
   position: relative;
   background: ${base.colors.meta};
   border-radius: 4px 4px 0 0;
-  height: 86px;
+  height: 72px;
 `;
 
 export const ProjectAvatarContainer = styled.div`
@@ -71,29 +71,11 @@ export const DropdownIcon = styled(CircleDropdown)`
   }
 `;
 
-export const ViewLinkContainer = styled.div`
+export const ActionsContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  padding:${base.spacing.small}px;
-  margin-top: ${base.spacing.small}px;
-  border-top: 1px solid ${base.colors.border};
-`;
+  padding: 0 ${base.spacing.small}px ${base.spacing.small}px;
 
-export const ViewLink = styled(NavLink)`
-  text-decoration: none;
-  font-size: ${base.font.size.h4};
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  margin-bottom: ${base.spacing.xxsmall}px;
-  color: ${base.colors.textFaded};
-  border-radius: ${base.BORDER_RADIUS}px;
-
-  &:hover {
-    color: ${base.colors.text};
-  }
-
-  &.${props => props.activeClassName} {
-    color: ${base.colors.text};
+  button {
+    width: 100%;
   }
 `;

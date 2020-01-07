@@ -29,7 +29,7 @@ export const Link = styled(NavLink)`
 
   &:hover {
     color: ${base.colors.meta};
-    background: ${base.colors.viewBg};
+    background: ${base.colors.hover};
   }
 
   &.${props => props.activeClassName} {

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { RouteComponentProps } from "react-router-dom";
 import { StoreState } from "../../reducers";
-import { TaskData, TASK_STATUS } from "../../actions";
+import { TaskData } from "../../actions";
 import { StyledProjectBoardView, ColumnContainer } from "./style";
 import {
   ViewGrid,
@@ -11,9 +11,10 @@ import {
   SecondColumn
 } from "../../components/designSystem/layout";
 import SegmentedControl from "../../components/SegmentedControl";
-import BoardTaskColumn from "../../components/BoardTaskColumn";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
+import { TaskColumnsStatus } from './components/TaskColumnsStatus'
+import TaskColumnsPeople from './components/TaskColumnsPeople'
 
 interface Match {
   projectSlug: string;
@@ -25,18 +26,6 @@ interface Props extends RouteComponentProps<Match> {
 
 class BoardView extends Component<Props> {
 
-  renderTaskColumns() {
-    return Object.values(TASK_STATUS).map(status => {
-      if (typeof status !== "string") {
-        let columnTasks = Object.values(this.props.tasks).filter(task => {
-          return task.status === status;
-        });
-
-        return <BoardTaskColumn status={status} tasks={columnTasks} />;
-      }
-    });
-  }
-
   render() {
     const { projectSlug } = this.props.match.params;
     return (
@@ -47,15 +36,17 @@ class BoardView extends Component<Props> {
           </FirstColumn>
           <SecondColumn>
             <StyledProjectBoardView>
-              <Header title="Board" projectSlug={projectSlug} />
+              <Header title="Boards" projectSlug={projectSlug} />
               <SegmentedControl
                 controls={[
-                  { label: "Status", path: `/${projectSlug}/board` },
-                  { label: "People", path: `/${projectSlug}/board/people` },
-                  { label: "Table", path: `/${projectSlug}/board/table` }
+                  { label: "Status", path: `/${projectSlug}/boards` },
+                  { label: "People", path: `/${projectSlug}/boards/people` },
+                  { label: "Table", path: `/${projectSlug}/boards/table` }
                 ]}
               />
-              <ColumnContainer>{this.renderTaskColumns()}</ColumnContainer>
+              <ColumnContainer>
+                <TaskColumnsStatus tasks={this.props.tasks}/>
+              </ColumnContainer>
             </StyledProjectBoardView>
           </SecondColumn>
         </TwoColumnGrid>
@@ -64,7 +55,7 @@ class BoardView extends Component<Props> {
   }
 }
 
-const mapStateToProps = ({ tasks }: StoreState) => {
+const mapStateToProps = ({ tasks, projects }: StoreState, ownProps: Props) => {
   return {
     tasks: tasks.items
   };

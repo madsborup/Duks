@@ -11,7 +11,8 @@ export const StyledProjectBoardView = styled.section`
 
 export const ColumnContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-gap: ${base.spacing.small}px;
+  grid-template-columns: repeat( auto-fit, minmax(100px, 1fr));
+  grid-gap: ${base.spacing.medium}px;
   padding: ${base.spacing.small}px;
+  margin-top: ${base.spacing.xxsmall}px;
 `;
