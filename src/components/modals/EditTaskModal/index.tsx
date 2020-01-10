@@ -1,75 +1,72 @@
 import React, { Component } from "react";
-// import { connect } from "react-redux";
-// import { createTask, FlowData } from "../../../actions";
-// import { StoreState } from '../../../reducers'
-// import { ModalBody, ModalTitle, CloseButton, ModalActions } from "../styles";
-// import { Input } from "../../designSystem/formElements";
-// import { PrimaryButton } from "../../designSystem/button";
+import { connect } from "react-redux";
+import { editTask, TaskData } from "../../../actions";
+import { Formik } from "formik";
+import { ModalBody, ModalTitle, CloseButton, ModalActions } from "../styles";
+import {
+  StyledForm,
+  StyledLabel,
+  BigInput,
+  StyledInput,
+  Select,
+  StyledTextArea
+} from "../../designSystem/formElements";
+import { TextButton, PrimaryButton } from "../../designSystem/button";
 
-// interface Props {
-//   closeModal: Function;
-//   editTask: Function;
-// }
+export interface Props {
+  task: TaskData;
+  closeModal: Function;
+  editTask: (id: string, values: {}) => {};
+}
 
-// class EditTaskModal extends Component<Props> {
+const EditTaskModal: React.FC<Props> = (props: Props) => {
+  const { title, description, assigned, flowSlug, id } = props.task;
+  const initialValues = {
+    title: title,
+    description,
+    assigned: assigned.map(assignee => {
+      return { label: assignee.name, value: assignee.id };
+    }),
+    flowSlug
+  };
 
-//   onTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     this.setState({ title: e.target.value });
-//   };
+  return (
+    <ModalBody>
+      <CloseButton onClick={() => props.closeModal()} />
+      <Formik
+        initialValues={initialValues}
+        onSubmit={values => {
+          props.editTask(id, values);
+          props.closeModal();
+        }}
+      >
+        {formProps => (
+          <StyledForm onSubmit={formProps.handleSubmit}>
+            <BigInput
+              onChange={formProps.handleChange}
+              type="text"
+              name="title"
+              placeholder="New project"
+              value={formProps.initialValues.title}
+            />
+            <Select
+              name="assigned"
+              label="Assigned to"
+              placeholder="New project"
+              options={formProps.initialValues.assigned}
+            />
+            <ModalActions>
+              <TextButton onClick={() => props.closeModal()}>Close</TextButton>
+              <PrimaryButton type="submit">Save</PrimaryButton>
+            </ModalActions>
+          </StyledForm>
+        )}
+      </Formik>
+    </ModalBody>
+  );
+};
 
-//   onFlowChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-//     this.setState({ flowSlug: e.target.value });
-//   };
-
-//   handleFlowSubmit = (e: any) => {
-//     const { title } = this.state;
-//     this.props.createTask(title, this.props.projectSlug, this.state.flowSlug);
-//     console.log(this.state.flowSlug)
-//     this.props.closeModal();
-//     e.preventDefault();
-//   };
-
-//   renderSelectOptions() {
-//     return this.props.flows.map((doc: FlowData) => {
-//       return (
-//         <option value={doc.slug} key={doc.slug}>{doc.title}</option>
-//       );
-//     });
-//   }
-
-//   render() {
-//     return (
-//       <ModalBody>
-//         <CloseButton onClick={() => this.props.closeModal()} />
-//         <ModalTitle>Create task</ModalTitle>
-//         <Form onSubmit={e => this.handleFlowSubmit(e)}>
-//           <Input
-//             placeholder="New project"
-//             value={this.state.title}
-//             onChange={this.onTitleChange}
-//           >
-//             Title
-//           </Input>
-//           Select flow
-//           <select onChange={this.onFlowChange} value={this.state.flowSlug}>
-//             {this.renderSelectOptions()}
-//           </select>
-//           <ModalActions>
-//             <PrimaryButton>Create</PrimaryButton>
-//           </ModalActions>
-//         </Form>
-//       </ModalBody>
-//     );
-//   }
-// }
-
-// const mapStateToProps = ({ flows }: StoreState) => {
-//   return {
-//     flows: Object.values(flows.items)
-//   };
-// };
-
-// export default connect(
-//   mapStateToProps,
-//   { createTask }
-// )(EditTaskModal);
+export default connect(
+  null,
+  { editTask }
+)(EditTaskModal);

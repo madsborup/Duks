@@ -3,11 +3,15 @@ import { withRouter, RouteComponentProps } from "react-router-dom";
 import {
   StyledCollectionList,
   ListHeader,
+  ListItem,
   ListLink,
-  ListLinkContent,
+  ListItemImage,
+  ListItemText,
   IconContainer,
-  ListLinkIcon,
-  CollectionAddButton
+  FlowIcon,
+  RightArrowIcon,
+  CollectionAddButton,
+  CollectionAddIcon
 } from "./style";
 
 interface Match {
@@ -16,7 +20,7 @@ interface Match {
 
 interface Props extends RouteComponentProps<Match> {
   title?: string;
-  collection: { title: string; slug?: string }[];
+  collection: { label: string; slug?: string; photoURL?: string }[];
   buttonProps: {
     content: string;
     onButtonClick: Function;
@@ -24,33 +28,42 @@ interface Props extends RouteComponentProps<Match> {
 }
 
 const CollectionList: React.FC<Props> = (props: Props) => {
-  const renderListLinks = () => {
+  const renderListItems = () => {
     return props.collection.map(item => {
-      return (
+      return item.slug ? (
         <ListLink
           activeClassName="selected"
           to={`/${props.match.params.projectSlug}/${item.slug}`}
           key={item.slug}
         >
-          <ListLinkContent>{item.title}</ListLinkContent>
+          <ListItem>
+            <FlowIcon />
+            {item.label}
+          </ListItem>
           <IconContainer>
-            <ListLinkIcon />
+            <RightArrowIcon />
           </IconContainer>
         </ListLink>
-      );
+      ) : item.photoURL ? (
+        <ListItem>
+          <ListItemImage src={item.photoURL} />
+          <ListItemText>{item.label}</ListItemText>
+        </ListItem>
+      ) : null;
     });
   };
 
   return (
-    <div>
+    <React.Fragment>
       <StyledCollectionList>
         <ListHeader>{props.title}</ListHeader>
-        {renderListLinks()}
+        {renderListItems()}
         <CollectionAddButton onClick={() => props.buttonProps.onButtonClick()}>
+          <CollectionAddIcon />
           {props.buttonProps.content}
         </CollectionAddButton>
       </StyledCollectionList>
-    </div>
+    </React.Fragment>
   );
 };
 

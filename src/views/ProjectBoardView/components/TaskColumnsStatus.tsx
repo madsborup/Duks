@@ -15,7 +15,7 @@ export const TaskColumnsStatus: React.FC<Props> = (props: Props) => {
           return task.status === status;
         });
 
-        return <BoardTaskColumn status={status} tasks={columnTasks} />;
+        return <BoardTaskColumn status={status} tasks={columnTasks} key={status}/>;
       }
     });
   }

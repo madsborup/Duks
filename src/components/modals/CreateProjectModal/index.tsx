@@ -1,73 +1,59 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Formik } from "formik";
 import { StoreState } from "../../../reducers";
 import { AuthData, createProject } from "../../../actions";
 import { ModalBody, ModalTitle, CloseButton, ModalActions } from "../styles";
 import { Form } from "./style";
-import { Input } from "../../designSystem/formElements";
+import { StyledForm, Input, Select } from "../../designSystem/formElements";
 import { Button, PrimaryButton } from "../../designSystem/button";
 
-interface CreateProjectModalProps {
+interface Props {
   auth: AuthData;
   closeModal: Function;
   createProject: Function;
 }
 
-interface State {
-  title: string;
-  description: string;
-}
+class CreateProjectModal extends Component<Props> {
 
-class CreateProjectModal extends Component<CreateProjectModalProps, State> {
-  constructor(props: CreateProjectModalProps) {
-    super(props);
-
-    //TODO add members
-    this.state = {
-      title: "",
-      description: ""
-    };
-  }
-
-  onTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ title: e.target.value });
-  };
-
-  onDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ description: e.target.value });
-  };
-
-  handleProjectSubmit = (e: any) => {
-    const { title, description } = this.state;
+  handleProjectSubmit = (title: string, description: string) => {
     this.props.createProject(title, description);
     this.props.closeModal();
-    e.preventDefault();
   };
 
   render() {
     return (
       <ModalBody>
         <CloseButton onClick={() => this.props.closeModal()} />
-        <ModalTitle>Create project</ModalTitle>
-        <Form onSubmit={e => this.handleProjectSubmit(e)}>
-          <Input
-            placeholder="New project"
-            value={this.state.title}
-            onChange={this.onTitleChange}
-          >
-            Title
-          </Input>
-          <Input
-            placeholder="An awesome project..."
-            value={this.state.description}
-            onChange={this.onDescriptionChange}
-          >
-            Description
-          </Input>
-          <ModalActions>
-            <PrimaryButton>Create</PrimaryButton>
-          </ModalActions>
-        </Form>
+        <ModalTitle>Create a new project</ModalTitle>
+        <Formik
+          initialValues={{ title: "", description: "" }}
+          onSubmit={values => {
+            this.handleProjectSubmit(values.title, values.description);
+          }}
+        >
+          {formik => (
+            <StyledForm onSubmit={formik.handleSubmit}>
+              <Input
+                label="Title"
+                name="title"
+                placeholder="New project"
+                value={formik.values.title}
+                onChange={formik.handleChange}
+              />
+              <Input
+                label="Description"
+                name="description"
+                placeholder="An awesome project..."
+                value={formik.values.description}
+                onChange={formik.handleChange}
+              />
+              <ModalActions>
+                <PrimaryButton type="submit">Create</PrimaryButton>
+              </ModalActions>
+            </StyledForm>
+          )}
+        </Formik>
       </ModalBody>
     );
   }

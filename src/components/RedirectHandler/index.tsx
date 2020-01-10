@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Route } from 'react-router-dom'
-import history from '../../helpers/history'
+import { Route, Redirect } from "react-router-dom";
+import history from "../../helpers/history";
 import { StoreState } from "../../reducers";
 import Routes from "../../Routes";
 import Login from "../../views/Login";
@@ -11,25 +11,25 @@ interface Props {
   isVerifyingUser: boolean;
 }
 
-class RedirectHandler extends Component<Props> {
-  componentDidUpdate() {}
+const RedirectHandler: React.FC<Props> = (props: Props) => {
+  const { isVerifyingUser, isAuthenticated } = props;
 
-  render() {
-    const { isVerifyingUser, isAuthenticated } = this.props;
-
-    if (isVerifyingUser) {
-      return <div>Verifying user...</div>;
-    }
-
-    if (!isAuthenticated) {
-      history.push("/login");
-      return <Route path="/login" component={Login} />
-    }
-
-    history.replace("/");
-    return <Routes />;
+  if (isVerifyingUser) {
+    return <div>Verifying user...</div>;
   }
-}
+
+  if (!isAuthenticated) {
+    return (
+      <React.Fragment>
+        <Route path="/login" component={Login} />
+        <Redirect to="/login" />
+      </React.Fragment>
+    );
+  }
+
+  history.replace('/');
+  return <Routes />;
+};
 
 const mapStateToProps = ({ auth }: StoreState) => {
   return {

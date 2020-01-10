@@ -6,6 +6,7 @@ import ReactModal from "react-modal";
 import CreateProjectModal from "./CreateProjectModal";
 import CreateTaskModal from "./CreateTaskModal";
 import CreateFlowModal from "./CreateFlowModal";
+import EditTaskModal from './EditTaskModal'
 import { modalStyles } from "./styles";
 
 interface State {
@@ -17,10 +18,11 @@ interface Props {
   modal: ModalData;
 }
 
-const MODAL_COMPONENTS = {
+export const MODAL_COMPONENTS = {
   CREATE_TASK_MODAL: CreateTaskModal,
   CREATE_PROJECT_MODAL: CreateProjectModal,
-  CREATE_FLOW_MODAL: CreateFlowModal
+  CREATE_FLOW_MODAL: CreateFlowModal,
+  EDIT_TASK_MODAL: EditTaskModal
 };
 
 export type ModalTypes = keyof typeof MODAL_COMPONENTS;

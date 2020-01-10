@@ -8,7 +8,7 @@ interface Match {
 
 interface Props extends RouteComponentProps<Match> {
   links: {
-    content: { text: string; IconComponent?: React.ComponentType };
+    content: { label: string; IconComponent?: React.ComponentType };
     path: string;
   }[];
 }
@@ -20,7 +20,7 @@ const LinkList: React.FC<Props> = (props: Props) => {
         <Link activeClassName="selected" to={`${link.path}`} key={link.path}>
           <LinkContent>
             {link.content.IconComponent ? <link.content.IconComponent /> : null}
-            {link.content.text}
+            {link.content.label}
           </LinkContent>
         </Link>
       );

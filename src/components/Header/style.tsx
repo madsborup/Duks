@@ -8,15 +8,14 @@ interface ContainerProps {
 export const Container = styled.div<ContainerProps>`
   display: flex;
   align-items: center;
-  background: ${base.colors.white};
+  height: 73px;
   border-bottom: 1px solid ${base.colors.border};
-  padding: ${base.spacing.small}px ${base.spacing.small}px ${base.spacing.xsmall}px;
+  background: ${base.colors.white};
 `;
 
 export const DescriptionContainer = styled.div`
   display: flex;
-  min-width: 0;
-  width: 100%;
+  min-width: 150px;
 
   h1 {
     white-space: nowrap;
@@ -32,6 +31,7 @@ export const DescriptionMeta = styled.span`
 
 export const ActionsContainer = styled.div`
   display: flex;
+  align-items: center;
   justify-content: flex-end;
-  align-self: right;
+  width: 100%;
 `;

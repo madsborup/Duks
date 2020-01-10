@@ -55,11 +55,8 @@ class FlowView extends Component<Props> {
           return (
             <React.Fragment>
               <TaskCard
-                title={task.title}
-                status={task.status}
-                flowTitle={this.props.flows[flowSlug].title}
-                assigned={task.assigned}
-                date={task.date}
+                task={task}
+                flow={{ title: "flow title", color: "#000" }}
                 key={task.id}
               />
             </React.Fragment>

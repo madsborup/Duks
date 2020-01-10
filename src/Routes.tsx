@@ -1,7 +1,13 @@
 import React, { Component } from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { Route, Redirect, Switch, withRouter, RouteComponentProps } from "react-router-dom";
+import {
+  Route,
+  Redirect,
+  Switch,
+  withRouter,
+  RouteComponentProps
+} from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import ModalRoot from "./components/modals/ModalRoot";
 import { StoreState } from "./reducers";
@@ -15,6 +21,7 @@ import Header from "./components/Header";
 import ProjectView from "./views/ProjectView";
 import ProjectBoardPeopleView from "./views/ProjectBoardPeopleView";
 import ProjectBoardView from "./views/ProjectBoardView";
+import ProjectUnassignedTasksView from './views/ProjectUnassignedTasksView'
 import ProjectFlowView from "./views/ProjectFlowView";
 import AppViewRedirect from "./views/AppViewRedirect";
 import { ViewGrid } from "./components/designSystem/layout";
@@ -24,7 +31,7 @@ interface Match {
   projectSlug: string;
 }
 
-interface Props extends RouteComponentProps<Match>{
+interface Props extends RouteComponentProps<Match> {
   isAuthenticated: boolean;
   isVerifyingUser: boolean;
 }
@@ -38,7 +45,6 @@ class Routes extends React.Component<Props> {
         <GlobalStyle />
         <ModalRoot />
         <AppViewWrapper>
-          <Navbar isFetching={false} />
           <Switch>
             <Route path="/" exact component={AppViewRedirect} />
             <Route path="/:projectSlug" exact component={ProjectView} />
@@ -46,6 +52,11 @@ class Routes extends React.Component<Props> {
               path="/:projectSlug/boards/"
               exact
               component={ProjectBoardView}
+            />
+            <Route
+              path="/:projectSlug/unassigned/"
+              exact
+              component={ProjectUnassignedTasksView}
             />
             <Route
               path="/:projectSlug/boards/people"

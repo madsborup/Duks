@@ -5,16 +5,19 @@ import base from "../designSystem/base";
 export const StyledSegmentedControl = styled.div`
   display: flex;
   border-bottom: 1px solid ${base.colors.border};
-  background: ${base.colors.white};
+  background: #ebeef5;
+  height: 100%;
 `;
 
 export const Control = styled(NavLink)`
   display: flex;
   justify-content: center;
-  padding: ${base.spacing.xsmall}px 0;
+  align-items: center;
+  padding: 0 ${base.spacing.xlarge}px;
   width: 100%;
   background: ${base.colors.white};
   color: ${base.colors.textFaded};
+  font-size: ${base.font.size.regular};
   text-decoration: none;
   font-weight: 600;
 
@@ -25,6 +28,6 @@ export const Control = styled(NavLink)`
 
   &.${props => props.activeClassName} {
     color: ${base.colors.text};
-    border-bottom: 2px solid ${base.colors.text};
+    border-bottom: 3px solid ${base.colors.sidebar};
   }
 `;

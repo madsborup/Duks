@@ -13,8 +13,8 @@ import {
 import SegmentedControl from "../../components/SegmentedControl";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
-import { TaskColumnsStatus } from './components/TaskColumnsStatus'
-import TaskColumnsPeople from './components/TaskColumnsPeople'
+import { TaskColumnsStatus } from "./components/TaskColumnsStatus";
+import TaskColumnsPeople from "./components/TaskColumnsPeople";
 
 interface Match {
   projectSlug: string;
@@ -25,9 +25,9 @@ interface Props extends RouteComponentProps<Match> {
 }
 
 class BoardView extends Component<Props> {
-
   render() {
     const { projectSlug } = this.props.match.params;
+
     return (
       <ViewGrid>
         <TwoColumnGrid>
@@ -36,16 +36,17 @@ class BoardView extends Component<Props> {
           </FirstColumn>
           <SecondColumn>
             <StyledProjectBoardView>
-              <Header title="Boards" projectSlug={projectSlug} />
-              <SegmentedControl
-                controls={[
-                  { label: "Status", path: `/${projectSlug}/boards` },
-                  { label: "People", path: `/${projectSlug}/boards/people` },
-                  { label: "Table", path: `/${projectSlug}/boards/table` }
-                ]}
-              />
+              <Header projectSlug={projectSlug}>
+                <SegmentedControl
+                  controls={[
+                    { label: "Status", path: `/${projectSlug}/boards` },
+                    { label: "People", path: `/${projectSlug}/boards/people` },
+                    { label: "Table", path: `/${projectSlug}/boards/table` }
+                  ]}
+                />
+              </Header>
               <ColumnContainer>
-                <TaskColumnsStatus tasks={this.props.tasks}/>
+                <TaskColumnsStatus tasks={this.props.tasks} />
               </ColumnContainer>
             </StyledProjectBoardView>
           </SecondColumn>

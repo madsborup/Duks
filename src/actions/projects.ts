@@ -4,18 +4,24 @@ import { ActionTypes } from "../actions";
 import { StoreState } from "../reducers";
 import { addDocToCollection } from "../firebase/utils/addDocToCollection";
 
+export interface MemberData {
+  id: string;
+  name: string;
+  photoURL: string;
+}
+
 export interface ProjectData {
   id: string;
   slug: string;
   createdBy: string;
   title: string;
   description: string;
-  members: string[];
+  members: MemberData[];
 }
 
 export interface ProjectsData {
   isFetching: boolean;
-  items: {[key: string]: ProjectData};
+  items: { [key: string]: ProjectData };
 }
 
 export interface CreateProjectAction {
@@ -49,14 +55,17 @@ export const createProject = (title: string, description: string) => async (
   dispatch: Dispatch,
   getState: () => StoreState
 ) => {
-  const members = [getState().auth.user.uid];
-  const creator = getState().auth.user.uid;
+  const { uid, displayName, photoURL } = getState().auth.user;
+  const memberIDs = [uid];
+  const members = [{id: uid, name: displayName, photoURL: photoURL}];
+  const creator = uid;
 
   addDocToCollection("projects", {
     createdBy: creator,
     title: title,
     description: description,
-    members: members
+    members: members,
+    memberIDs: memberIDs
   });
 
   dispatch<CreateProjectAction>({
@@ -70,10 +79,12 @@ export const fetchProjectsRequest = () => {
   };
 };
 
-export const fetchProjectsSuccess = (projects: { [key: string]: ProjectData }) => {
+export const fetchProjectsSuccess = (projects: {
+  [key: string]: ProjectData;
+}) => {
   return {
     type: ActionTypes.FETCH_PROJECTS_SUCCESS,
-    projects 
+    projects
   };
 };
 
@@ -83,7 +94,7 @@ export const fetchProjects = (uid: string) => async (dispatch: Dispatch) => {
   try {
     firestore
       .collection("projects")
-      .where("members", "array-contains", uid)
+      .where(`memberIDs`, "array-contains", uid).orderBy('createdAt')
       .onSnapshot(snapshot => {
         let projects = {};
         if (!snapshot.empty) {

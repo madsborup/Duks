@@ -1,21 +1,33 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 import { NavLink } from "react-router-dom";
-import { TextButton } from '../designSystem/button'
-import base from '../designSystem/base'
+import { TextButton } from "../designSystem/button";
+import base from "../designSystem/base";
 import { ReactComponent as RightArrow } from "../../assets/svg/RightArrow.svg";
+import { ReactComponent as FlowCircle } from "../../assets/svg/FlowCircle.svg";
+import { ReactComponent as AddIcon } from "../../assets/svg/AddIcon.svg";
 
 export const StyledCollectionList = styled.div`
   display: flex;
   flex-direction: column;
+  padding: ${base.spacing.small}px 0;
 `;
 
 export const ListHeader = styled.span`
-  font-size: ${base.font.size.h6};
-  font-weight: 600;
-  color: ${base.colors.text};
-  padding: ${base.spacing.xsmall}px;
-  border-bottom: 1px solid ${base.colors.border};
-  border-left: 3px solid transparent;
+  font-size: ${base.font.size.small};
+  font-weight: 500;
+  text-transform: uppercase;
+  color: ${base.colors.whiteFaded};
+  padding: ${base.spacing.xxsmall}px ${base.spacing.small}px;
+  margin-bottom: ${base.spacing.xsmall}px;
+  cursor: default;
+`;
+
+export const ListItem = styled.div`
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  padding: ${base.spacing.xsmall}px ${base.spacing.small}px;
 `;
 
 export const IconContainer = styled.div`
@@ -31,15 +43,12 @@ export const ListLink = styled(NavLink)`
   align-items: center;
   text-decoration: none;
   font-size: ${base.font.size.h6};
-  font-weight: 500;
-  padding: ${base.spacing.xsmall}px;
-  color: ${base.colors.textFaded};
-  border-bottom: 1px solid ${base.colors.border};
-  border-left: 3px solid transparent;
+  font-weight: 400;
+  color: ${base.colors.whiteFaded};
+  cursor: pointer;
 
   &:hover {
-    color: ${base.colors.meta};
-    background:  ${base.colors.hover};
+    color: ${base.colors.white};
 
     &.${IconContainer} {
       box-shadow: -16px 0px 1px 7px ${base.colors.selected};
@@ -47,12 +56,11 @@ export const ListLink = styled(NavLink)`
   }
 
   &.${props => props.activeClassName} {
-    color: ${base.colors.text};
+    color: ${base.colors.white};
     background: ${base.colors.selected};
-    border-left: 3px solid ${base.colors.meta};
 
-    svg path{
-      stroke: ${base.colors.text};
+    svg path {
+      stroke: ${base.colors.white};
     }
 
     &.${IconContainer} {
@@ -61,23 +69,49 @@ export const ListLink = styled(NavLink)`
   }
 `;
 
-export const ListLinkContent = styled.div`
-  display: flex;
-  white-space: nowrap;
-  overflow: hidden;
-  z-index: 2;
+export const ListItemText = styled.span`
+  color: ${base.colors.whiteFaded};
+  font-size: ${base.font.size.h6};
+  font-weight: 400;
+  cursor: default;
 `;
 
-export const ListLinkIcon = styled(RightArrow)`
-  padding-left: 1px;
+export const ListItemImage = styled.img`
+  height: 24px;
+  width: 24px;
+  border-radius: 12px;
+  margin-right: ${base.spacing.xsmall}px;
+`;
+
+export const FlowIcon = styled(FlowCircle)`
+  min-width: 8px;
+  width: 8px;
+  margin-right: ${base.spacing.xsmall}px;
+`;
+
+export const RightArrowIcon = styled(RightArrow)`
+  padding: 0 ${base.spacing.xsmall}px;
 
   path {
-  stroke: ${base.colors.textFaded};
+    stroke: ${base.colors.whiteFaded};
   }
 `;
 
 export const CollectionAddButton = styled(TextButton)`
-  color: ${base.colors.text};
-  padding: calc(${base.spacing.small}px - 2px);
+  color: ${base.colors.whiteFaded};
+  font-size: ${base.font.size.h6};
+  justify-content: left;
+  font-weight: 400;
+  margin: 0;
+  padding: ${base.spacing.xsmall}px ${base.spacing.large}px;
   border-radius: 0;
+
+  &:hover {
+    color: ${base.colors.white};
+  }
+`;
+
+export const CollectionAddIcon = styled(AddIcon)`
+  width: 18px;
+  margin-right: ${base.spacing.xsmall}px;
 `;

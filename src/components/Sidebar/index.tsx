@@ -11,14 +11,16 @@ import {
   fetchTasks
 } from "../../actions";
 import { StoreState } from "../../reducers";
+import { getProject } from '../../selectors/getProject'
 import ProjectCard from "../ProjectCard";
 import LinkList from "../LinkList";
 import CollectionList from "../CollectionList";
-import { ReactComponent as BoardIcon } from "../../assets/svg/BoardIcon.svg";
-import { StyledSidebar, SidebarSection, ColumnsIcon } from "./style";
+import { ReactComponent as BoardsIcon } from "../../assets/svg/BoardsIcon.svg";
+import { ReactComponent as UnassignedIcon } from "../../assets/svg/UnassignedIcon.svg";
+import { StyledSidebar, SidebarSection, NewTaskButton } from "./style";
 
 interface Props extends RouteComponentProps {
-  projects: { [key: string]: ProjectData };
+  currentProject: ProjectData;
   isFetching: boolean;
   flows: { [key: string]: FlowData };
   projectSlug: string;
@@ -58,29 +60,40 @@ class Sidebar extends Component<Props> {
   };
 
   render() {
-    const { projectSlug } = this.props;
-    const currentProject = this.props.projects[projectSlug];
+    const { projectSlug, currentProject } = this.props;
 
     return (
       <StyledSidebar>
         <SidebarSection>
-          <ProjectCard project={currentProject}/>
+          <ProjectCard project={currentProject} />
         </SidebarSection>
         <SidebarSection>
-        <LinkList
+          <LinkList
             links={[
-              { content: {text: "Boards"}, path: `/${projectSlug}/boards` },
-              { content: {text: "Unassigned tasks"}, path: `/${projectSlug}/reports` },
-              { content: {text: "Reports"}, path: `/${projectSlug}/reports` }
+              { content: { label: "Boards", IconComponent: BoardsIcon}, path: `/${projectSlug}/boards` },
+              {
+                content: { label: "Unassigned Tasks", IconComponent: UnassignedIcon },
+                path: `/${projectSlug}/unassigned`
+              }
             ]}
           />
         </SidebarSection>
         <SidebarSection>
           <CollectionList
             title="Flows"
-            collection={Object.values(this.props.flows)}
+            collection={Object.values(this.props.flows).map((flow) => {return {label: flow.title, slug: flow.slug}})}
             buttonProps={{
-              content: "+ Create a flow",
+              content: "Create a flow",
+              onButtonClick: this.showCreateFlowModal
+            }}
+          />
+        </SidebarSection>
+        <SidebarSection>
+          <CollectionList
+            title="Members"
+            collection={currentProject.members.map((member) => {return {label: member.name, photoURL: member.photoURL}})}
+            buttonProps={{
+              content: "Invite a person",
               onButtonClick: this.showCreateFlowModal
             }}
           />
@@ -90,11 +103,11 @@ class Sidebar extends Component<Props> {
   }
 }
 
-const mapStateToProps = ({ projects, flows }: StoreState) => {
+const mapStateToProps = (state: StoreState, ownProps: Props) => {
   return {
-    projects: projects.items,
-    isFetching: projects.isFetching,
-    flows: flows.items
+    currentProject: getProject(state, ownProps),
+    isFetching: state.projects.isFetching,
+    flows: state.flows.items
   };
 };
 

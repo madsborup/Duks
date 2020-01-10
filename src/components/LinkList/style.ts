@@ -5,42 +5,52 @@ import base from '../designSystem/base'
 export const StyledLinkList = styled.div`
   display: flex;
   flex-direction: column;
+  padding: ${base.spacing.small}px 0;
 `;
 
 export const Link = styled(NavLink)`
   display: flex;
   align-items: center;
-  justify-content: space-between;
   text-decoration: none;
-  padding: ${base.spacing.xsmall}px;
-  color: ${base.colors.textFaded};
-  border-top: 1px solid ${base.colors.border};
-  border-left: 3px solid transparent;
+  padding: ${base.spacing.small}px ${base.spacing.medium}px;
+  color: ${base.colors.whiteFaded};
 
   &:first-child {
     border-top: 0;
   }
 
-  svg {
-    height: 20px;
-    width: 20px;
-    margin-right: ${base.spacing.xsmall}px;
-  }
-
   &:hover {
-    color: ${base.colors.meta};
-    background: ${base.colors.hover};
+    color: ${base.colors.white};
+
+    svg rect {
+      fill: ${base.colors.whiteFaded};
+    }
   }
 
   &.${props => props.activeClassName} {
-    color: ${base.colors.text};
+    color: ${base.colors.white};
     background: ${base.colors.selected};
+
+    svg rect {
+      fill: ${base.colors.white};
+    }
   }
 `;
 
 export const LinkContent = styled.div`
   display: flex;
   align-items: center;
-  font-size: ${base.font.size.h5};
+  font-size: ${base.font.size.h6};
   font-weight: 500;
+  line-height: 1;
+
+  svg {
+    height: 15px;
+    width: 15px;
+    margin-right: ${base.spacing.xsmall}px;
+
+    rect {
+      fill: ${base.colors.whiteFaded};
+    }
+  }
 `;

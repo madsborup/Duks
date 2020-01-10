@@ -1,81 +1,74 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
-import { ReactComponent as CircleDropdown } from "../../assets/svg/CircleDropdown.svg";
+import { ReactComponent as ArrowDown } from "../../assets/svg/ArrowDown.svg";
+import { ReactComponent as Dots } from "../../assets/svg/Options.svg";
 import base from "../designSystem/base";
 
 export const StyledProjectCard = styled.div`
   display: flex;
-  flex-direction: column;
-`;
-
-export const ProjectImageHeader = styled.div`
-  position: relative;
-  background: ${base.colors.meta};
-  border-radius: 4px 4px 0 0;
-  height: 72px;
 `;
 
 export const ProjectAvatarContainer = styled.div`
-  position: relative;
-  margin-left: ${base.spacing.small}px;
-  top: -30px;
   height: 100%;
-  margin-bottom: -38px;
 `;
 
 export const ProjectAvatar = styled(NavLink)`
   display: inline-block;
   border-radius: ${base.BORDER_RADIUS}px;
-  border: 4px solid ${base.colors.white};
   background: ${base.colors.meta};
-  height: 50px;
-  width: 50px;
+  height: 54px;
+  width: 54px;
 `;
 
 export const ProjectMetaContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: ${base.spacing.small}px;
+  width: 100%;
+
+  cursor: pointer;
+
+  &:hover {
+    background: ${base.colors.darkBorder};
+  }
 `;
 
 export const ProjectTitle = styled.span`
-  font-size: ${base.font.size.h4};
-  font-weight: 600;
-  line-height: 1.3;
-  letter-spacing: ${base.font.letterSpacing.heading};
+  font-size: ${base.font.size.h6};
+  color: ${base.colors.white};
+  font-weight: 400;
 `;
 
 export const ProjectDescription = styled.span`
-  padding: ${base.spacing.xxsmall}px 0;
-  font-size: ${base.font.size.h5};
-  letter-spacing: ${base.font.letterSpacing.heading};
-  line-height: 1.4;
-  font-weight: 400;
-  color: ${base.colors.meta};
+  font-size: ${base.font.size.h6};
+  font-weight: 300;
+  color: ${base.colors.whiteFaded};
 `;
 
-export const DropdownIcon = styled(CircleDropdown)`
-  height: 15px;
-  width: 15px;
+export const ProjectActionsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 ${base.spacing.small}px;
   cursor: pointer;
-  margin-left: ${base.spacing.xxsmall}px;
-
-  circle {
-    fill: ${base.colors.border};
-  }
 
   &:hover {
-    circle {
-      fill: ${base.colors.highlight};
+    background: ${base.colors.darkBorder};
+
+    path {
+      stroke: ${base.colors.white};
     }
   }
 `;
 
-export const ActionsContainer = styled.div`
-  display: flex;
-  padding: 0 ${base.spacing.small}px ${base.spacing.small}px;
+export const DropdownIcon = styled(ArrowDown)`
+  height: 15px;
+  width: 15px;
+  margin-top: -6px;
+  cursor: pointer;
+`;
 
-  button {
-    width: 100%;
-  }
+export const OptionsIcon = styled(Dots)`
+  height: 24px;
+  cursor: pointer;
 `;

@@ -1,5 +1,7 @@
 import { firestore } from "../firebase";
 import { Dispatch } from "redux";
+import _ from "lodash";
+import { MemberData } from './projects'
 import { ActionTypes } from "../actions";
 import { StoreState } from "../reducers";
 import { addDocToCollection } from "../firebase/utils/addDocToCollection";
@@ -20,7 +22,7 @@ export interface TaskData {
   createdBy: string;
   title: string;
   description: string;
-  assigned: string[];
+  assigned: MemberData[];
   status: TASK_STATUS;
   date: Date;
 }
@@ -60,7 +62,8 @@ export interface DeleteTaskAction {
 export const createTask = (
   title: string,
   projectSlug: string,
-  flowSlug: string
+  flowSlug: string,
+  assigned: MemberData[]
 ) => async (dispatch: Dispatch, getState: () => StoreState) => {
   const creator = getState().auth.user.uid;
 
@@ -69,8 +72,8 @@ export const createTask = (
     projectSlug: projectSlug,
     createdBy: creator,
     title: title,
-    assigned: [],
-    status: TASK_STATUS.UNASSIGNED
+    assigned: assigned,
+    status: _.isEmpty(assigned) ? TASK_STATUS.UNASSIGNED : TASK_STATUS.NOT_STARTED
   });
 
   dispatch<CreateTaskAction>({
@@ -105,8 +108,8 @@ export const fetchTasks = (projectSlug: string) => async (
 
         tasks = snapshot.docs.reduce(
           (prev, doc) => ({
-            ...prev,
-            [doc.id]: doc.data()
+            ...prev, 
+            [doc.data().slug]: {...doc.data(), ['id']: doc.id}
           }),
           {}
         );

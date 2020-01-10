@@ -1,87 +1,116 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { createTask, FlowData } from "../../../actions";
-import { StoreState } from '../../../reducers'
+import { Formik } from "formik";
+import _, { includes } from "lodash";
+import {
+  ProjectData,
+  MemberData,
+  createTask,
+  FlowData
+} from "../../../actions";
+import { getProject } from "../../../selectors/getProject";
+import { StoreState } from "../../../reducers";
 import { ModalBody, ModalTitle, CloseButton, ModalActions } from "../styles";
-import { Form } from "./style";
-import { Input } from "../../designSystem/formElements";
-import { PrimaryButton } from "../../designSystem/button";
+import { StyledForm, Input, Select } from "../../designSystem/formElements";
+import { TextButton, PrimaryButton } from "../../designSystem/button";
 
-interface CreateTaskModalProps {
-  projectSlug?: string;
+interface Props {
+  projectSlug: string;
+  currentProject: ProjectData;
   flows: FlowData[];
   closeModal: Function;
   createTask: Function;
 }
 
-interface State {
-  title: string;
-  flowSlug: string;
-}
+class CreateTaskModal extends Component<Props> {
+  handleTaskSubmit = (title: string, flowSlug: string, assigned: string[]) => {
+    const handleAssignedMembers: MemberData[] = this.props.currentProject.members.filter(
+      member => {
+        return _.includes(assigned, member.id);
+      }
+    );
 
-class CreateTaskModal extends Component<CreateTaskModalProps, State> {
-  constructor(props: CreateTaskModalProps) {
-    super(props);
+    this.props.createTask(
+      title,
+      this.props.projectSlug,
+      flowSlug,
+      handleAssignedMembers
+    );
+    this.props.closeModal();
+  };
 
-    //TODO add members
-    this.state = {
-      title: "",
-      flowSlug: this.props.flows[0].slug
-    };
+  renderFlowOptions() {
+    return this.props.flows.map((flow: FlowData) => {
+      return { label: flow.title, value: flow.slug };
+    });
   }
 
-  onTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ title: e.target.value });
-  };
+  renderAssignOptions(): {label: string; value: string}[] {
+    const noAssignment = { label: "No one right now", value: "" };
 
-  onFlowChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    this.setState({ flowSlug: e.target.value });
-  };
-
-  handleFlowSubmit = (e: any) => {
-    const { title } = this.state;
-    this.props.createTask(title, this.props.projectSlug, this.state.flowSlug);
-    this.props.closeModal();
-    e.preventDefault();
-  };
-
-  renderSelectOptions() {
-    return this.props.flows.map((doc: FlowData) => {
-      return (
-        <option value={doc.slug} key={doc.slug}>{doc.title}</option>
-      );
+    const options = this.props.currentProject.members.map(member => {
+      return { label: member.name, value: member.id };
     });
+    options.push(noAssignment);
+    return options;
   }
 
   render() {
     return (
       <ModalBody>
         <CloseButton onClick={() => this.props.closeModal()} />
-        <ModalTitle>Create task</ModalTitle>
-        <Form onSubmit={e => this.handleFlowSubmit(e)}>
-          <Input
-            placeholder="New project"
-            value={this.state.title}
-            onChange={this.onTitleChange}
-          >
-            Title
-          </Input>
-          Select flow
-          <select onChange={this.onFlowChange} value={this.state.flowSlug}>
-            {this.renderSelectOptions()}
-          </select>
-          <ModalActions>
-            <PrimaryButton>Create</PrimaryButton>
-          </ModalActions>
-        </Form>
+        <ModalTitle>New task</ModalTitle>
+        <Formik
+          initialValues={{ title: "", flowSlug: "", assigned: [], status: null }}
+          onSubmit={values => {
+            this.handleTaskSubmit(
+              values.title,
+              values.flowSlug,
+              values.assigned
+            );
+          }}
+        >
+          {formik => (
+            <StyledForm onSubmit={formik.handleSubmit}>
+              <Input
+                label="Title"
+                name="title"
+                placeholder="New project"
+                value={formik.values.title}
+                onChange={formik.handleChange}
+              />
+              <Select
+                label="Flow"
+                name="flowSlug"
+                value={formik.values.flowSlug}
+                options={this.renderFlowOptions()}
+                onChange={formik.handleChange}
+              />
+              <Select
+                label="Assign task to"
+                name="assigned"
+                value={formik.values.assigned}
+                options={this.renderAssignOptions()}
+                onChange={formik.handleChange}
+              />
+              <ModalActions>
+                <TextButton onClick={() => this.props.closeModal()}>
+                  Close
+                </TextButton>
+                <PrimaryButton type="submit">Create</PrimaryButton>
+              </ModalActions>
+            </StyledForm>
+          )}
+        </Formik>
       </ModalBody>
     );
   }
 }
 
-const mapStateToProps = ({ flows }: StoreState) => {
+const mapStateToProps = (state: StoreState, ownProps: Props) => {
   return {
-    flows: Object.values(flows.items)
+    currentProject: getProject(state, ownProps),
+    flows: Object.values(state.flows.items)
   };
 };
 

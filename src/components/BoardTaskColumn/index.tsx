@@ -14,25 +14,22 @@ interface Props {
 }
 
 const BoardTaskColumn: React.FC<Props> = (props: Props) => {
-  const statusTitles = {
+  const statusLabels = {
     [TASK_STATUS.UNASSIGNED]: "Unassigned",
     [TASK_STATUS.NOT_STARTED]: "Not started",
     [TASK_STATUS.STARTED]: "Started",
     [TASK_STATUS.STUCK]: "Stuck",
-    [TASK_STATUS.REVIEW]: "Ready to be checked",
+    [TASK_STATUS.REVIEW]: "Ready for review",
     [TASK_STATUS.COMPLETED]: "Completed"
   };
 
   const renderTaskCards = () => {
     return props.tasks.map((task: TaskData) => {
       return (
-        <React.Fragment>
+        <React.Fragment key={task.id}>
           <TaskCard
-            title={task.title}
-            status={task.status}
-            flowTitle="Flow title"
-            assigned={task.assigned}
-            date={task.date}
+            task={ task }
+            flow={{title: "flow title", color: "#000"}}
             key={task.id}
           />
         </React.Fragment>
@@ -43,7 +40,7 @@ const BoardTaskColumn: React.FC<Props> = (props: Props) => {
   return (
     <StyledBoardTaskColumn>
       <ColumnHeader status={props.status}>
-        {statusTitles[props.status]}
+        {statusLabels[props.status]}
         <ColumnHeaderCounter>{props.tasks.length}</ColumnHeaderCounter>
       </ColumnHeader>
       {renderTaskCards()}

@@ -13,11 +13,10 @@ export const StyledNavbar = styled.div`
   grid-template-columns: minmax(0px, 1fr);
   grid-template-rows: auto;
   top: 0;
-  padding-top: ${base.spacing.large}px;
+  padding-top: ${base.spacing.small}px;
   height: 100vh;
   width: ${NAVBAR_WIDTH}px;
   background-color: ${base.colors.navbar};
-  border-right: 1px solid ${base.colors.border};
   overflow: hidden auto;
   /* box-shadow: inset 0 16px 8px -4px black, inset 0 -16px 8px -4px black; */
 
@@ -34,7 +33,7 @@ export const ProjectLinkContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  border-top: 1px solid ${base.colors.border};
+  border-top: 1px solid ${base.colors.darkBorder};
 
   a {
     margin-bottom: ${base.spacing.small}px;
@@ -47,25 +46,27 @@ export const ProjectLink = styled(NavLink)`
   justify-content: center;
 
   rect {
-    fill: ${base.colors.border};
+    fill: ${base.colors.whiteFaded};
+    opacity: 0.8;
   }
 
   &.${props => props.activeClassName} {
 
     rect {
-      fill: ${base.colors.meta};
+      opacity: 1;
+      fill: ${base.colors.white};
     }
   }
 `;
 
 export const AddProjectIcon = styled(AddIcon)`
   cursor: pointer;
-  width: 34px;
-  height: 34px;
+  width: 30px;
+  height: 30px;
   padding-bottom: ${base.spacing.medium}px;
 
   circle {
-    fill: ${base.colors.border};
+    fill: ${base.colors.whiteFaded};
   }
 
   rect {
@@ -74,7 +75,7 @@ export const AddProjectIcon = styled(AddIcon)`
 
   &:hover {
     circle {
-      fill: ${base.colors.meta};
+      fill: ${base.colors.white};
     }
   }
 `;

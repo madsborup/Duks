@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Formik } from "formik";
 import { createFlow } from "../../../actions";
 import { ModalBody, ModalTitle, CloseButton, ModalActions } from "../styles";
-import { Form } from "./style";
-import { Input } from "../../designSystem/formElements";
-import { Button, PrimaryButton } from "../../designSystem/button";
+import {
+  StyledForm,
+  Input
+} from "../../designSystem/formElements";
+import { PrimaryButton } from "../../designSystem/button";
 
 interface CreateFlowModalProps {
   projectSlug?: string;
@@ -12,49 +15,57 @@ interface CreateFlowModalProps {
   createFlow: Function;
 }
 
-interface State {
-  title: string;
-}
+class CreateFlowModal extends Component<CreateFlowModalProps> {
 
-class CreateFlowModal extends Component<CreateFlowModalProps, State> {
-  constructor(props: CreateFlowModalProps) {
-    super(props);
-
-    //TODO add members
-    this.state = {
-      title: ""
-    };
-  }
-
-  onTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ title: e.target.value });
-  };
-
-  handleProjectSubmit = (e: any) => {
-    const { title } = this.state;
+  handleProjectSubmit = (title: string) => {
     this.props.createFlow(title, this.props.projectSlug);
     this.props.closeModal();
-    e.preventDefault();
   };
 
   render() {
     return (
       <ModalBody>
         <CloseButton onClick={() => this.props.closeModal()} />
-        <ModalTitle>Create flow</ModalTitle>
-        <Form onSubmit={e => this.handleProjectSubmit(e)}>
-          <Input
-            placeholder="New flow"
-            value={this.state.title}
-            onChange={this.onTitleChange}
-          >
-            Title
-          </Input>
-          <ModalActions>
-            <PrimaryButton>Create</PrimaryButton>
-          </ModalActions>
-        </Form>
+        <ModalTitle>Create a flow</ModalTitle>
+        <Formik
+          initialValues={{ title: ""}}
+          onSubmit={values => {
+            this.handleProjectSubmit(values.title);
+          }}
+        >
+          {formik => (
+            <StyledForm onSubmit={formik.handleSubmit}>
+              <Input
+                label="Title"
+                name="title"
+                placeholder="New project"
+                value={formik.values.title}
+                onChange={formik.handleChange}
+              />
+              <ModalActions>
+                <PrimaryButton type="submit">Create</PrimaryButton>
+              </ModalActions>
+            </StyledForm>
+          )}
+        </Formik>
       </ModalBody>
+
+      // <ModalBody>
+      //   <CloseButton onClick={() => this.props.closeModal()} />
+      //   <ModalTitle>Create flow</ModalTitle>
+      //   <Form onSubmit={e => this.handleProjectSubmit(e)}>
+      //     <Input
+      //       placeholder="New flow"
+      //       value={this.state.title}
+      //       onChange={this.onTitleChange}
+      //     >
+      //       Title
+      //     </Input>
+      //     <ModalActions>
+      //       <PrimaryButton>Create</PrimaryButton>
+      //     </ModalActions>
+      //   </Form>
+      // </ModalBody>
     );
   }
 }

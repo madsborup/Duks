@@ -19,7 +19,12 @@ export const StyledTaskCard = styled.div<ContainerProps>`
   border-top: 1px solid ${base.colors.border}; 
   border-bottom: 1px solid ${base.colors.border}; 
   border-right: 1px solid ${base.colors.border}; 
-  border-left: 6px solid ${({ status }) => rgba(handleTaskColor(status), 0.50)};
+  border-left: 5px solid ${({ status }) => rgba(handleTaskColor(status), 0.50)};
+  transition: box-shadow 0.2s ease-in-out;
+
+  &:hover {
+        box-shadow: ${base.colors.boxShadow};
+    }
 `;
 
 export const FlowTitle = styled.span`
@@ -30,6 +35,19 @@ export const FlowTitle = styled.span`
 export const TaskTitle = styled.span`
   color: ${base.colors.text};
   font-size: ${base.font.size.h6};
-  margin-top: ${base.spacing.xxsmall}px;
+  margin: ${base.spacing.xxsmall}px 0;
 `;
 
+export const AssignedContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+`;
+
+export const AssigneeAvatar = styled.img`
+  height: 24px;
+  width: 24px;
+  border-radius: 12px;
+  opacity: 0.9;
+  margin: 0 0 0 ${base.spacing.xsmall}px;
+`;
