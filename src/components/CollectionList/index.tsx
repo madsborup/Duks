@@ -8,7 +8,6 @@ import {
   ListItemImage,
   ListItemText,
   IconContainer,
-  FlowIcon,
   RightArrowIcon,
   CollectionAddButton,
   CollectionAddIcon
@@ -20,7 +19,13 @@ interface Match {
 
 interface Props extends RouteComponentProps<Match> {
   title?: string;
-  collection: { label: string; slug?: string; photoURL?: string }[];
+  collection: {
+    label: string;
+    slug?: string;
+    photoURL?: string;
+    firstIcon?: React.ReactNode;
+    secondIcon?: React.ReactNode;
+  }[];
   buttonProps: {
     content: string;
     onButtonClick: Function;
@@ -37,11 +42,11 @@ const CollectionList: React.FC<Props> = (props: Props) => {
           key={item.slug}
         >
           <ListItem>
-            <FlowIcon />
+            {item.firstIcon ? item.firstIcon : null}
             {item.label}
           </ListItem>
           <IconContainer>
-            <RightArrowIcon />
+            {item.secondIcon ? item.secondIcon : null}
           </IconContainer>
         </ListLink>
       ) : item.photoURL ? (

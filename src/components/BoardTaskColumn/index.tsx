@@ -29,7 +29,7 @@ const BoardTaskColumn: React.FC<Props> = (props: Props) => {
         <React.Fragment key={task.id}>
           <TaskCard
             task={ task }
-            flow={{title: "flow title", color: "#000"}}
+            flowSlug= { task.flowSlug}
             key={task.id}
           />
         </React.Fragment>

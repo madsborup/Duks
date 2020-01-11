@@ -1,11 +1,11 @@
 import styled from 'styled-components'
 import { rgba } from 'polished'
 import base from '../designSystem/base'
-import { TASK_STATUS } from '../../actions'
+import { FLOW_COLOR } from '../../actions'
 import { handleTaskColor } from '../../utils/handleTaskColor'
 
 interface ContainerProps {
-  status: TASK_STATUS;
+  flowColor: FLOW_COLOR;
 }
 
 export const StyledTaskCard = styled.div<ContainerProps>`
@@ -19,7 +19,7 @@ export const StyledTaskCard = styled.div<ContainerProps>`
   border-top: 1px solid ${base.colors.border}; 
   border-bottom: 1px solid ${base.colors.border}; 
   border-right: 1px solid ${base.colors.border}; 
-  border-left: 5px solid ${({ status }) => rgba(handleTaskColor(status), 0.50)};
+  border-left: 5px solid ${({ flowColor }) => flowColor};
   transition: box-shadow 0.2s ease-in-out;
 
   &:hover {
@@ -35,6 +35,7 @@ export const FlowTitle = styled.span`
 export const TaskTitle = styled.span`
   color: ${base.colors.text};
   font-size: ${base.font.size.h6};
+  font-weight: 500;
   margin: ${base.spacing.xxsmall}px 0;
 `;
 

@@ -40,7 +40,7 @@ class BoardView extends Component<Props> {
                 <SegmentedControl
                   controls={[
                     { label: "Status", path: `/${projectSlug}/boards` },
-                    { label: "People", path: `/${projectSlug}/boards/people` },
+                    { label: "Assigned", path: `/${projectSlug}/boards/people` },
                     { label: "Table", path: `/${projectSlug}/boards/table` }
                   ]}
                 />

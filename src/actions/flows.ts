@@ -4,12 +4,22 @@ import { ActionTypes } from ".";
 import { StoreState } from "../reducers";
 import { addDocToCollection } from "../firebase/utils/addDocToCollection";
 
+export enum FLOW_COLOR {
+  RED = "#FF7A82",
+  YELLOW = "#FDB365",
+  GREEN = "#ADDFA2",
+  BLUE = "#8EABF1"
+}
+
 export interface FlowData {
   id: string;
-  createdBy: string;
-  projectSlug: string;
-  slug: string;
   title: string;
+  createdAt: Date;
+  createdBy: string;
+  slug: string;
+  color: FLOW_COLOR;
+  endDate: Date;
+  projectSlug: string;
 }
 
 export interface FlowsData {
@@ -45,7 +55,8 @@ export const createFlow = (title: string, projectSlug: string) => async (
   addDocToCollection<FlowData>("flows", {
     projectSlug: projectSlug,
     title: title,
-    createdBy: creator
+    createdBy: creator,
+    color: FLOW_COLOR.BLUE
   } as FlowData);
 
   dispatch<CreateFlowAction>({

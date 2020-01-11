@@ -1,7 +1,12 @@
 import styled from "styled-components";
 import base from "../designSystem/base";
 import { PrimaryButton } from "../designSystem/button";
-import { ReactComponent as ViewIcon } from "../../assets/svg/ColumnsIcon.svg";
+import { ReactComponent as FlowCircle } from "../../assets/svg/FlowCircle.svg";
+import { FLOW_COLOR } from '../../actions'
+
+interface FlowIconProps {
+  flowColor: FLOW_COLOR;
+}
 
 export const StyledSidebar = styled.div`
 `;
@@ -24,13 +29,25 @@ export const SidebarSectionHeader = styled.span`
   letter-spacing: ${base.font.letterSpacing.heading};
 `;
 
-export const ColumnsIcon = styled(ViewIcon)`
-  margin-right: ${base.spacing.xsmall}px;
-  height: 20px;
-  width: 20px;
-`;
-
 export const NewTaskButton = styled(PrimaryButton)`
   width: 60%;
   margin: ${base.spacing.medium}px auto;
+`;
+
+export const FlowIcon = styled(FlowCircle)<FlowIconProps>`
+  min-width: 10px;
+  width: 10px;
+  margin-right: ${base.spacing.xsmall}px;
+
+  circle {
+    fill: ${({ flowColor }) => flowColor};
+  }
+`;
+
+export const FlowDayCounter = styled.div<FlowIconProps>`
+  border-radius: ${base.BORDER_RADIUS}px;
+  color: ${base.colors.whiteFaded};
+  line-height: 1;
+  font-size: ${base.font.size.small};
+  padding: ${base.spacing.xxsmall}px;
 `;

@@ -3,7 +3,6 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import {
   Route,
-  Redirect,
   Switch,
   withRouter,
   RouteComponentProps
@@ -12,20 +11,15 @@ import { ThemeProvider } from "styled-components";
 import ModalRoot from "./components/modals/ModalRoot";
 import { StoreState } from "./reducers";
 import { GlobalStyle } from "./globalStyles";
-import Login from "./views/Login";
 import theme from "./components/designSystem/base";
 import AppViewWrapper from "./components/AppViewWrapper";
 import Navbar from "./components/Navbar";
-import Sidebar from "./components/Sidebar";
-import Header from "./components/Header";
 import ProjectView from "./views/ProjectView";
 import ProjectBoardPeopleView from "./views/ProjectBoardPeopleView";
 import ProjectBoardView from "./views/ProjectBoardView";
 import ProjectUnassignedTasksView from './views/ProjectUnassignedTasksView'
 import ProjectFlowView from "./views/ProjectFlowView";
 import AppViewRedirect from "./views/AppViewRedirect";
-import { ViewGrid } from "./components/designSystem/layout";
-import { withProjectsSubscription } from "./components/withProjectsSubscription";
 
 interface Match {
   projectSlug: string;

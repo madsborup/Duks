@@ -12,7 +12,6 @@ import {
 } from "../../components/designSystem/layout";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
-
 import TaskCard from "../../components/TaskCard";
 
 interface Match {
@@ -56,7 +55,7 @@ class FlowView extends Component<Props> {
             <React.Fragment>
               <TaskCard
                 task={task}
-                flow={{ title: "flow title", color: "#000" }}
+                flowSlug={flowSlug}
                 key={task.id}
               />
             </React.Fragment>

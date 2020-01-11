@@ -11,13 +11,13 @@ import {
   fetchTasks
 } from "../../actions";
 import { StoreState } from "../../reducers";
-import { getProject } from '../../selectors/getProject'
+import { getProject } from "../../selectors/getProject";
 import ProjectCard from "../ProjectCard";
 import LinkList from "../LinkList";
 import CollectionList from "../CollectionList";
 import { ReactComponent as BoardsIcon } from "../../assets/svg/BoardsIcon.svg";
 import { ReactComponent as UnassignedIcon } from "../../assets/svg/UnassignedIcon.svg";
-import { StyledSidebar, SidebarSection, NewTaskButton } from "./style";
+import { StyledSidebar, SidebarSection, FlowIcon, FlowDayCounter } from "./style";
 
 interface Props extends RouteComponentProps {
   currentProject: ProjectData;
@@ -70,9 +70,15 @@ class Sidebar extends Component<Props> {
         <SidebarSection>
           <LinkList
             links={[
-              { content: { label: "Boards", IconComponent: BoardsIcon}, path: `/${projectSlug}/boards` },
               {
-                content: { label: "Unassigned Tasks", IconComponent: UnassignedIcon },
+                content: { label: "Boards", IconComponent: BoardsIcon },
+                path: `/${projectSlug}/boards`
+              },
+              {
+                content: {
+                  label: "Unassigned Tasks",
+                  IconComponent: UnassignedIcon
+                },
                 path: `/${projectSlug}/unassigned`
               }
             ]}
@@ -81,7 +87,14 @@ class Sidebar extends Component<Props> {
         <SidebarSection>
           <CollectionList
             title="Flows"
-            collection={Object.values(this.props.flows).map((flow) => {return {label: flow.title, slug: flow.slug}})}
+            collection={Object.values(this.props.flows).map(flow => {
+              return {
+                label: flow.title,
+                slug: flow.slug,
+                firstIcon: (<FlowIcon flowColor={flow.color} />),
+                secondIcon: (<FlowDayCounter flowColor={flow.color}>24d</FlowDayCounter>)
+              };
+            })}
             buttonProps={{
               content: "Create a flow",
               onButtonClick: this.showCreateFlowModal
@@ -91,7 +104,9 @@ class Sidebar extends Component<Props> {
         <SidebarSection>
           <CollectionList
             title="Members"
-            collection={currentProject.members.map((member) => {return {label: member.name, photoURL: member.photoURL}})}
+            collection={currentProject.members.map(member => {
+              return { label: member.name, photoURL: member.photoURL };
+            })}
             buttonProps={{
               content: "Invite a person",
               onButtonClick: this.showCreateFlowModal

@@ -9,7 +9,6 @@ import { verifyAuthentication } from "./actions";
 import Modal from "react-modal";
 import RedirectHandler from "./components/RedirectHandler";
 
-let hasRendered = false;
 Modal.setAppElement("#root");
 store.dispatch(verifyAuthentication());
 

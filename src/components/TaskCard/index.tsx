@@ -1,6 +1,8 @@
-import React from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
-import { TASK_STATUS, TaskData, showModal } from "../../actions";
+import { TaskData, FlowData, showModal } from "../../actions";
+import { StoreState } from "../../reducers";
+import { getFlow } from "../../selectors/getFlow";
 import {
   StyledTaskCard,
   FlowTitle,
@@ -9,27 +11,27 @@ import {
   AssigneeAvatar
 } from "./style";
 
-export interface Props {
+interface Props {
   task: TaskData;
-  flow: {
-    title: string;
-    color: string;
-  };
+  flowSlug: string;
+  flow: FlowData;
   showModal: Function;
 }
 
-const TaskCard: React.FunctionComponent<Props> = (props: Props) => {
-  const { title, status, assigned } = props.task;
+const TaskCard: React.FC<Props> = (props: Props) => {
+  const { title, assigned } = props.task;
 
   const renderAssignedAvatars = () => {
     return assigned.map(assignee => {
-      return <AssigneeAvatar src={`${assignee.photoURL}=s32-c`} key={assignee.id} />;
+      return (
+        <AssigneeAvatar src={`${assignee.photoURL}=s48-c`} key={assignee.id} />
+      );
     });
   };
 
   return (
     <StyledTaskCard
-      status={status}
+      flowColor={props.flow.color}
       onClick={() =>
         props.showModal({
           modalProps: { open: true, task: props.task },
@@ -39,14 +41,18 @@ const TaskCard: React.FunctionComponent<Props> = (props: Props) => {
     >
       <FlowTitle>{props.flow.title}</FlowTitle>
       <TaskTitle>{title}</TaskTitle>
-      <AssignedContainer>
-        {renderAssignedAvatars()}
-      </AssignedContainer>
+      <AssignedContainer>{renderAssignedAvatars()}</AssignedContainer>
     </StyledTaskCard>
   );
 };
 
+const mapStateToProps = (state: any, ownProps: any) => {
+  return {
+    flow: getFlow(state, ownProps)
+  };
+};
+
 export default connect(
-  null,
+  mapStateToProps,
   { showModal }
 )(TaskCard);
