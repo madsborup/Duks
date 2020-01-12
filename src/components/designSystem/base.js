@@ -19,7 +19,7 @@ export default {
     white: "#FFFFFF",
     whiteFaded: "#1B2782",
     bg: "#FFF",
-    viewBg: "#F7F8F9",
+    viewBg: "#FFF",
     navbar: "#101B70",
     navbarFaded: "#c3c7d6",
     navbarHover: "#dfe0f0",

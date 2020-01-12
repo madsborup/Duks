@@ -29,7 +29,7 @@ export const StyledTaskCard = styled.div<ContainerProps>`
   cursor: pointer;
   background: ${base.colors.white};
   transition: box-shadow 0.2s ease-in-out;
-  box-shadow: 0 1px 2px RGBA(216, 220, 225, 0.6);
+  box-shadow: 0 3px 2px RGBA(216, 220, 225, 0.8);
 
   &:hover {
     box-shadow: 0 4px 14px RGBA(216, 220, 225, 1);
