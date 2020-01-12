@@ -19,7 +19,6 @@ import {
 
 interface Props {
   projects: ProjectData[];
-  isFetching: boolean;
   auth: AuthData;
   fetchProjects: Function;
   showModal: Function;
@@ -43,7 +42,6 @@ class Navbar extends Component<Props> {
   render() {
     return (
       <StyledNavbar>
-        <Profile />
         <ProjectLinkContainer>{this.renderProjectLinks()}</ProjectLinkContainer>
         <AddProjectIcon
           onClick={() =>

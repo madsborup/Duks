@@ -19,7 +19,7 @@ const BoardTaskColumn: React.FC<Props> = (props: Props) => {
     [TASK_STATUS.NOT_STARTED]: "Not started",
     [TASK_STATUS.STARTED]: "Started",
     [TASK_STATUS.STUCK]: "Stuck",
-    [TASK_STATUS.REVIEW]: "Ready for review",
+    [TASK_STATUS.REVIEW]: "Ready to be checked",
     [TASK_STATUS.COMPLETED]: "Completed"
   };
 
@@ -28,8 +28,8 @@ const BoardTaskColumn: React.FC<Props> = (props: Props) => {
       return (
         <React.Fragment key={task.id}>
           <TaskCard
-            task={ task }
-            flowSlug= { task.flowSlug}
+            flowSlug={task.flowSlug}
+            task={task}
             key={task.id}
           />
         </React.Fragment>

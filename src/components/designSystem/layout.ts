@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import base from "./base";
 
-export const NAVBAR_WIDTH = 0;
-export const MIN_FIRST_COLUMN_WIDTH = 260;
-export const MAX_FIRST_COLUMN_WIDTH = 300;
+export const NAVBAR_WIDTH = 60;
+export const MIN_FIRST_COLUMN_WIDTH = 250;
+export const MAX_FIRST_COLUMN_WIDTH = 290;
 export const MIN_SECOND_COLUMN_WIDTH = 968;
 export const MAX_SECOND_COLUMN_WIDTH = 1600;
 export const GRID_GAP = 0;

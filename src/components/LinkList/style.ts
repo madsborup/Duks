@@ -13,26 +13,22 @@ export const Link = styled(NavLink)`
   align-items: center;
   text-decoration: none;
   padding: ${base.spacing.small}px ${base.spacing.medium}px;
-  color: ${base.colors.whiteFaded};
+  color: ${base.colors.text};
 
   &:first-child {
     border-top: 0;
   }
 
   &:hover {
-    color: ${base.colors.white};
+    background: ${base.colors.navbarHover};
 
-    svg rect {
-      fill: ${base.colors.whiteFaded};
-    }
   }
 
   &.${props => props.activeClassName} {
-    color: ${base.colors.white};
     background: ${base.colors.selected};
 
     svg rect {
-      fill: ${base.colors.white};
+      fill: ${base.colors.text};
     }
   }
 `;
@@ -40,8 +36,9 @@ export const Link = styled(NavLink)`
 export const LinkContent = styled.div`
   display: flex;
   align-items: center;
-  font-size: ${base.font.size.h6};
-  font-weight: 500;
+  font-size: ${base.font.size.h5};
+  font-weight: 600;
+  letter-spacing: ${base.font.letterSpacing.heading};
   line-height: 1;
 
   svg {
@@ -50,7 +47,7 @@ export const LinkContent = styled.div`
     margin-right: ${base.spacing.xsmall}px;
 
     rect {
-      fill: ${base.colors.whiteFaded};
+      fill: ${base.colors.text};
     }
   }
 `;

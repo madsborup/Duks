@@ -38,6 +38,7 @@ class Routes extends React.Component<Props> {
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <ModalRoot />
+        <Navbar />
         <AppViewWrapper>
           <Switch>
             <Route path="/" exact component={AppViewRedirect} />

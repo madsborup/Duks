@@ -12,6 +12,7 @@ import {
 } from "../../components/designSystem/layout";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
+import SegmentedControl from "../../components/SegmentedControl";
 
 interface Match {
   projectSlug: string;
@@ -31,7 +32,15 @@ class PeopleView extends Component<Props> {
             <Sidebar projectSlug={projectSlug}/>
           </FirstColumn>
           <SecondColumn>
-            <Header title="Board" projectSlug={projectSlug} />
+            <Header projectSlug={projectSlug}>
+                <SegmentedControl
+                  controls={[
+                    { label: "Status", path: `/${projectSlug}/boards` },
+                    { label: "Assigned", path: `/${projectSlug}/boards/people` },
+                    { label: "Table", path: `/${projectSlug}/boards/table` }
+                  ]}
+                />
+            </Header>
             <Message>ProjectPeople</Message>
           </SecondColumn>
         </TwoColumnGrid>

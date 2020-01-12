@@ -6,6 +6,14 @@ import base from "../designSystem/base";
 
 export const StyledProjectCard = styled.div`
   display: flex;
+
+  &:hover {
+    background: ${base.colors.navbarHover};
+
+    path {
+      stroke: ${base.colors.white};
+    }
+  }
 `;
 
 export const ProjectAvatarContainer = styled.div`
@@ -27,21 +35,17 @@ export const ProjectMetaContainer = styled.div`
   width: 100%;
 
   cursor: pointer;
-
-  &:hover {
-    background: ${base.colors.darkBorder};
-  }
 `;
 
 export const ProjectTitle = styled.span`
   font-size: ${base.font.size.h6};
-  color: ${base.colors.white};
-  font-weight: 400;
+  color: ${base.colors.text};
+  font-weight: 600;
 `;
 
 export const ProjectDescription = styled.span`
   font-size: ${base.font.size.h6};
-  font-weight: 300;
+  font-weight: 400;
   color: ${base.colors.whiteFaded};
 `;
 
@@ -54,10 +58,6 @@ export const ProjectActionsContainer = styled.div`
 
   &:hover {
     background: ${base.colors.darkBorder};
-
-    path {
-      stroke: ${base.colors.white};
-    }
   }
 `;
 

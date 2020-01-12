@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import base from "../designSystem/base";
+import { PrimaryButton } from "../designSystem/button";
 
 interface ContainerProps {
   primary?: boolean;
@@ -29,9 +30,16 @@ export const DescriptionMeta = styled.span`
   color: ${base.colors.border};
 `;
 
+export const AddTaskButton = styled(PrimaryButton)`
+  height: 100%;
+  border-radius: 0;
+  padding: 0 ${base.spacing.xlarge}px;
+`;
+
 export const ActionsContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
   width: 100%;
+  height: 100%;
 `;

@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 import { TextButton } from "../designSystem/button";
 import base from "../designSystem/base";
 import { ReactComponent as RightArrow } from "../../assets/svg/RightArrow.svg";
-import { ReactComponent as FlowCircle } from "../../assets/svg/FlowCircle.svg";
 import { ReactComponent as AddIcon } from "../../assets/svg/AddIcon.svg";
 
 export const StyledCollectionList = styled.div`
@@ -14,11 +13,12 @@ export const StyledCollectionList = styled.div`
 
 export const ListHeader = styled.span`
   font-size: ${base.font.size.small};
-  font-weight: 500;
+  font-weight: 600;
   text-transform: uppercase;
-  color: ${base.colors.whiteFaded};
+  color: ${base.colors.text};
   padding: ${base.spacing.xxsmall}px ${base.spacing.small}px;
-  margin-bottom: ${base.spacing.xsmall}px;
+  margin-bottom: ${base.spacing.xxsmall}px;
+  letter-spacing: ${base.font.letterSpacing.heading};
   cursor: default;
 `;
 
@@ -44,11 +44,11 @@ export const ListLink = styled(NavLink)`
   text-decoration: none;
   font-size: ${base.font.size.h6};
   font-weight: 400;
-  color: ${base.colors.whiteFaded};
+  color: ${base.colors.text};
   cursor: pointer;
 
   &:hover {
-    color: ${base.colors.white};
+    background: ${base.colors.navbarHover};
 
     &.${IconContainer} {
       box-shadow: -16px 0px 1px 7px ${base.colors.selected};
@@ -56,7 +56,6 @@ export const ListLink = styled(NavLink)`
   }
 
   &.${props => props.activeClassName} {
-    color: ${base.colors.white};
     background: ${base.colors.selected};
 
     svg path {
@@ -70,7 +69,6 @@ export const ListLink = styled(NavLink)`
 `;
 
 export const ListItemText = styled.span`
-  color: ${base.colors.whiteFaded};
   font-size: ${base.font.size.h6};
   font-weight: 400;
   cursor: default;
@@ -83,12 +81,6 @@ export const ListItemImage = styled.img`
   margin-right: ${base.spacing.xsmall}px;
 `;
 
-export const FlowIcon = styled(FlowCircle)`
-  min-width: 8px;
-  width: 8px;
-  margin-right: ${base.spacing.xsmall}px;
-`;
-
 export const RightArrowIcon = styled(RightArrow)`
   padding: 0 ${base.spacing.xsmall}px;
 
@@ -98,20 +90,20 @@ export const RightArrowIcon = styled(RightArrow)`
 `;
 
 export const CollectionAddButton = styled(TextButton)`
-  color: ${base.colors.whiteFaded};
+  color: ${base.colors.textFaded};
   font-size: ${base.font.size.h6};
   justify-content: left;
-  font-weight: 400;
+  font-weight: 500;
   margin: 0;
   padding: ${base.spacing.xsmall}px ${base.spacing.large}px;
   border-radius: 0;
 
   &:hover {
-    color: ${base.colors.white};
+    color: ${base.colors.text};
   }
 `;
 
 export const CollectionAddIcon = styled(AddIcon)`
-  width: 18px;
+  width: 16px;
   margin-right: ${base.spacing.xsmall}px;
 `;

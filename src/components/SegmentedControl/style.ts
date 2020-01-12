@@ -28,6 +28,6 @@ export const Control = styled(NavLink)`
 
   &.${props => props.activeClassName} {
     color: ${base.colors.text};
-    border-bottom: 3px solid ${base.colors.sidebar};
+    border-bottom: 3px solid ${base.colors.darkBorder};
   }
 `;

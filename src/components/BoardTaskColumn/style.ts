@@ -11,6 +11,8 @@ interface ColumnHeaderProps {
 export const StyledBoardTaskColumn = styled.div`
   display: flex;
   flex-direction: column;
+  padding: ${base.spacing.xsmall}px ${base.spacing.xsmall}px ${base.spacing.medium}px;
+  border-radius: ${base.BORDER_RADIUS}px;
 `;
 
 export const ColumnHeader = styled.div<ColumnHeaderProps>`
@@ -19,17 +21,15 @@ export const ColumnHeader = styled.div<ColumnHeaderProps>`
   justify-content: space-between;
   font-size: ${base.font.size.h5};
   line-height: 1;
-  font-weight: 500;
-  color: ${base.colors.task.unassigned};
+  font-weight: 600;
+  color: ${base.colors.highlight};
   padding-left: ${base.spacing.xxsmall}px;
-  /* color: ${({ status }) => handleTaskColor(status)}; */
-  /* border: 1px solid ${({ status }) => rgba(handleTaskColor(status), 0.20)}; */
 `;
 
 export const ColumnHeaderCounter = styled.div`
   font-size: ${base.font.size.small};
-  color: ${base.colors.white};
-  background: ${rgba(base.colors.task.unassigned, 0.2)};
+  color: ${base.colors.textFaded};
+  background: ${base.colors.hover};
   padding: ${base.spacing.xxsmall}px;
   border-radius: ${base.BORDER_RADIUS}px;
 `;

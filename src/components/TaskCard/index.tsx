@@ -5,9 +5,14 @@ import { StoreState } from "../../reducers";
 import { getFlow } from "../../selectors/getFlow";
 import {
   StyledTaskCard,
+  TaskCardContent,
+  FlowIcon,
+  DateIcon,
   FlowTitle,
   TaskTitle,
+  MetaContainer,
   AssignedContainer,
+  AvatarContainer,
   AssigneeAvatar
 } from "./style";
 
@@ -24,7 +29,12 @@ const TaskCard: React.FC<Props> = (props: Props) => {
   const renderAssignedAvatars = () => {
     return assigned.map(assignee => {
       return (
-        <AssigneeAvatar src={`${assignee.photoURL}=s48-c`} key={assignee.id} />
+        <AvatarContainer>
+          <AssigneeAvatar
+            src={`${assignee.photoURL}=s48-c`}
+            key={assignee.id}
+          />
+        </AvatarContainer>
       );
     });
   };
@@ -39,9 +49,13 @@ const TaskCard: React.FC<Props> = (props: Props) => {
         })
       }
     >
-      <FlowTitle>{props.flow.title}</FlowTitle>
-      <TaskTitle>{title}</TaskTitle>
-      <AssignedContainer>{renderAssignedAvatars()}</AssignedContainer>
+      <TaskCardContent>
+        <FlowTitle flowColor={props.flow.color}>{props.flow.title}</FlowTitle>
+        <TaskTitle>{title}</TaskTitle>
+        <MetaContainer>
+          <AssignedContainer>{renderAssignedAvatars()}</AssignedContainer>
+        </MetaContainer>
+      </TaskCardContent>
     </StyledTaskCard>
   );
 };

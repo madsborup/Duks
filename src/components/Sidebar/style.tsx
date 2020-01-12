@@ -8,11 +8,16 @@ interface FlowIconProps {
   flowColor: FLOW_COLOR;
 }
 
+interface SectionProps {
+  white?: boolean;
+}
+
 export const StyledSidebar = styled.div`
 `;
 
-export const SidebarSection = styled.div`
+export const SidebarSection = styled.div<SectionProps>`
   border-top: 1px solid ${base.colors.darkBorder};
+  background: ${({ white }) => white ? "white" : ""};
 
   &:first-child {
     border: 0;
@@ -46,7 +51,7 @@ export const FlowIcon = styled(FlowCircle)<FlowIconProps>`
 
 export const FlowDayCounter = styled.div<FlowIconProps>`
   border-radius: ${base.BORDER_RADIUS}px;
-  color: ${base.colors.whiteFaded};
+  color: ${base.colors.textFaded};
   line-height: 1;
   font-size: ${base.font.size.small};
   padding: ${base.spacing.xxsmall}px;

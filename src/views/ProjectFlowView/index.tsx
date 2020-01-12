@@ -12,7 +12,7 @@ import {
 } from "../../components/designSystem/layout";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
-import TaskCard from "../../components/TaskCard";
+import TaskCard from '../../components/TaskCard'
 
 interface Match {
   projectSlug: string;
@@ -54,8 +54,8 @@ class FlowView extends Component<Props> {
           return (
             <React.Fragment>
               <TaskCard
-                task={task}
                 flowSlug={flowSlug}
+                task={task}
                 key={task.id}
               />
             </React.Fragment>

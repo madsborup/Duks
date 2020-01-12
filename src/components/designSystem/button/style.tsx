@@ -22,7 +22,6 @@ export const StyledButton = styled.button<ButtonProps>`
   cursor: pointer;
 
   &:hover {
-    border: 1px solid ${base.colors.borderFocus};
     background: ${base.colors.selected};
   }
 

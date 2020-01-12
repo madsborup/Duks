@@ -1,15 +1,19 @@
 import styled from "styled-components";
 import base from "../designSystem/base";
+import { ReactComponent as ArrowDown } from "../../assets/svg/ArrowDown.svg";
 
 export const Container = styled.div`
-    border-radius: ${base.BORDER_RADIUS}px;
     background: ${base.colors.white};
-    height: 100%;
     padding: 0 ${base.spacing.xsmall}px;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+
+    &:hover {
+      background: ${base.colors.hover};
+    }
 `;
 
 export const ProfileImage = styled.img`
@@ -24,6 +28,7 @@ export const ProfileDetails = styled.div`
   flex-direction: column;
   justify-content: center;
   line-height: 1;
+  text-align: right;
 `;
 
 export const ProfileName = styled.span`
@@ -34,6 +39,10 @@ export const ProfileName = styled.span`
 
 export const ProfileEmail = styled.span`
   color: ${base.colors.meta};
-  font-weight: 400;
+  font-weight: 500;
   font-size: ${base.font.size.small};
+`;
+
+export const ArrowIcon = styled(ArrowDown)`
+  margin-left: ${base.spacing.xxsmall}px;
 `;
