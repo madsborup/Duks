@@ -8,10 +8,10 @@ export const StyledProjectCard = styled.div`
   display: flex;
 
   &:hover {
-    background: ${base.colors.navbarHover};
+    background: ${base.colors.hover};
 
     path {
-      stroke: ${base.colors.white};
+      stroke: ${base.colors.text};
     }
   }
 `;
@@ -23,7 +23,7 @@ export const ProjectAvatarContainer = styled.div`
 export const ProjectAvatar = styled(NavLink)`
   display: inline-block;
   border-radius: ${base.BORDER_RADIUS}px;
-  background: ${base.colors.meta};
+  background: ${base.colors.textMuted};
   height: 54px;
   width: 54px;
 `;
@@ -31,7 +31,7 @@ export const ProjectAvatar = styled(NavLink)`
 export const ProjectMetaContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: ${base.spacing.small}px;
+  padding: ${base.spacing.small}px ${base.spacing.medium}px;
   width: 100%;
 
   cursor: pointer;
@@ -40,13 +40,13 @@ export const ProjectMetaContainer = styled.div`
 export const ProjectTitle = styled.span`
   font-size: ${base.font.size.h6};
   color: ${base.colors.text};
-  font-weight: 600;
+  font-weight: 500;
 `;
 
 export const ProjectDescription = styled.span`
   font-size: ${base.font.size.h6};
   font-weight: 400;
-  color: ${base.colors.whiteFaded};
+  color: ${base.colors.textMuted};
 `;
 
 export const ProjectActionsContainer = styled.div`
@@ -55,10 +55,6 @@ export const ProjectActionsContainer = styled.div`
   justify-content: flex-end;
   padding: 0 ${base.spacing.small}px;
   cursor: pointer;
-
-  &:hover {
-    background: ${base.colors.darkBorder};
-  }
 `;
 
 export const DropdownIcon = styled(ArrowDown)`

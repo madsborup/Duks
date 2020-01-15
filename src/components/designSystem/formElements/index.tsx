@@ -1,5 +1,5 @@
-export * from './input'
+export * from './Input'
 export * from './form'
 export * from './select'
-export * from './textarea'
+export * from './TextArea'
 export * from './label'

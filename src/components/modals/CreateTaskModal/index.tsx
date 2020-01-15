@@ -11,7 +11,12 @@ import {
 import { getProject } from "../../../selectors/getProject";
 import { StoreState } from "../../../reducers";
 import { ModalBody, ModalTitle, CloseButton, ModalActions } from "../styles";
-import { StyledForm, Input, Select } from "../../designSystem/formElements";
+import {
+  StyledForm,
+  Input,
+  Select,
+  TextArea
+} from "../../designSystem/formElements";
 import { TextButton, PrimaryButton } from "../../designSystem/button";
 
 interface Props {
@@ -23,8 +28,15 @@ interface Props {
 }
 
 class CreateTaskModal extends Component<Props> {
-  handleTaskSubmit = (title: string, flowSlug: string, assigned: string[]) => {
-    const handleAssignedMembers: MemberData[] = this.props.currentProject.members.filter(
+  onTaskSubmit = (
+    title: string,
+    description: string,
+    flowSlug: string,
+    assigned: string[]
+  ) => {
+
+    //get member objects from project to save to task
+    const assignedMembers: MemberData[] = this.props.currentProject.members.filter(
       member => {
         return _.includes(assigned, member.id);
       }
@@ -32,20 +44,15 @@ class CreateTaskModal extends Component<Props> {
 
     this.props.createTask(
       title,
+      description,
       this.props.projectSlug,
       flowSlug,
-      handleAssignedMembers
+      assignedMembers
     );
     this.props.closeModal();
   };
 
-  renderFlowOptions() {
-    return this.props.flows.map((flow: FlowData) => {
-      return { label: flow.title, value: flow.slug };
-    });
-  }
-
-  renderAssignOptions(): {label: string; value: string}[] {
+  handleAssignOptions(): { label: string; value: string }[] {
     const noAssignment = { label: "No one right now", value: "" };
 
     const options = this.props.currentProject.members.map(member => {
@@ -55,16 +62,29 @@ class CreateTaskModal extends Component<Props> {
     return options;
   }
 
+  renderFlowOptions() {
+    return this.props.flows.map((flow: FlowData) => {
+      return { label: flow.title, value: flow.slug };
+    });
+  }
+
   render() {
     return (
       <ModalBody>
         <CloseButton onClick={() => this.props.closeModal()} />
         <ModalTitle>New task</ModalTitle>
         <Formik
-          initialValues={{ title: "", flowSlug: "", assigned: [], status: null }}
+          initialValues={{
+            title: "",
+            description: "",
+            flowSlug: "",
+            assigned: [],
+            status: null
+          }}
           onSubmit={values => {
-            this.handleTaskSubmit(
+            this.onTaskSubmit(
               values.title,
+              values.description,
               values.flowSlug,
               values.assigned
             );
@@ -79,6 +99,12 @@ class CreateTaskModal extends Component<Props> {
                 value={formik.values.title}
                 onChange={formik.handleChange}
               />
+              <TextArea
+                name="description"
+                label="Description"
+                value={formik.values.description}
+                onChange={formik.handleChange}
+              />
               <Select
                 label="Flow"
                 name="flowSlug"
@@ -90,7 +116,7 @@ class CreateTaskModal extends Component<Props> {
                 label="Assign task to"
                 name="assigned"
                 value={formik.values.assigned}
-                options={this.renderAssignOptions()}
+                options={this.handleAssignOptions()}
                 onChange={formik.handleChange}
               />
               <ModalActions>

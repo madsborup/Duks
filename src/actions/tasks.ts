@@ -1,18 +1,18 @@
 import { firestore } from "../firebase";
 import { Dispatch } from "redux";
 import _ from "lodash";
-import { MemberData } from './projects'
+import { MemberData } from "./projects";
 import { ActionTypes } from "../actions";
 import { StoreState } from "../reducers";
 import { addDocToCollection } from "../firebase/utils/addDocToCollection";
 
 export enum TASK_STATUS {
-  UNASSIGNED,
-  NOT_STARTED,
-  STUCK,
-  STARTED,
-  REVIEW,
-  COMPLETED
+  UNASSIGNED = "Unassigned",
+  NOT_STARTED = "Not started",
+  STUCK = "Stuck",
+  STARTED = "Started",
+  REVIEW = "Ready for review",
+  COMPLETED = "Completed"
 }
 
 export interface TaskData {
@@ -61,6 +61,7 @@ export interface DeleteTaskAction {
 
 export const createTask = (
   title: string,
+  description: string,
   projectSlug: string,
   flowSlug: string,
   assigned: MemberData[]
@@ -68,12 +69,15 @@ export const createTask = (
   const creator = getState().auth.user.uid;
 
   addDocToCollection("tasks", {
+    title: title,
+    description: description,
+    assigned: assigned,
     flowSlug: flowSlug,
     projectSlug: projectSlug,
     createdBy: creator,
-    title: title,
-    assigned: assigned,
-    status: _.isEmpty(assigned) ? TASK_STATUS.UNASSIGNED : TASK_STATUS.NOT_STARTED
+    status: _.isEmpty(assigned)
+      ? TASK_STATUS.UNASSIGNED
+      : TASK_STATUS.NOT_STARTED
   });
 
   dispatch<CreateTaskAction>({
@@ -108,8 +112,8 @@ export const fetchTasks = (projectSlug: string) => async (
 
         tasks = snapshot.docs.reduce(
           (prev, doc) => ({
-            ...prev, 
-            [doc.data().slug]: {...doc.data(), ['id']: doc.id}
+            ...prev,
+            [doc.data().slug]: { ...doc.data(), ["id"]: doc.id }
           }),
           {}
         );
@@ -122,12 +126,16 @@ export const fetchTasks = (projectSlug: string) => async (
   }
 };
 
-export const editTask = (id: string, values: {}) => async (dispatch: Dispatch) => {
-
+export const editTask = (
+  id: string,
+  values: { title: string; description: string; assigned: MemberData[]; status: TASK_STATUS }
+) => async (dispatch: Dispatch) => {
   try {
-    firestore.collection('tasks').doc(id).update(values);
+    firestore
+      .collection("tasks")
+      .doc(id)
+      .update(values);
+  } catch (e) {
+    console.log("Error updating task", e);
   }
-  catch(e) {
-    console.log("Error updating task", e)
-  }
-} 
+};

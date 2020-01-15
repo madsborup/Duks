@@ -1,8 +1,5 @@
-import React from 'react'
 import styled from 'styled-components'
-import Formik, { useField } from 'formik'
-import { StyledLabel } from './label'
-import base from '../base'
+import base from '../../base'
 
 export const StyledInput = styled.input`
   font-size: ${base.font.size.regular};
@@ -18,28 +15,11 @@ export const StyledInput = styled.input`
   }
 
   &:focus {
-    border: 1px solid ${base.colors.highlight};
+    border: 1px solid ${base.colors.primary};
   }
 `;
 
-interface Props {
-  label: string;
-}
-
-export const Input: React.FC<Formik.FieldAttributes<Props>>= ({label, ...props}) => {
-  const [field, meta ] = useField(props);
-
-  return (
-    <React.Fragment>
-      <StyledLabel htmlFor={props.name}>{label}</StyledLabel>
-      <StyledInput {...field} {...props}>
-        {meta.touched && meta.error ? (<div>{meta.error}</div>) : null }
-      </StyledInput>
-    </React.Fragment>
-  )
-}
-
-export const BigInput = styled.input`
+export const StyledBigInput = styled.input`
   font-size: ${base.font.size.h3};
   font-weight: 500;
   line-height: 1;

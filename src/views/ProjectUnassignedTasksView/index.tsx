@@ -26,19 +26,19 @@ interface Props extends RouteComponentProps<Match> {
 const ProjectUnassignedTasksView: React.FC<Props> = (props: Props) => {
   const { projectSlug } = props.match.params;
 
-  // const renderTasks = () => {
-  //   return props.tasks.map((task: TaskData) => {
-  //     return (
-  //       <React.Fragment>
-  //         <TaskCard
-  //           task={task}
-  //           flow={{ title: "flow title", color: "#000" }}
-  //           key={task.id}
-  //         />
-  //       </React.Fragment>
-  //     );
-  //   });
-  // };
+  const renderTasks = () => {
+    return props.tasks.map((task: TaskData) => {
+      return (
+        <React.Fragment>
+          <TaskCard
+            task={task}
+            flowSlug={task.flowSlug}
+            key={task.id}
+          />
+        </React.Fragment>
+      );
+    });
+  };
 
   return (
     <ViewGrid>
@@ -49,7 +49,7 @@ const ProjectUnassignedTasksView: React.FC<Props> = (props: Props) => {
         <SecondColumn>
           <Header title="Unassigned tasks" projectSlug={projectSlug} />
           <StyledProjectUnassignedTasksView>
-            {/* {renderTasks()} */}
+            {renderTasks()}
           </StyledProjectUnassignedTasksView>
         </SecondColumn>
       </TwoColumnGrid>

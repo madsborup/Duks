@@ -5,29 +5,28 @@ import base from "../designSystem/base";
 export const StyledSegmentedControl = styled.div`
   display: flex;
   border-bottom: 1px solid ${base.colors.border};
-  background: #ebeef5;
-  height: 100%;
+  background: ${base.colors.subHeading};
+  width: 100%;
 `;
 
 export const Control = styled(NavLink)`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 ${base.spacing.xlarge}px;
-  width: 100%;
-  background: ${base.colors.white};
-  color: ${base.colors.textFaded};
-  font-size: ${base.font.size.regular};
+  padding: ${base.spacing.xsmall}px ${base.spacing.medium}px;
+  color: ${base.colors.textMuted};
+  font-size: ${base.font.size.h5};
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 400;
+  border-bottom: 2px solid transparent;
+  border-top: 1px solid transparent;
 
   &:hover {
-    background: ${base.colors.hover};
-    color: ${base.colors.meta};
+    background: ${base.colors.viewBackground};
   }
 
   &.${props => props.activeClassName} {
-    color: ${base.colors.text};
-    border-bottom: 3px solid ${base.colors.darkBorder};
+    color: ${base.colors.primary};
+    border-bottom: 2px solid ${base.colors.primary};
   }
 `;

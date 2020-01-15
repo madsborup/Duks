@@ -18,7 +18,7 @@ export const StyledNavbar = styled.div`
   width: ${NAVBAR_WIDTH}px;
   background-color: ${base.colors.navbar};
   overflow: hidden auto;
-  /* box-shadow: inset 0 16px 8px -4px black, inset 0 -16px 8px -4px black; */
+  z-index: 999;
 
   &::-webkit-scrollbar {
     display: none;
@@ -40,7 +40,7 @@ export const ProjectLink = styled(NavLink)`
   margin-bottom: ${base.spacing.medium}px;
 
   rect {
-    fill: ${base.colors.whiteFaded};
+    fill: ${base.colors.viewBackground};
     opacity: 0.8;
   }
 

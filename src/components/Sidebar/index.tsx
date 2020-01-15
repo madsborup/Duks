@@ -17,7 +17,14 @@ import LinkList from "../LinkList";
 import CollectionList from "../CollectionList";
 import { ReactComponent as BoardsIcon } from "../../assets/svg/BoardsIcon.svg";
 import { ReactComponent as UnassignedIcon } from "../../assets/svg/UnassignedIcon.svg";
-import { StyledSidebar, SidebarSection, FlowIcon, FlowDayCounter } from "./style";
+import {
+  StyledSidebar,
+  SidebarSection,
+  RightArrowIcon,
+  FlowIcon,
+  FlowAttributes,
+  FlowDayCounter
+} from "./style";
 
 interface Props extends RouteComponentProps {
   currentProject: ProjectData;
@@ -91,8 +98,12 @@ class Sidebar extends Component<Props> {
               return {
                 label: flow.title,
                 slug: flow.slug,
-                firstIcon: (<FlowIcon flowColor={flow.color} />),
-                secondIcon: (<FlowDayCounter flowColor={flow.color}>24d</FlowDayCounter>)
+                firstIcon: (
+                  <FlowIcon flowColor={flow.color} />
+                ),
+                secondIcon: (
+                  <RightArrowIcon />
+                )
               };
             })}
             buttonProps={{
@@ -108,7 +119,7 @@ class Sidebar extends Component<Props> {
               return { label: member.name, photoURL: member.photoURL };
             })}
             buttonProps={{
-              content: "Invite a person",
+              content: "Invite",
               onButtonClick: this.showCreateFlowModal
             }}
           />

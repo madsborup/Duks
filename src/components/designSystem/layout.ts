@@ -39,6 +39,7 @@ export const FirstColumn = styled.section`
   max-width: ${MAX_FIRST_COLUMN_WIDTH}px;
   grid-area: first;
   background: ${base.colors.sidebar};
+  border-right: 1px solid ${base.colors.border};
 
   ::-webkit-scrollbar {
     display: none;

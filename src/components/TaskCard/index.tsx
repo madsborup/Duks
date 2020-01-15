@@ -1,22 +1,27 @@
 import React, { Component } from "react";
+import { compose } from "redux";
 import { connect } from "react-redux";
+import { withRouter, RouteComponentProps } from "react-router";
 import { TaskData, FlowData, showModal } from "../../actions";
 import { StoreState } from "../../reducers";
 import { getFlow } from "../../selectors/getFlow";
 import {
   StyledTaskCard,
   TaskCardContent,
-  FlowIcon,
-  DateIcon,
   FlowTitle,
   TaskTitle,
   MetaContainer,
+  FlowIcon,
   AssignedContainer,
   AvatarContainer,
   AssigneeAvatar
 } from "./style";
 
-interface Props {
+interface Match {
+  projectSlug: string;
+}
+
+interface Props extends RouteComponentProps<Match>{
   task: TaskData;
   flowSlug: string;
   flow: FlowData;
@@ -25,6 +30,7 @@ interface Props {
 
 const TaskCard: React.FC<Props> = (props: Props) => {
   const { title, assigned } = props.task;
+  const { projectSlug } = props.match.params;
 
   const renderAssignedAvatars = () => {
     return assigned.map(assignee => {
@@ -44,14 +50,13 @@ const TaskCard: React.FC<Props> = (props: Props) => {
       flowColor={props.flow.color}
       onClick={() =>
         props.showModal({
-          modalProps: { open: true, task: props.task },
+          modalProps: { open: true, task: props.task, projectSlug: projectSlug },
           modalType: "EDIT_TASK_MODAL"
         })
       }
     >
-      <TaskCardContent>
-        <FlowTitle flowColor={props.flow.color}>{props.flow.title}</FlowTitle>
-        <TaskTitle>{title}</TaskTitle>
+      <TaskCardContent flowColor={props.flow.color}>
+        <TaskTitle flowColor={props.flow.color}>{title}</TaskTitle>
         <MetaContainer>
           <AssignedContainer>{renderAssignedAvatars()}</AssignedContainer>
         </MetaContainer>
@@ -60,13 +65,16 @@ const TaskCard: React.FC<Props> = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state: any, ownProps: any) => {
+const mapStateToProps = (state: StoreState, ownProps: any) => {
   return {
     flow: getFlow(state, ownProps)
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { showModal }
+export default compose<React.ComponentType<{flowSlug: string, task: TaskData}>>(
+  withRouter,
+  connect(
+    mapStateToProps,
+    { showModal }
+  )
 )(TaskCard);

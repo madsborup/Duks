@@ -1,50 +1,42 @@
 import styled from "styled-components";
-import { tint } from "polished";
+import { rgba } from "polished";
 import base from "../designSystem/base";
-import { FLOW_COLOR } from "../../actions";
 import { ReactComponent as FlowCircle } from "../../assets/svg/FlowCircle.svg";
 import { ReactComponent as CalendarIcon } from "../../assets/svg/CalendarIcon.svg";
 
-interface ContainerProps {
-  flowColor: FLOW_COLOR;
+interface Props {
+  flowColor: string;
 }
 
-export const FlowTitle = styled.div<ContainerProps>`
-  color: ${({ flowColor }) => flowColor};
-  background: ${({ flowColor }) => tint(0.9, flowColor)};
-  align-items: flex-start;
-  padding: 4px;
-  line-height: 1;
-  font-size: ${base.font.size.small};
-  border-radius: 2px;
-  font-weight: 400;
-`;
-
-export const StyledTaskCard = styled.div<ContainerProps>`
+export const StyledTaskCard = styled.div<Props>`
   display: flex;
   flex-direction: column;
   padding: ${base.spacing.xxsmall}px;
   margin-top: ${base.spacing.xsmall}px;
   border-radius: ${base.BORDER_RADIUS}px;
+  border-left: 5px solid ${({ flowColor }) => rgba(flowColor, 0.8)};
   cursor: pointer;
-  background: ${base.colors.white};
+  background: #FEFEFE;
   transition: box-shadow 0.2s ease-in-out;
-  box-shadow: 0 3px 2px RGBA(216, 220, 225, 0.8);
+  box-shadow: 
+    0 1px 3px 1px RGBA(217, 217, 219, 0.6)
+  ;
 
   &:hover {
-    box-shadow: 0 4px 14px RGBA(216, 220, 225, 1);
+    box-shadow: 0 4px 14px RGBA(217, 217, 219, 1);
   }
 `;
 
-export const TaskCardContent = styled.div`
+export const TaskCardContent = styled.div<Props>`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: ${base.spacing.xxsmall}px;
   border-radius: 2px;
+  overflow: hidden;
 `;
 
-export const FlowIcon = styled(FlowCircle)<ContainerProps>`
+export const FlowIcon = styled(FlowCircle)<Props>`
   min-width: 10px;
   width: 10px;
   margin-right: ${base.spacing.xsmall}px;
@@ -59,11 +51,28 @@ export const DateIcon = styled(CalendarIcon)`
   width: 16px;
 `;
 
-export const TaskTitle = styled.span`
+export const FlowTitle = styled.div<Props>`
+  display: flex;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+  color: ${base.colors.textMuted};
+  padding: 4px ${base.spacing.xxsmall}px;
+  line-height: 1;
+  font-size: ${base.font.size.small};
+  border-radius: 2px;
+  font-weight: 400;
+`;
+
+export const TaskTitle = styled.span<Props>`
   color: ${base.colors.text};
   font-size: ${base.font.size.h6};
   font-weight: 400;
-  margin: ${base.spacing.xxsmall}px 0;
+  line-height: 1.5;
+  margin: 0 0 ${base.spacing.xxsmall}px;
 `;
 
 export const MetaContainer = styled.div`
@@ -80,14 +89,14 @@ export const AssignedContainer = styled.div`
 `;
 
 export const AvatarContainer = styled.div`
-  border: 2px solid white;
-  height: 24px;
-  width: 24px;
-  border-radius: 12px;
+  height: 26px;
+  width: 26px;
+  border-radius: 50%;
+  opacity: 0.9;
   margin: 0 0 0 -${base.spacing.xsmall}px;
 `;
 
 export const AssigneeAvatar = styled.img`
   width: 100%;
-  border-radius: 12px;
+  border-radius: 50%;
 `;

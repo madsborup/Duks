@@ -1,6 +1,5 @@
 import React from "react";
-import { TASK_STATUS, TaskData } from "../../actions";
-import H2 from "../designSystem/H2";
+import { TaskData } from "../../actions";
 import TaskCard from "../TaskCard";
 import {
   StyledBoardTaskColumn,
@@ -9,28 +8,20 @@ import {
 } from "./style";
 
 interface Props {
-  status: TASK_STATUS;
+  headerContent: React.ReactNode;
   tasks: TaskData[];
 }
 
 const BoardTaskColumn: React.FC<Props> = (props: Props) => {
-  const statusLabels = {
-    [TASK_STATUS.UNASSIGNED]: "Unassigned",
-    [TASK_STATUS.NOT_STARTED]: "Not started",
-    [TASK_STATUS.STARTED]: "Started",
-    [TASK_STATUS.STUCK]: "Stuck",
-    [TASK_STATUS.REVIEW]: "Ready to be checked",
-    [TASK_STATUS.COMPLETED]: "Completed"
-  };
 
   const renderTaskCards = () => {
-    return props.tasks.map((task: TaskData) => {
+    return props.tasks.map((task: TaskData, i) => {
       return (
-        <React.Fragment key={task.id}>
+        <React.Fragment>
           <TaskCard
             flowSlug={task.flowSlug}
             task={task}
-            key={task.id}
+            key={i}
           />
         </React.Fragment>
       );
@@ -39,9 +30,8 @@ const BoardTaskColumn: React.FC<Props> = (props: Props) => {
 
   return (
     <StyledBoardTaskColumn>
-      <ColumnHeader status={props.status}>
-        {statusLabels[props.status]}
-        <ColumnHeaderCounter>{props.tasks.length}</ColumnHeaderCounter>
+      <ColumnHeader>
+        {props.headerContent}
       </ColumnHeader>
       {renderTaskCards()}
     </StyledBoardTaskColumn>

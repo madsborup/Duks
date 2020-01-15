@@ -7,13 +7,20 @@ import base from "../base";
 export const StyledSelect = styled.select`
   padding: ${base.spacing.xsmall}px ${base.spacing.small}px;
   font-size: ${base.font.size.regular};
+  border: 1px solid ${base.colors.border};
   font-weight: 400;
+  box-shadow: none;
+  outline: none;
   cursor: pointer;
+  
+  &:focus {
+    border: 1px solid ${base.colors.primary};
+  }
 `;
 
 interface Props {
   label: string;
-  options: {label: string, value: string | number | undefined}[]
+  options: {label: string, value: string | number | undefined }[]
 }
 
 export const Select: React.FC<Formik.FieldAttributes<Props>> = ({ label, ...props }) => {

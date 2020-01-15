@@ -1,24 +1,25 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
-import { TextButton } from "../designSystem/button";
+import { Button } from "../designSystem/button";
 import base from "../designSystem/base";
 import { ReactComponent as RightArrow } from "../../assets/svg/RightArrow.svg";
-import { ReactComponent as AddIcon } from "../../assets/svg/AddIcon.svg";
+import { ReactComponent as PlusIcon } from "../../assets/svg/PlusIcon.svg";
 
 export const StyledCollectionList = styled.div`
   display: flex;
   flex-direction: column;
-  padding: ${base.spacing.small}px 0;
+  padding-bottom: ${base.spacing.small}px;
 `;
 
 export const ListHeader = styled.span`
   font-size: ${base.font.size.small};
   font-weight: 600;
-  text-transform: uppercase;
   color: ${base.colors.text};
-  padding: ${base.spacing.xxsmall}px ${base.spacing.small}px;
-  margin-bottom: ${base.spacing.xxsmall}px;
-  letter-spacing: ${base.font.letterSpacing.heading};
+  background: ${base.colors.heading};
+  padding: ${base.spacing.xsmall}px ${base.spacing.medium}px;
+  text-transform: uppercase;
+  border-bottom: 1px solid ${base.colors.border};
+  border-top: 1px solid ${base.colors.border};
   cursor: default;
 `;
 
@@ -27,13 +28,13 @@ export const ListItem = styled.div`
   align-items: center;
   white-space: nowrap;
   overflow: hidden;
-  padding: ${base.spacing.xsmall}px ${base.spacing.small}px;
+  padding: ${base.spacing.xsmall}px ${base.spacing.medium}px;
 `;
 
 export const IconContainer = styled.div`
   display: flex;
   z-index: 999;
-  /* box-shadow: -8px 1px 9px 9px ${base.colors.white}; */
+  border-radius: 2px;
   margin: 0 ${base.spacing.xxsmall}px;
 `;
 
@@ -44,11 +45,11 @@ export const ListLink = styled(NavLink)`
   text-decoration: none;
   font-size: ${base.font.size.h6};
   font-weight: 400;
-  color: ${base.colors.text};
+  color: ${base.colors.textMuted};
   cursor: pointer;
 
   &:hover {
-    background: ${base.colors.navbarHover};
+    background: ${base.colors.hover};
 
     &.${IconContainer} {
       box-shadow: -16px 0px 1px 7px ${base.colors.selected};
@@ -56,10 +57,11 @@ export const ListLink = styled(NavLink)`
   }
 
   &.${props => props.activeClassName} {
+    color: ${base.colors.text};
     background: ${base.colors.selected};
 
     svg path {
-      stroke: ${base.colors.white};
+      stroke: ${base.colors.text};
     }
 
     &.${IconContainer} {
@@ -75,9 +77,9 @@ export const ListItemText = styled.span`
 `;
 
 export const ListItemImage = styled.img`
-  height: 24px;
-  width: 24px;
-  border-radius: 12px;
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
   margin-right: ${base.spacing.xsmall}px;
 `;
 
@@ -85,25 +87,22 @@ export const RightArrowIcon = styled(RightArrow)`
   padding: 0 ${base.spacing.xsmall}px;
 
   path {
-    stroke: ${base.colors.whiteFaded};
+    stroke: ${base.colors.textMuted};
   }
 `;
 
-export const CollectionAddButton = styled(TextButton)`
-  color: ${base.colors.textFaded};
+export const CollectionAddButton = styled(Button)`
+  color: ${base.colors.text};
   font-size: ${base.font.size.h6};
-  justify-content: left;
-  font-weight: 500;
-  margin: 0;
-  padding: ${base.spacing.xsmall}px ${base.spacing.large}px;
-  border-radius: 0;
-
+  align-self: center;
+  padding: ${base.spacing.xxsmall}px ${base.spacing.medium}px;
+  
   &:hover {
     color: ${base.colors.text};
   }
 `;
 
-export const CollectionAddIcon = styled(AddIcon)`
-  width: 16px;
+export const CollectionAddIcon = styled(PlusIcon)`
+  width: 11px;
   margin-right: ${base.spacing.xsmall}px;
 `;

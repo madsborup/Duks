@@ -3,7 +3,6 @@ import base from "../designSystem/base";
 import { ReactComponent as ArrowDown } from "../../assets/svg/ArrowDown.svg";
 
 export const Container = styled.div`
-    background: ${base.colors.white};
     padding: 0 ${base.spacing.xsmall}px;
     height: 100%;
     display: flex;
@@ -17,9 +16,9 @@ export const Container = styled.div`
 `;
 
 export const ProfileImage = styled.img`
-  border-radius: 20px;
   height: 40px;
   width: 40px;
+  border-radius: 50%;
 `;
 
 export const ProfileDetails = styled.div`
@@ -38,7 +37,7 @@ export const ProfileName = styled.span`
 `;
 
 export const ProfileEmail = styled.span`
-  color: ${base.colors.meta};
+  color: ${base.colors.textMuted};
   font-weight: 500;
   font-size: ${base.font.size.small};
 `;

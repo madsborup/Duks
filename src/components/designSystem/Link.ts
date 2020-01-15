@@ -6,6 +6,6 @@ export const Link = styled(RouterLink)`
     text-decoration: none;
 
     &:hover, &:focus {
-        ${base.colors.highlight};
+        ${base.colors.primary};
     }
 `;

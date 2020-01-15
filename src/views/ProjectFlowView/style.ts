@@ -5,7 +5,7 @@ export const Container = styled.div`
     display: flex;
     height: 100%;
     flex-direction: column;
-    background: ${base.colors.viewBg};
+    background: ${base.colors.viewBackground};
 `;
 
 export const Message = styled.h1`

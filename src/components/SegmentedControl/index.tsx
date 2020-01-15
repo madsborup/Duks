@@ -11,6 +11,7 @@ const SegmentedControl: React.FC<Props> = (props: Props) => {
     return props.controls.map(control => {
       return (
         <Control
+          exact 
           activeClassName="selected"
           to={`${control.path}`}
           key={control.path}

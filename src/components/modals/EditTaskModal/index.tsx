@@ -1,33 +1,86 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { editTask, TaskData } from "../../../actions";
 import { Formik } from "formik";
+import { StoreState } from "../../../reducers";
+import _, { includes } from "lodash";
+import { statusLabels } from "../../../utils/statusLabels";
+import {
+  editTask,
+  TaskData,
+  TASK_STATUS,
+  ProjectData,
+  MemberData
+} from "../../../actions";
+import { getProject } from "../../../selectors/getProject";
 import { ModalBody, ModalTitle, CloseButton, ModalActions } from "../styles";
 import {
   StyledForm,
-  StyledLabel,
   BigInput,
-  StyledInput,
   Select,
-  StyledTextArea
+  TextArea
 } from "../../designSystem/formElements";
 import { TextButton, PrimaryButton } from "../../designSystem/button";
 
-export interface Props {
+interface Props {
   task: TaskData;
+  projectSlug: string;
+  currentProject: ProjectData;
   closeModal: Function;
-  editTask: (id: string, values: {}) => {};
+  editTask: Function;
+}
+
+interface FormValues {
+  title: string;
+  description: string;
+  assigned: string[];
+  status: TASK_STATUS;
 }
 
 const EditTaskModal: React.FC<Props> = (props: Props) => {
-  const { title, description, assigned, flowSlug, id } = props.task;
-  const initialValues = {
-    title: title,
+  const { id, title, description, assigned, status } = props.task;
+  const initialValues: FormValues = {
+    title,
     description,
     assigned: assigned.map(assignee => {
-      return { label: assignee.name, value: assignee.id };
+      return assignee.id;
     }),
-    flowSlug
+    status
+  };
+
+  const onEditSubmit = (
+    title: string,
+    description: string,
+    assigned: string[],
+    status: TASK_STATUS
+  ) => {
+    const assignedMembers: MemberData[] = props.currentProject.members.filter(
+      member => {
+        return _.includes(assigned, member.id);
+      }
+    );
+
+    props.editTask(id, {
+      title,
+      description,
+      assigned: assignedMembers,
+      status
+    });
+  };
+
+  const handleAssignOptions = (): { label: string; value: string }[] => {
+    const noAssignment = { label: "No one right now", value: "" };
+    const options = props.currentProject.members.map(member => {
+      return { label: member.name, value: member.id };
+    });
+
+    options.push(noAssignment);
+    return options;
+  };
+
+  const handleStatusOptions = (): { label: string; value: string }[] => {
+    return Object.values(TASK_STATUS).map(status => {
+      return { label: statusLabels[status], value: status };
+    });
   };
 
   return (
@@ -35,25 +88,40 @@ const EditTaskModal: React.FC<Props> = (props: Props) => {
       <CloseButton onClick={() => props.closeModal()} />
       <Formik
         initialValues={initialValues}
-        onSubmit={values => {
-          props.editTask(id, values);
+        onSubmit={({ title, description, assigned, status }) => {
+          onEditSubmit(title, description, assigned, status);
           props.closeModal();
         }}
       >
-        {formProps => (
-          <StyledForm onSubmit={formProps.handleSubmit}>
-            <BigInput
-              onChange={formProps.handleChange}
+        {formik => (
+          <StyledForm onSubmit={formik.handleSubmit}>
+            <TextArea
               type="text"
+              label="Task title"
               name="title"
-              placeholder="New project"
-              value={formProps.initialValues.title}
+              big
+              value={formik.values.title}
+              onChange={formik.handleChange}
+            />
+            <TextArea
+              name="description"
+              label="Description"
+              value={formik.values.description}
+              onChange={formik.handleChange}
             />
             <Select
               name="assigned"
               label="Assigned to"
-              placeholder="New project"
-              options={formProps.initialValues.assigned}
+              options={handleAssignOptions()}
+              onChange={formik.handleChange}
+              value={formik.values.assigned}
+            />
+            <Select
+              name="status"
+              label="Status"
+              options={handleStatusOptions()}
+              onChange={formik.handleChange}
+              value={formik.values.status}
             />
             <ModalActions>
               <TextButton onClick={() => props.closeModal()}>Close</TextButton>
@@ -66,7 +134,13 @@ const EditTaskModal: React.FC<Props> = (props: Props) => {
   );
 };
 
+const mapStateToProps = (state: StoreState, ownProps: Props) => {
+  return {
+    currentProject: getProject(state, ownProps)
+  };
+};
+
 export default connect(
-  null,
+  mapStateToProps,
   { editTask }
 )(EditTaskModal);

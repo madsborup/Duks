@@ -5,7 +5,7 @@ import { tint } from "polished";
 
 export const StyledButton = styled.button<ButtonProps>`
   font-size: ${base.font.size.regular};
-  font-weight: 500;
+  font-weight: 400;
   color: ${base.colors.text};
   background: ${base.colors.white};
   padding: ${props =>
@@ -22,7 +22,7 @@ export const StyledButton = styled.button<ButtonProps>`
   cursor: pointer;
 
   &:hover {
-    background: ${base.colors.selected};
+    background: ${base.colors.hover};
   }
 
   &:focus {
@@ -34,13 +34,13 @@ export const StyledButton = styled.button<ButtonProps>`
 `;
 
 export const StyledPrimaryButton = styled(StyledButton)`
-  background: ${base.colors.highlight};
+  background: ${base.colors.primary};
   color: ${base.colors.white};
-  border: 1px solid ${base.colors.highlight};
+  border: 1px solid ${base.colors.primary};
   transition: box-shadow 0.2s ease-in-out;
 
   &:hover {
-    background: ${base.colors.highlightFaded};
+    background: ${base.colors.primaryMuted};
   }
 `;
 
@@ -51,7 +51,7 @@ export const StyledTextButton = styled(StyledButton)`
   margin: 0 ${base.spacing.medium}px;
 
   &:hover {
-    color: ${base.colors.textFaded};
+    color: ${base.colors.textMuted};
     border: 1px solid transparent;
     background: none;
   }

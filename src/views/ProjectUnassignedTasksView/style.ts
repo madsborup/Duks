@@ -6,6 +6,6 @@ export const StyledProjectUnassignedTasksView = styled.section`
   flex-direction: column;
   height: 100%;
   border-radius: ${base.BORDER_RADIUS};
-  background: ${base.colors.viewBg};
+  background: ${base.colors.viewBackground};
   padding: ${base.spacing.small}px;
 `;

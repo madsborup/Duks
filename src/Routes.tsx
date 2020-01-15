@@ -16,7 +16,7 @@ import AppViewWrapper from "./components/AppViewWrapper";
 import Navbar from "./components/Navbar";
 import ProjectView from "./views/ProjectView";
 import ProjectBoardPeopleView from "./views/ProjectBoardPeopleView";
-import ProjectBoardView from "./views/ProjectBoardView";
+import BoardsView from "./views/BoardsView";
 import ProjectUnassignedTasksView from './views/ProjectUnassignedTasksView'
 import ProjectFlowView from "./views/ProjectFlowView";
 import AppViewRedirect from "./views/AppViewRedirect";
@@ -44,19 +44,8 @@ class Routes extends React.Component<Props> {
             <Route path="/" exact component={AppViewRedirect} />
             <Route path="/:projectSlug" exact component={ProjectView} />
             <Route
-              path="/:projectSlug/boards/"
-              exact
-              component={ProjectBoardView}
-            />
-            <Route
-              path="/:projectSlug/unassigned/"
-              exact
-              component={ProjectUnassignedTasksView}
-            />
-            <Route
-              path="/:projectSlug/boards/people"
-              exact
-              component={ProjectBoardPeopleView}
+              path="/:projectSlug/boards"
+              component={BoardsView}
             />
             <Route
               path="/:projectSlug/:flowSlug"

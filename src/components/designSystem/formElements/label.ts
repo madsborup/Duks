@@ -5,8 +5,8 @@ export const StyledLabel = styled.label`
   display: flex;
   flex-direction: column;
   font-size: ${base.font.size.regular};
-  font-weight: 500;
-  color: ${base.colors.meta};
+  font-weight: 400;
+  color: ${base.colors.textMuted};
   width: 100%;
   letter-spacing: ${base.font.letterSpacing.heading};
   margin: ${base.spacing.small}px 0 ${base.spacing.xxsmall}px;

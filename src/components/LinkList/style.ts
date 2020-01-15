@@ -5,7 +5,6 @@ import base from '../designSystem/base'
 export const StyledLinkList = styled.div`
   display: flex;
   flex-direction: column;
-  padding: ${base.spacing.small}px 0;
 `;
 
 export const Link = styled(NavLink)`
@@ -14,13 +13,10 @@ export const Link = styled(NavLink)`
   text-decoration: none;
   padding: ${base.spacing.small}px ${base.spacing.medium}px;
   color: ${base.colors.text};
-
-  &:first-child {
-    border-top: 0;
-  }
+  border-top: 1px solid ${base.colors.border};
 
   &:hover {
-    background: ${base.colors.navbarHover};
+    background: ${base.colors.hover};
 
   }
 
@@ -28,7 +24,7 @@ export const Link = styled(NavLink)`
     background: ${base.colors.selected};
 
     svg rect {
-      fill: ${base.colors.text};
+      fill: ${base.colors.iconDark};
     }
   }
 `;
@@ -37,7 +33,7 @@ export const LinkContent = styled.div`
   display: flex;
   align-items: center;
   font-size: ${base.font.size.h5};
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: ${base.font.letterSpacing.heading};
   line-height: 1;
 
@@ -47,7 +43,7 @@ export const LinkContent = styled.div`
     margin-right: ${base.spacing.xsmall}px;
 
     rect {
-      fill: ${base.colors.text};
+      fill: ${base.colors.iconDark};
     }
   }
 `;

@@ -26,7 +26,7 @@ export const modalStyles = {
     bottom: "auto",
     left: "auto",
     right: "auto",
-    padding: `${base.spacing.small}px`,
+    padding: `${base.spacing.medium}px`,
     width: "100%",
     maxWidth: "460px",
     borderRadius: `${base.BORDER_RADIUS}px`,

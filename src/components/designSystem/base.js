@@ -16,39 +16,30 @@ const SCALES = {
 
 export default {
   colors: {
+    //Backgrounds and interactions
     white: "#FFFFFF",
-    whiteFaded: "#1B2782",
-    bg: "#FFF",
-    viewBg: "#FFF",
-    navbar: "#101B70",
-    navbarFaded: "#c3c7d6",
-    navbarHover: "#dfe0f0",
-    sidebar: "#e1e4eb",
-    text: "#19223A",
-    textFaded: `${rgba("#19223A", 0.6)}`,
-    meta: "#627384",
-    border: "#EEEFF2",
-    darkBorder: "#c5c8d9",
-    borderFocus: "#d9d9d9",
-    highlight: "#101B70",
-    highlightFaded: `${tint(0.1, "#101B70")};`,
-    hover: `${tint(0.94, "#4960F8")};`,
-    selected: "#d5d7e8",
+    background: "#FFF",
+    viewBackground: "#F3F3F5",
+    navbar: "#201C3A",
+    sidebar: "#FFF",
+    heading: "#F3F3F5",
+    subHeading: "#FAFAFB",
+    border: "#E1E1E5",
+    hover: "#FAFAFB",
+    selected: `${tint(0.85, "#5FAAFC")}`,
+    //Typography and icons
+    text: "#4C4760",
+    textMuted: "#A9A6B6",
+    iconDark: "#7B7788",
+    iconLight: "#FAFAFB",
+    //Palette
+    primary: "#5A51FB",
+    primaryMuted: `${tint(0.1, "#5A51FB")};`,
+    secondary: "#5FAAFC",
+    disabled: "#E1E1E5",
+    danger: "#5FAAFC",
+    //Misc.
     boxShadow: "0 4px 14px rgba(27, 23, 45, 0.20)",
-    task: {
-      unassigned: "#5e6b7a",
-      unassignedFaded: `${rgba("#666373", 0.25)}`,
-      notStarted: "#5e6b7a",
-      notStartedFaded: `${rgba("#666373", 0.25)}`,
-      started: "#F8AB42",
-      startedFaded: `${rgba("#FFA621", 0.25)}`,
-      stuck: "#FF3423",
-      stuckFaded: `${rgba("#FF222F", 0.25)}`,
-      review: "#1A58E6",
-      reviewFaded: `${rgba("#2442F0", 0.25)}`,
-      completed: "#5AC040",
-      completedFaded: `${rgba("#00CC51", 0.25)}`,
-    }
   },
   font: {
     family: {

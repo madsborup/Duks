@@ -20,7 +20,7 @@ interface Match {
 interface Props extends RouteComponentProps<Match> {
   title?: string;
   collection: {
-    label: string;
+    label?: string;
     slug?: string;
     photoURL?: string;
     firstIcon?: React.ReactNode;

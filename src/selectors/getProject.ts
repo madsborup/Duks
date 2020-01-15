@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect'
+import { ProjectsData } from '../actions'
 import { StoreState } from '../reducers'
 
 interface Props {

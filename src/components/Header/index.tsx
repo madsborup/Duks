@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { signOut, showModal } from "../../actions";
 import {
-  Container,
-  DescriptionContainer,
-  DescriptionMeta,
+  StyledHeader,
+  Title,
   ActionsContainer
 } from "./style";
 import Profile from '../Profile'
@@ -21,11 +20,10 @@ interface Props {
 
 const Header: React.FC<Props> = (props: Props) => {
   return (
-    <Container>
-      {props.title ? (<H1>{props.title}</H1>) : null}
+    <StyledHeader>
+      {props.title ? (<Title>{props.title}</Title>) : null}
       {props.children}
-      <ActionsContainer>
-        <PrimaryButton
+      <PrimaryButton
           onClick={() =>
             props.showModal({
               modalProps: { open: true, projectSlug: props.projectSlug },
@@ -35,10 +33,11 @@ const Header: React.FC<Props> = (props: Props) => {
         >
           New Task
         </PrimaryButton>
+      <ActionsContainer>
         <Button onClick={() => props.signOut()}>Logout</Button>
         <Profile />
       </ActionsContainer>
-    </Container>
+    </StyledHeader>
   );
 };
 
