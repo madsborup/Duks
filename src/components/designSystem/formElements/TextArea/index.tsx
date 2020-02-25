@@ -13,7 +13,7 @@ export const TextArea: React.FC<Formik.FieldAttributes<Props>>= ({label, ...prop
 
   return (
     <React.Fragment>
-      <StyledLabel htmlFor={props.name}>{label}</StyledLabel>
+      {label && <StyledLabel htmlFor={props.name}>{label}</StyledLabel>}
       <StyledTextArea {...field} {...props}>
         {meta.touched && meta.error ? (<div>{meta.error}</div>) : null }
       </StyledTextArea>

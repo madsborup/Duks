@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import base from '../../base'
+import styled from "styled-components/macro";
+import base from "../../base";
 
 export const StyledInput = styled.input`
   font-size: ${base.font.size.regular};
@@ -34,5 +34,14 @@ export const StyledBigInput = styled.input`
   &:focus {
     border: 1px solid ${base.colors.border};
     cursor: text;
+  }
+`;
+export const StyledSwitch = styled.input`
+  height: 20px;
+  width: 20px;
+  border: 1px solid grey;
+
+  &:checked {
+    background: blue;
   }
 `;
