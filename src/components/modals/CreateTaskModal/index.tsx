@@ -68,9 +68,11 @@ class CreateTaskModal extends Component<Props> {
   };
 
    handlePriorityOptions(): { label: string; value: string }[] {
-    return Object.values(TASK_PRIORITY).map(priority => {
+    const options = Object.values(TASK_PRIORITY).map(priority => {
       return { label: priority, value: priority };
     });
+
+    return options.reverse()
   };
 
   render() {
