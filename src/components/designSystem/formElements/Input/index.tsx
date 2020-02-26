@@ -4,7 +4,7 @@ import { StyledLabel } from "../label";
 import {
   StyledInput,
   StyledBigInput,
-  StyledSwitch
+  StyledSwitch,
 } from "./style";
 
 interface Props {
@@ -52,7 +52,12 @@ export const Switch: React.FC<Formik.FieldAttributes<Props>> = ({
   return (
     <React.Fragment>
       {label && <StyledLabel htmlFor={props.name}>{label}</StyledLabel>}
-      <StyledSwitch type="checkbox" checked={field.value} {...field} {...props} />
+      <StyledSwitch
+        type="checkbox"
+        checked={field.value}
+        {...field}
+        {...props}
+      />
     </React.Fragment>
   );
 };

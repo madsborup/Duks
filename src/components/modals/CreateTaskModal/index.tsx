@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Formik } from "formik";
-import _, { includes } from "lodash";
+import _, { includes } from 'lodash'
 import {
   ProjectData,
   MemberData,
@@ -15,6 +15,7 @@ import {
   StyledForm,
   Input,
   Select,
+  SelectMultipleImage,
   TextArea
 } from "../../designSystem/formElements";
 import { TextButton, PrimaryButton } from "../../designSystem/button";
@@ -34,7 +35,6 @@ class CreateTaskModal extends Component<Props> {
     flowSlug: string,
     assigned: string[]
   ) => {
-
     //get member objects from project to save to task
     const assignedMembers: MemberData[] = this.props.currentProject.members.filter(
       member => {
@@ -52,15 +52,11 @@ class CreateTaskModal extends Component<Props> {
     this.props.closeModal();
   };
 
-  handleAssignOptions(): { label: string; value: string }[] {
-    const noAssignment = { label: "No one right now", value: "" };
-
-    const options = this.props.currentProject.members.map(member => {
-      return { label: member.name, value: member.id };
+  handleAssignOptions(): { imgUrl: string; value: string }[] {
+    return this.props.currentProject.members.map(member => {
+      return { imgUrl: member.photoURL, value: member.id };
     });
-    options.push(noAssignment);
-    return options;
-  }
+  };
 
   renderFlowOptions() {
     return this.props.flows.map((flow: FlowData) => {
@@ -73,11 +69,12 @@ class CreateTaskModal extends Component<Props> {
       <ModalBody>
         <CloseButton onClick={() => this.props.closeModal()} />
         <ModalTitle>New task</ModalTitle>
+        {console.log(this.props.flows[0].slug)}
         <Formik
           initialValues={{
             title: "",
             description: "",
-            flowSlug: "",
+            flowSlug: this.props.flows[0].slug,
             assigned: [],
             status: null
           }}
@@ -112,12 +109,11 @@ class CreateTaskModal extends Component<Props> {
                 options={this.renderFlowOptions()}
                 onChange={formik.handleChange}
               />
-              <Select
-                label="Assign task to"
+              <SelectMultipleImage 
                 name="assigned"
-                value={formik.values.assigned}
+                label="Assign task to"
+                values={formik.values.assigned}
                 options={this.handleAssignOptions()}
-                onChange={formik.handleChange}
               />
               <ModalActions>
                 <TextButton onClick={() => this.props.closeModal()}>

@@ -1,5 +1,5 @@
 import styled from "styled-components/macro";
-import Select from 'react-select'
+import Select from "react-select";
 import base from "../../base";
 
 export const StyledSelect = styled.select`
@@ -13,5 +13,37 @@ export const StyledSelect = styled.select`
 
   &:focus {
     border: 1px solid ${base.colors.primary};
+  }
+`;
+
+interface OptionProps {
+  imgUrl: string;
+}
+
+export const StyledSelectMultipleImage = styled.div`
+  display: flex;
+  padding-top: ${base.spacing.xxsmall}px;
+`;
+
+export const ImageCheckbox = styled.input<OptionProps>`
+  background-image: ${({ imgUrl }) => `url(${imgUrl})`};
+  background-size: cover;
+  width: 45px;
+  height: 45px;
+  margin: 0;
+  outline: 0;
+  border-radius: 50%;
+  margin-right: ${base.spacing.xsmall}px;
+  opacity: 0.5;
+  filter: grayscale(1);
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.6;
+  }
+
+  &:checked {
+    opacity: 1;
+    filter: grayscale(0);
   }
 `;

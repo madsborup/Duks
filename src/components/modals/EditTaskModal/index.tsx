@@ -3,7 +3,9 @@ import { connect } from "react-redux";
 import { Formik } from "formik";
 import { StoreState } from "../../../reducers";
 import _, { includes } from "lodash";
-import { statusLabels } from "../../../utils/statusLabels";
+import { statusLabels, FORM_TASK_STATUS } from "../../../utils/statusLabels";
+import { getProject } from "../../../selectors/getProject";
+import { ModalBody, ModalTitle, CloseButton, ModalActions } from "../styles";
 import {
   editTask,
   TaskData,
@@ -11,12 +13,14 @@ import {
   ProjectData,
   MemberData
 } from "../../../actions";
-import { getProject } from "../../../selectors/getProject";
-import { ModalBody, ModalTitle, CloseButton, ModalActions } from "../styles";
 import {
-  StyledForm,
-  BigInput,
+  TwoColumnForm,
+  FirstColumn,
+  SecondColumn,
+  FormActions,
+  Switch,
   Select,
+  SelectMultipleImage,
   TextArea
 } from "../../designSystem/formElements";
 import { TextButton, PrimaryButton } from "../../designSystem/button";
@@ -34,24 +38,36 @@ interface FormValues {
   description: string;
   assigned: string[];
   status: TASK_STATUS;
+  isStuck: boolean;
 }
 
 const EditTaskModal: React.FC<Props> = (props: Props) => {
-  const { id, title, description, assigned, status } = props.task;
+  const {
+    id,
+    title,
+    description,
+    assigned,
+    status,
+    isStuck,
+    createdAt
+  } = props.task;
+
   const initialValues: FormValues = {
     title,
     description,
     assigned: assigned.map(assignee => {
       return assignee.id;
     }),
-    status
+    status,
+    isStuck
   };
 
   const onEditSubmit = (
     title: string,
     description: string,
     assigned: string[],
-    status: TASK_STATUS
+    status: TASK_STATUS,
+    isStuck: boolean
   ) => {
     const assignedMembers: MemberData[] = props.currentProject.members.filter(
       member => {
@@ -63,71 +79,84 @@ const EditTaskModal: React.FC<Props> = (props: Props) => {
       title,
       description,
       assigned: assignedMembers,
-      status
+      status,
+      isStuck
     });
   };
 
-  const handleAssignOptions = (): { label: string; value: string }[] => {
-    const noAssignment = { label: "No one right now", value: "" };
+  const handleAssignOptions = (): { imgUrl: string; value: string }[] => {
     const options = props.currentProject.members.map(member => {
-      return { label: member.name, value: member.id };
+      return { imgUrl: member.photoURL, value: member.id };
     });
 
-    options.push(noAssignment);
     return options;
   };
 
   const handleStatusOptions = (): { label: string; value: string }[] => {
-    return Object.values(TASK_STATUS).map(status => {
+    return Object.values(FORM_TASK_STATUS).map(status => {
       return { label: statusLabels[status], value: status };
     });
   };
 
   return (
-    <ModalBody>
+    <ModalBody big>
       <CloseButton onClick={() => props.closeModal()} />
       <Formik
         initialValues={initialValues}
-        onSubmit={({ title, description, assigned, status }) => {
-          onEditSubmit(title, description, assigned, status);
+        onSubmit={({ title, description, assigned, status, isStuck }) => {
+          onEditSubmit(title, description, assigned, status, isStuck);
           props.closeModal();
         }}
       >
         {formik => (
-          <StyledForm onSubmit={formik.handleSubmit}>
-            <TextArea
-              type="text"
-              label="Task title"
-              name="title"
-              big
-              value={formik.values.title}
-              onChange={formik.handleChange}
-            />
-            <TextArea
-              name="description"
-              label="Description"
-              value={formik.values.description}
-              onChange={formik.handleChange}
-            />
-            <Select
-              name="assigned"
-              label="Assigned to"
-              options={handleAssignOptions()}
-              onChange={formik.handleChange}
-              value={formik.values.assigned}
-            />
-            <Select
-              name="status"
-              label="Status"
-              options={handleStatusOptions()}
-              onChange={formik.handleChange}
-              value={formik.values.status}
-            />
-            <ModalActions>
-              <TextButton onClick={() => props.closeModal()}>Close</TextButton>
-              <PrimaryButton type="submit">Save</PrimaryButton>
-            </ModalActions>
-          </StyledForm>
+          <TwoColumnForm onSubmit={formik.handleSubmit}>
+            <FirstColumn>
+              <TextArea
+                type="text"
+                name="title"
+                big
+                value={formik.values.title}
+                onChange={formik.handleChange}
+              />
+              <TextArea
+                name="description"
+                label="Description"
+                value={formik.values.description}
+                onChange={formik.handleChange}
+              />
+              <SelectMultipleImage 
+                name="assigned"
+                label="Assigned to"
+                values={formik.values.assigned}
+                options={handleAssignOptions()}
+              />
+              {assigned && assigned.length > 0 && (
+                <Select
+                  name="status"
+                  label="Status"
+                  options={handleStatusOptions()}
+                  onChange={formik.handleChange}
+                  value={formik.values.status}
+                />
+              )}
+            </FirstColumn>
+            <SecondColumn>
+              <Switch
+                name="isStuck"
+                label="Stuck?"
+              />
+              Created: {createdAt.toDate().getDate()}/
+              {createdAt.toDate().getMonth() + 1}{" "}
+            </SecondColumn>
+            <FormActions>
+              <ModalActions>
+                <TextButton onClick={() => props.closeModal()}>
+                  Close
+                </TextButton>
+                <PrimaryButton type="submit">Save</PrimaryButton>
+              </ModalActions>
+            </FormActions>
+          </TwoColumnForm>
         )}
       </Formik>
     </ModalBody>

@@ -4,11 +4,11 @@ import base from "./components/designSystem/base";
 export const GlobalStyle = createGlobalStyle`
 
     * {
-        text-rendering: optimizelegibility;
         margin: 0;
         padding: 0;
         -webkit-appearance: none;
-        -webkit-font-smoothing: auto;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizelegibility;
     }
 
     html {

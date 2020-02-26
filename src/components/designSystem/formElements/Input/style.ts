@@ -21,7 +21,7 @@ export const StyledInput = styled.input`
 
 export const StyledBigInput = styled.input`
   font-size: ${base.font.size.h3};
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1;
   border: 1px solid transparent;
   border-radius: ${base.BORDER_RADIUS}px;
@@ -36,6 +36,7 @@ export const StyledBigInput = styled.input`
     cursor: text;
   }
 `;
+
 export const StyledSwitch = styled.input`
   height: 20px;
   width: 20px;
