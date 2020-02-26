@@ -9,7 +9,6 @@ import { addDocToCollection } from "../firebase/utils/addDocToCollection";
 export enum TASK_STATUS {
   UNASSIGNED = "Unassigned",
   NOT_STARTED = "Not started",
-  STUCK = "Stuck",
   STARTED = "Started",
   REVIEW = "Ready for review",
   COMPLETED = "Completed"
@@ -17,14 +16,16 @@ export enum TASK_STATUS {
 
 export interface TaskData {
   id: string;
-  flowSlug: string;
-  projectSlug: string;
-  createdBy: string;
   title: string;
   description: string;
   assigned: MemberData[];
   status: TASK_STATUS;
-  date: Date;
+  isStuck: boolean;
+  date: firebase.firestore.Timestamp;
+  createdBy: string;
+  createdAt: firebase.firestore.Timestamp;
+  flowSlug: string;
+  projectSlug: string;
 }
 
 export interface TasksData {
@@ -77,7 +78,8 @@ export const createTask = (
     createdBy: creator,
     status: _.isEmpty(assigned)
       ? TASK_STATUS.UNASSIGNED
-      : TASK_STATUS.NOT_STARTED
+      : TASK_STATUS.NOT_STARTED,
+    isStuck: false
   });
 
   dispatch<CreateTaskAction>({
@@ -128,7 +130,12 @@ export const fetchTasks = (projectSlug: string) => async (
 
 export const editTask = (
   id: string,
-  values: { title: string; description: string; assigned: MemberData[]; status: TASK_STATUS }
+  values: {
+    title: string;
+    description: string;
+    assigned: MemberData[];
+    status: TASK_STATUS;
+  }
 ) => async (dispatch: Dispatch) => {
   try {
     firestore
