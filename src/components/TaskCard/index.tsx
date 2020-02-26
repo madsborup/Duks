@@ -2,24 +2,25 @@ import React, { Component } from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { withRouter, RouteComponentProps } from "react-router";
-import { TaskData, FlowData, showModal } from "../../actions";
+import { TaskData, TASK_PRIORITY, FlowData, showModal } from "../../actions";
 import Tooltip from "../Tooltip";
 import { StoreState } from "../../reducers";
 import { getFlow } from "../../selectors/getFlow";
 import {
   StyledTaskCard,
   TaskCardContent,
-  FlowLabel,
   TaskTitle,
   MetaContainer,
   DangerLabel,
+  PriorityLabelLow,
+  PriorityLabelMedium,
+  PriorityLabelHigh,
   Date,
   DateIcon,
   TaskInfoContainer,
   AssignedContainer,
   AvatarContainer,
-  AssigneeAvatar,
-  FlowTitle
+  AssigneeAvatar
 } from "./style";
 
 interface Match {
@@ -51,7 +52,18 @@ const TaskCard: React.FC<Props> = (props: Props) => {
   };
 
   const HandleDate = (timestamp: firebase.firestore.Timestamp): string => {
-    return `${timestamp.toDate().getDate()}/${timestamp.toDate().getMonth() + 1}`;
+    return `${timestamp.toDate().getDate()}/${timestamp.toDate().getMonth() +
+      1}`;
+  };
+
+  const HandlePriority = (priority: TASK_PRIORITY) => {
+    if (priority === TASK_PRIORITY.LOW) {
+      return <PriorityLabelLow />;
+    } else if (priority === TASK_PRIORITY.MEDIUM) {
+      return <PriorityLabelMedium />;
+    } else if (priority === TASK_PRIORITY.HIGH) {
+      return <PriorityLabelHigh />;
+    }
   };
 
   if (props.task && props.flow) {
@@ -75,7 +87,13 @@ const TaskCard: React.FC<Props> = (props: Props) => {
           <TaskTitle flowColor={props.flow.color}>{title}</TaskTitle>
           <MetaContainer>
             <TaskInfoContainer>
-              {props.task.date && <Date><DateIcon />{HandleDate(props.task.date)}</Date>}
+              {HandlePriority(props.task.priority)}
+              {props.task.date && (
+                <Date>
+                  <DateIcon />
+                  {HandleDate(props.task.date)}
+                </Date>
+              )}
               {props.task.isStuck && <DangerLabel>Stuck</DangerLabel>}
             </TaskInfoContainer>
             <AssignedContainer>{renderAssignedAvatars()}</AssignedContainer>
@@ -89,6 +107,7 @@ const TaskCard: React.FC<Props> = (props: Props) => {
   return <div>No flow</div>;
 };
 
+//TODO: fix any type
 const mapStateToProps = ({ flows }: StoreState, ownProps: any) => {
   return {
     flow: getFlow(flows, ownProps)

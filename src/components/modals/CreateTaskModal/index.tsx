@@ -5,6 +5,7 @@ import _, { includes } from 'lodash'
 import {
   ProjectData,
   MemberData,
+  TASK_PRIORITY,
   createTask,
   FlowData
 } from "../../../actions";
@@ -33,6 +34,7 @@ class CreateTaskModal extends Component<Props> {
     title: string,
     description: string,
     flowSlug: string,
+    priority: TASK_PRIORITY,
     assigned: string[]
   ) => {
     //get member objects from project to save to task
@@ -47,10 +49,17 @@ class CreateTaskModal extends Component<Props> {
       description,
       this.props.projectSlug,
       flowSlug,
+      priority,
       assignedMembers
     );
     this.props.closeModal();
   };
+
+  handleFlowOptions(): { label: string; value: string }[] {
+    return this.props.flows.map((flow: FlowData) => {
+      return { label: flow.title, value: flow.slug };
+    });
+  }
 
   handleAssignOptions(): { imgUrl: string; value: string }[] {
     return this.props.currentProject.members.map(member => {
@@ -58,11 +67,11 @@ class CreateTaskModal extends Component<Props> {
     });
   };
 
-  renderFlowOptions() {
-    return this.props.flows.map((flow: FlowData) => {
-      return { label: flow.title, value: flow.slug };
+   handlePriorityOptions(): { label: string; value: string }[] {
+    return Object.values(TASK_PRIORITY).map(priority => {
+      return { label: priority, value: priority };
     });
-  }
+  };
 
   render() {
     return (
@@ -75,6 +84,7 @@ class CreateTaskModal extends Component<Props> {
             title: "",
             description: "",
             flowSlug: this.props.flows[0].slug,
+            priority: TASK_PRIORITY.MEDIUM,
             assigned: [],
             status: null
           }}
@@ -83,6 +93,7 @@ class CreateTaskModal extends Component<Props> {
               values.title,
               values.description,
               values.flowSlug,
+              values.priority,
               values.assigned
             );
           }}
@@ -106,7 +117,14 @@ class CreateTaskModal extends Component<Props> {
                 label="Flow"
                 name="flowSlug"
                 value={formik.values.flowSlug}
-                options={this.renderFlowOptions()}
+                options={this.handleFlowOptions()}
+                onChange={formik.handleChange}
+              />
+              <Select
+                label="Priority"
+                name="priority"
+                value={formik.values.priority}
+                options={this.handlePriorityOptions()}
                 onChange={formik.handleChange}
               />
               <SelectMultipleImage 

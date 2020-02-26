@@ -22,7 +22,9 @@ interface OptionProps {
 
 export const StyledSelectMultipleImage = styled.div`
   display: flex;
-  padding-top: ${base.spacing.xxsmall}px;
+  padding: ${base.spacing.xxsmall}px;
+  border-radius: ${base.BORDER_RADIUS}px;
+  padding-left: ${base.spacing.small}px;
 `;
 
 export const ImageCheckbox = styled.input<OptionProps>`
@@ -34,12 +36,12 @@ export const ImageCheckbox = styled.input<OptionProps>`
   outline: 0;
   border-radius: 50%;
   margin-right: ${base.spacing.xsmall}px;
-  opacity: 0.5;
+  opacity: 0.45;
   filter: grayscale(1);
   cursor: pointer;
 
   &:hover {
-    opacity: 0.6;
+    opacity: 0.55;
   }
 
   &:checked {

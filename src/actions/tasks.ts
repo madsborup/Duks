@@ -14,12 +14,19 @@ export enum TASK_STATUS {
   COMPLETED = "Completed"
 }
 
+export enum TASK_PRIORITY {
+  LOW = "Low",
+  MEDIUM = "Medium",
+  HIGH = "High"
+}
+
 export interface TaskData {
   id: string;
   title: string;
   description: string;
   assigned: MemberData[];
   status: TASK_STATUS;
+  priority: TASK_PRIORITY;
   isStuck: boolean;
   date: firebase.firestore.Timestamp;
   createdBy: string;
@@ -65,6 +72,7 @@ export const createTask = (
   description: string,
   projectSlug: string,
   flowSlug: string,
+  priority: TASK_PRIORITY,
   assigned: MemberData[]
 ) => async (dispatch: Dispatch, getState: () => StoreState) => {
   const creator = getState().auth.user.uid;
@@ -74,6 +82,7 @@ export const createTask = (
     description: description,
     assigned: assigned,
     flowSlug: flowSlug,
+    priority: priority,
     projectSlug: projectSlug,
     createdBy: creator,
     status: _.isEmpty(assigned)

@@ -3,6 +3,9 @@ import { rgba, tint } from "polished";
 import base from "../designSystem/base";
 import { ReactComponent as FlowCircle } from "../../assets/svg/FlowCircle.svg";
 import { ReactComponent as CalendarIcon } from "../../assets/svg/CalendarIcon.svg";
+import { ReactComponent as PriorityLowIcon } from "../../assets/svg/priority_low.svg";
+import { ReactComponent as PriorityMediumIcon } from "../../assets/svg/priority_medium.svg";
+import { ReactComponent as PriorityHighIcon } from "../../assets/svg/priority_high.svg";
 
 interface Props {
   flowColor: string;
@@ -20,14 +23,15 @@ export const StyledTaskCard = styled.div<TaskCardProps>`
   margin-top: ${base.spacing.xsmall}px;
   border-radius: ${base.BORDER_RADIUS}px;
   cursor: pointer;
-  border-left: 4px solid ${({ flowColor }) => rgba(flowColor, 0.8)};
+  border-left: 5px solid ${({ flowColor }) => rgba(flowColor, 0.8)};
   background: ${base.colors.white};
   transition: box-shadow 0.2s ease-in-out;
-  box-shadow: 0 0 0 1px ${base.colors.border};
+  transition: transform 0.2s ease-in-out;
+  box-shadow: 1px 1px 2px 1px rgba(217, 217, 219, 0.6);
 
   &:hover {
-    box-shadow: 0 2px 8px 4px RGBA(0, 0, 0, 0.1),
-      0 0 0 1px ${base.colors.border};
+    box-shadow: 0 2px 8px 4px RGBA(0, 0, 0, 0.1);
+    transform: translateY(-2px);
   }
 `;
 
@@ -98,15 +102,35 @@ export const TaskInfoContainer = styled.div`
 `;
 
 export const DangerLabel = styled.div`
-  background: ${tint(0.94, base.colors.danger)};
-  border: 1px solid ${tint(0.7, base.colors.danger)};
-  padding: 3px;
+  background: ${base.colors.viewBackground};
+  border: 1px solid ${base.colors.border};
+  padding: 4px 4px 3px 4px;
+  height: 100%;
   font-size: 0.7rem;
   text-transform: uppercase;
-  font-weight: 600;
+  line-height: 1;
+  font-weight: 700;
   letter-spacing: 0.2px;
-  color: ${base.colors.danger};
+  color: ${base.colors.text};
   border-radius: 2px;
+`;
+
+export const PriorityLabelLow = styled(PriorityLowIcon)`
+  height: 16px;
+  width: 16px;
+  margin-right: ${base.spacing.xsmall}px;
+`;
+
+export const PriorityLabelMedium = styled(PriorityMediumIcon)`
+  height: 16px;
+  width: 16px;
+  margin-right: ${base.spacing.xsmall}px;
+`;
+
+export const PriorityLabelHigh = styled(PriorityHighIcon)`
+  height: 16px;
+  width: 16px;
+  margin-right: ${base.spacing.xsmall}px;
 `;
 
 export const Date = styled.div`
@@ -138,11 +162,10 @@ export const AssignedContainer = styled.div`
 `;
 
 export const AvatarContainer = styled.div`
-  height: 24px;
-  width: 24px;
+  height: 25px;
+  width: 25px;
   border-radius: 50%;
   opacity: 0.95;
-  border: 2px solid white;
   margin: 0 0 0 -${base.spacing.xsmall}px;
 `;
 

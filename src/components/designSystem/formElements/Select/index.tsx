@@ -46,6 +46,7 @@ export const Select: React.FC<Formik.FieldAttributes<Props>> = ({
   );
 };
 
+//TODO: better name
 export const SelectMultipleImage: React.FC<
   Formik.FieldAttributes<SelectMultipleImageProps>
 > = ({ label, ...props }) => {

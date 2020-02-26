@@ -10,6 +10,7 @@ import {
   editTask,
   TaskData,
   TASK_STATUS,
+  TASK_PRIORITY,
   ProjectData,
   MemberData
 } from "../../../actions";
@@ -37,6 +38,7 @@ interface FormValues {
   title: string;
   description: string;
   assigned: string[];
+  priority: TASK_PRIORITY;
   status: TASK_STATUS;
   isStuck: boolean;
 }
@@ -47,6 +49,7 @@ const EditTaskModal: React.FC<Props> = (props: Props) => {
     title,
     description,
     assigned,
+    priority,
     status,
     isStuck,
     createdAt
@@ -58,6 +61,7 @@ const EditTaskModal: React.FC<Props> = (props: Props) => {
     assigned: assigned.map(assignee => {
       return assignee.id;
     }),
+    priority,
     status,
     isStuck
   };
@@ -66,6 +70,7 @@ const EditTaskModal: React.FC<Props> = (props: Props) => {
     title: string,
     description: string,
     assigned: string[],
+    priority: TASK_PRIORITY,
     status: TASK_STATUS,
     isStuck: boolean
   ) => {
@@ -79,6 +84,7 @@ const EditTaskModal: React.FC<Props> = (props: Props) => {
       title,
       description,
       assigned: assignedMembers,
+      priority,
       status,
       isStuck
     });
@@ -98,13 +104,26 @@ const EditTaskModal: React.FC<Props> = (props: Props) => {
     });
   };
 
+  const handlePriorityOptions = (): { label: string; value: string }[] => {
+    return Object.values(TASK_PRIORITY).map(priority => {
+      return { label: priority, value: priority };
+    });
+  };
+
   return (
     <ModalBody big>
       <CloseButton onClick={() => props.closeModal()} />
       <Formik
         initialValues={initialValues}
-        onSubmit={({ title, description, assigned, status, isStuck }) => {
-          onEditSubmit(title, description, assigned, status, isStuck);
+        onSubmit={({
+          title,
+          description,
+          assigned,
+          priority,
+          status,
+          isStuck
+        }) => {
+          onEditSubmit(title, description, assigned, priority, status, isStuck);
           props.closeModal();
         }}
       >
@@ -124,11 +143,21 @@ const EditTaskModal: React.FC<Props> = (props: Props) => {
                 value={formik.values.description}
                 onChange={formik.handleChange}
               />
-              <SelectMultipleImage 
+              <SelectMultipleImage
                 name="assigned"
                 label="Assigned to"
                 values={formik.values.assigned}
                 options={handleAssignOptions()}
+              />
+            </FirstColumn>
+            <SecondColumn>
+              <Switch name="isStuck" label="Stuck?" />
+              <Select
+                label="Priority"
+                name="priority"
+                value={formik.values.priority}
+                options={handlePriorityOptions()}
+                onChange={formik.handleChange}
               />
               {assigned && assigned.length > 0 && (
                 <Select
@@ -139,14 +168,10 @@ const EditTaskModal: React.FC<Props> = (props: Props) => {
                   value={formik.values.status}
                 />
               )}
-            </FirstColumn>
-            <SecondColumn>
-              <Switch
-                name="isStuck"
-                label="Stuck?"
-              />
-              Created: {createdAt.toDate().getDate()}/
-              {createdAt.toDate().getMonth() + 1}{" "}
+              {/* <div>
+                Created: {createdAt.toDate().getDate()}/
+                {createdAt.toDate().getMonth() + 1}{" "}
+              </div> */}
             </SecondColumn>
             <FormActions>
               <ModalActions>
