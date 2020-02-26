@@ -1,9 +1,8 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import base from "../designSystem/base";
 import { tint, rgba } from "polished";
 import { PrimaryButton } from "../designSystem/button";
-import { ReactComponent as FlowCircle } from "../../assets/svg/FlowCircle.svg";
-import { ReactComponent as FlowRectangle } from "../../assets/svg/FlowIcon.svg";
+import { ReactComponent as flow_icon } from "../../assets/svg/flow_icon.svg";
 import { ReactComponent as RightArrow } from "../../assets/svg/RightArrow.svg";
 
 interface FlowIconProps {
@@ -11,9 +10,12 @@ interface FlowIconProps {
 }
 
 export const StyledSidebar = styled.div`
+
 `;
 
 export const SidebarSection = styled.div`
+  border-top: 1px solid ${base.colors.border};
+
   &:first-child {
     border: 0;
   }
@@ -35,13 +37,17 @@ export const NewTaskButton = styled(PrimaryButton)`
   border-bottom: 4px solid ${base.colors.primary};
 `;
 
-export const FlowIcon = styled(FlowCircle)<FlowIconProps>`
-  min-width: 11px;
-  width: 11px; 
-  padding-right: 8px;
+export const FlowIcon = styled(flow_icon)<FlowIconProps>`
+  min-width: 12px;
+  width: 12px;
+  margin-right: ${base.spacing.xsmall}px; 
 
-  circle {
-    fill: ${({ flowColor }) => rgba(flowColor, 0.6)};
+  #inner {
+    fill: ${({ flowColor }) => flowColor};
+  }
+
+  #outer {
+    stroke: ${({ flowColor }) => flowColor};
   }
 `;
 

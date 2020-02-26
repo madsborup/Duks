@@ -10,16 +10,14 @@ import {
 import { ThemeProvider } from "styled-components";
 import ModalRoot from "./components/modals/ModalRoot";
 import { StoreState } from "./reducers";
-import { GlobalStyle } from "./globalStyles";
 import theme from "./components/designSystem/base";
 import AppViewWrapper from "./components/AppViewWrapper";
 import Navbar from "./components/Navbar";
 import ProjectView from "./views/ProjectView";
-import ProjectBoardPeopleView from "./views/ProjectBoardPeopleView";
 import BoardsView from "./views/BoardsView";
-import ProjectUnassignedTasksView from './views/ProjectUnassignedTasksView'
-import ProjectFlowView from "./views/ProjectFlowView";
-import AppViewRedirect from "./views/AppViewRedirect";
+import UnassignedTasksView from "./views/UnassignedTasksView";
+import ProjectFlowView from "./views/FlowView";
+import AppViewRedirect from "./views/viewHelpers/AppViewRedirect";
 
 interface Match {
   projectSlug: string;
@@ -36,16 +34,17 @@ class Routes extends React.Component<Props> {
 
     return (
       <ThemeProvider theme={theme}>
-        <GlobalStyle />
         <ModalRoot />
         <Navbar />
         <AppViewWrapper>
           <Switch>
             <Route path="/" exact component={AppViewRedirect} />
             <Route path="/:projectSlug" exact component={ProjectView} />
+            <Route path="/:projectSlug/boards" component={BoardsView} />
             <Route
-              path="/:projectSlug/boards"
-              component={BoardsView}
+              path="/:projectSlug/unassigned"
+              exact
+              component={UnassignedTasksView}
             />
             <Route
               path="/:projectSlug/:flowSlug"

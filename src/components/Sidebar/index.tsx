@@ -76,15 +76,15 @@ class Sidebar extends Component<Props> {
         </SidebarSection>
         <SidebarSection>
           <LinkList
+            heading={"Project"}
             links={[
               {
-                content: { label: "Boards", IconComponent: BoardsIcon },
+                content: { label: "Boards" },
                 path: `/${projectSlug}/boards`
               },
               {
                 content: {
-                  label: "Unassigned Tasks",
-                  IconComponent: UnassignedIcon
+                  label: "Unassigned Tasks"
                 },
                 path: `/${projectSlug}/unassigned`
               }
@@ -93,28 +93,23 @@ class Sidebar extends Component<Props> {
         </SidebarSection>
         <SidebarSection>
           <CollectionList
-            title="Flows"
+            heading="Flows"
             collection={Object.values(this.props.flows).map(flow => {
               return {
                 label: flow.title,
                 slug: flow.slug,
-                firstIcon: (
-                  <FlowIcon flowColor={flow.color} />
-                ),
-                secondIcon: (
-                  <RightArrowIcon />
-                )
+                firstIcon: <FlowIcon flowColor={flow.color} />
               };
             })}
             buttonProps={{
-              content: "Create a flow",
+              content: "Create flow",
               onButtonClick: this.showCreateFlowModal
             }}
           />
         </SidebarSection>
         <SidebarSection>
           <CollectionList
-            title="Members"
+            heading="Members"
             collection={currentProject.members.map(member => {
               return { label: member.name, photoURL: member.photoURL };
             })}

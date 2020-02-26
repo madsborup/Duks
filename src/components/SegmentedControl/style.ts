@@ -4,9 +4,6 @@ import base from "../designSystem/base";
 
 export const StyledSegmentedControl = styled.div`
   display: flex;
-  border-bottom: 1px solid ${base.colors.border};
-  background: ${base.colors.subHeading};
-  width: 100%;
 `;
 
 export const Control = styled(NavLink)`
@@ -15,9 +12,10 @@ export const Control = styled(NavLink)`
   align-items: center;
   padding: ${base.spacing.xsmall}px ${base.spacing.medium}px;
   color: ${base.colors.textMuted};
-  font-size: ${base.font.size.h5};
+  font-size: ${base.font.size.h6};
   text-decoration: none;
-  font-weight: 400;
+  font-weight: 500;
+  line-height: 1;
   border-bottom: 2px solid transparent;
   border-top: 1px solid transparent;
 

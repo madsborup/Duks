@@ -18,7 +18,6 @@ export const StyledNavbar = styled.div`
   width: ${NAVBAR_WIDTH}px;
   background-color: ${base.colors.navbar};
   overflow: hidden auto;
-  z-index: 999;
 
   &::-webkit-scrollbar {
     display: none;
@@ -28,16 +27,13 @@ export const StyledNavbar = styled.div`
 export const ProjectLinkContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   width: 100%;
 `;
 
 export const ProjectLink = styled(NavLink)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: ${base.spacing.medium}px;
+  margin-bottom: ${base.spacing.small}px;
+  outline: 0;
 
   rect {
     fill: ${base.colors.viewBackground};
@@ -57,5 +53,4 @@ export const AddProjectIcon = styled(AddIcon)`
   cursor: pointer;
   width: 30px;
   height: 30px;
-  padding-bottom: ${base.spacing.medium}px;
 `;

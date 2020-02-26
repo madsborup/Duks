@@ -6,6 +6,7 @@ import { Router } from "react-router-dom";
 import history from "./helpers/history";
 import { store } from "./store";
 import { verifyAuthentication } from "./actions";
+import { GlobalStyle } from "./globalStyles";
 import Modal from "react-modal";
 import RedirectHandler from "./components/RedirectHandler";
 
@@ -15,6 +16,7 @@ store.dispatch(verifyAuthentication());
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
+      <GlobalStyle />
       <RedirectHandler />
     </Router>
   </Provider>,
