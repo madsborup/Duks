@@ -2,27 +2,33 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { RouteComponentProps, Route } from "react-router-dom";
 import { StoreState } from "../../reducers";
-import { TaskData } from "../../actions";
+import { TaskData, FlowData, ProjectData } from "../../actions";
+import { getProject } from '../../selectors/getProject'
 import Head from "../../components/Head";
-import { StyledProjectBoardView, ColumnContainer } from "./style";
+import SegmentedControl from "../../components/SegmentedControl";
+import Header from "../../components/Header";
+import Subheader from "../../components/Subheader";
+import Sidebar from "../../components/Sidebar";
+import StatusBoard from "./components/StatusBoard";
+import AssignedBoard from "./components/AssignedBoard";
 import {
   ViewGrid,
   TwoColumnGrid,
   FirstColumn,
   SecondColumn
 } from "../../components/designSystem/layout";
-import SegmentedControl from "../../components/SegmentedControl";
-import Header from "../../components/Header";
-import Sidebar from "../../components/Sidebar";
-import StatusBoard from "./components/StatusBoard";
-import AssignedBoard from "./components/AssignedBoard";
+import {
+  StyledProjectBoardView
+} from "./style";
 
 interface Match {
   projectSlug: string;
 }
 
 interface Props extends RouteComponentProps<Match> {
+  project: ProjectData;
   tasks: { [key: string]: TaskData };
+  flows: { [key: string]: FlowData };
 }
 
 class BoardsView extends Component<Props> {
@@ -34,7 +40,7 @@ class BoardsView extends Component<Props> {
 
     return (
       <React.Fragment>
-        <Head title={"Boards"} description={"View task boards"} />
+        <Head title={`${this.props.project.title} - Boards`} description={"View task boards"} />
         <ViewGrid>
           <TwoColumnGrid>
             <FirstColumn>
@@ -43,16 +49,17 @@ class BoardsView extends Component<Props> {
             <SecondColumn>
               <StyledProjectBoardView>
                 <Header projectSlug={projectSlug} title="Boards" />
-                <SegmentedControl
-                  controls={[
-                    { label: "Status", path: `/${projectSlug}/boards` },
-                    {
-                      label: "Assigned",
-                      path: `/${projectSlug}/boards/assigned`
-                    }
-                  ]}
-                />
-                <ColumnContainer>
+                <Subheader>
+                  <SegmentedControl
+                    controls={[
+                      { label: "Status", path: `/${projectSlug}/boards` },
+                      {
+                        label: "Assigned",
+                        path: `/${projectSlug}/boards/assigned`
+                      }
+                    ]}
+                  />
+                </Subheader>
                   <Route
                     path="/:projectSlug/boards"
                     exact
@@ -61,9 +68,13 @@ class BoardsView extends Component<Props> {
                   <Route
                     path="/:projectSlug/boards/assigned"
                     exact
-                    render={() => <AssignedBoard tasks={this.props.tasks} projectSlug={projectSlug}/>}
+                    render={() => (
+                      <AssignedBoard
+                        tasks={this.props.tasks}
+                        projectSlug={projectSlug}
+                      />
+                    )}
                   />
-                </ColumnContainer>
               </StyledProjectBoardView>
             </SecondColumn>
           </TwoColumnGrid>
@@ -73,9 +84,11 @@ class BoardsView extends Component<Props> {
   }
 }
 
-const mapStateToProps = ({ tasks }: StoreState, ownProps: Props) => {
+const mapStateToProps = (state: StoreState, ownProps: Props) => {
   return {
-    tasks: tasks.items
+    project: getProject(state, ownProps.match.params),
+    tasks: state.tasks.items,
+    flows: state.flows.items
   };
 };
 

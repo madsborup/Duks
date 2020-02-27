@@ -1,9 +1,9 @@
 import React from "react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { connect } from "react-redux";
 import _, { includes } from "lodash";
 import { createStructuredSelector } from "reselect";
-import { TaskData, ProjectsData, ProjectData } from "../../../actions";
+import { TaskData, TASK_PRIORITY, ProjectData } from "../../../actions";
 import { StoreState } from "../../../reducers";
 import { getProject } from "../../../selectors/getProject";
 import base from "../../../components/designSystem/base";
@@ -18,18 +18,19 @@ interface Props {
 
 const HeaderContent = styled.div`
   display: flex;
-  flex-direction: column;
   align-items: center;
   font-size: ${base.font.size.h5};
+  font-weight: 500;
+  color: ${base.colors.textMuted};
   line-height: 1;
-  font-weight: 400;
   width: 100%;
 
   img {
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
-    margin-bottom: ${base.spacing.xsmall}px;
+    border: 3px solid ${base.colors.white};
+    margin-right: ${base.spacing.xsmall}px;
   }
 
   div {
@@ -37,6 +38,15 @@ const HeaderContent = styled.div`
     flex-direction: row;
     align-items: center;
   }
+`;
+
+export const ColumnContainer = styled.div`
+  display: grid;
+  align-items: start;
+  overflow-x: auto;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 300px));
+  grid-gap: ${base.spacing.small}px;
+  padding: ${base.spacing.medium}px ${base.spacing.medium}px;
 `;
 
 const AssignedBoard: React.FC<Props> = (props: Props) => {
@@ -48,6 +58,24 @@ const AssignedBoard: React.FC<Props> = (props: Props) => {
             return true;
           }
         }
+      });
+
+      //Sort tasks based on priority
+      const sortedTasks = columnTasks.sort((a, b) => {
+        let first =
+          a.priority === TASK_PRIORITY.LOW
+            ? 3
+            : a.priority === TASK_PRIORITY.MEDIUM
+            ? 2
+            : 1;
+        let second =
+          b.priority === TASK_PRIORITY.LOW
+            ? 3
+            : b.priority === TASK_PRIORITY.MEDIUM
+            ? 2
+            : 1;
+
+        return first > second ? 1 : second > first ? -1 : 0;
       });
 
       const memberProfileAvatar = () => {
@@ -65,14 +93,14 @@ const AssignedBoard: React.FC<Props> = (props: Props) => {
       return (
         <BoardTaskColumn
           headerContent={memberProfileAvatar()}
-          tasks={columnTasks}
+          tasks={sortedTasks}
           key={i}
         />
       );
     });
   };
 
-  return <React.Fragment>{renderTaskColumns()}</React.Fragment>;
+  return <ColumnContainer>{renderTaskColumns()}</ColumnContainer>;
 };
 
 const mapStateToProps = createStructuredSelector<
