@@ -13,7 +13,7 @@ export const FLOW_COLORS = [
   "#2BBCC9",
   "#3046AC",
   "#44C292"
-]
+];
 
 export interface FlowData {
   id: string;
@@ -46,7 +46,7 @@ export interface FetchFlowsAction {
 
 export interface DeleteFlowAction {
   type: ActionTypes.DELETE_FLOW;
-  id: number;
+  id: string;
 }
 
 //TODO: consider adding current project slug to store and access data their instead of passing in to this action creator
@@ -82,10 +82,8 @@ export const fetchFlows = (projectSlug: string) => async (
 
         flows = snapshot.docs.reduce(
           (prev, doc) => ({
-            // let id = doc.id;
-            // return {id, ...data} as ProjectData;
             ...prev,
-            [doc.data().slug]: doc.data()
+            [doc.data().slug]: { ...doc.data(), ["id"]: doc.id }
           }),
           {}
         );
@@ -97,5 +95,18 @@ export const fetchFlows = (projectSlug: string) => async (
       });
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const deleteFlow = (id: string) => async (dispatch: Dispatch) => {
+  try {
+    await firestore
+      .collection("flows")
+      .doc(id)
+      .delete();
+    
+    dispatch<DeleteFlowAction>({ type: ActionTypes.DELETE_FLOW, id });
+  } catch (e) {
+    console.log("Error deleting document:", e);
   }
 };
