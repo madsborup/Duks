@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Route, Redirect } from "react-router-dom";
 import history from "../../helpers/history";
 import { StoreState } from "../../reducers";
+import LoadingView from '../../views/viewHelpers/LoadingView'
 import Routes from "../../Routes";
 import Login from "../../views/Login";
 
@@ -15,7 +16,7 @@ const RedirectHandler: React.FC<Props> = (props: Props) => {
   const { isVerifyingUser, isAuthenticated } = props;
 
   if (isVerifyingUser) {
-    return <div>Verifying user...</div>;
+    return <LoadingView content="Logging in..." />
   }
 
   if (!isAuthenticated) {
