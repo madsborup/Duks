@@ -1,11 +1,11 @@
 import { createSelector } from 'reselect'
-import { StoreState } from '../reducers'
+import { FlowsData } from '../actions'
 
 interface Props {
   flowSlug: string;
 }
 
-const getFlowFromSlug = (state: StoreState, props: Props) => state.flows.items[props.flowSlug]
+const getFlowFromSlug = (flows: FlowsData, props: Props) => flows.items[props.flowSlug]
 
 export const getFlow = createSelector(
   [getFlowFromSlug],

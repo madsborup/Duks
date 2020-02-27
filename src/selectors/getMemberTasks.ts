@@ -6,5 +6,5 @@ const getCurrentUser = (state: StoreState ) => state.auth.user;
 
 export const getMemberTasks = createSelector(
   [getTasks, getCurrentUser],
-  (tasks, user) => tasks.filter((task) => task.assigned.filter((assignee) =>  assignee.id == user.uid))
+  (tasks, user) => tasks.filter((task) => task.assigned.filter((assignee) =>  assignee.id === user.uid))
 )
