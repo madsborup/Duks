@@ -14,8 +14,8 @@ interface State {
 }
 
 interface Props {
-  hideModal: Function;
   modal: ModalData;
+  hideModal: Function;
 }
 
 export const MODAL_COMPONENTS = {

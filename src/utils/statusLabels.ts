@@ -1,10 +1,13 @@
-import { TASK_STATUS } from "../actions";
+export enum FORM_TASK_STATUS {
+  NOT_STARTED = "Not started",
+  STARTED = "Started",
+  REVIEW = "Ready for review",
+  COMPLETED = "Completed"
+}
 
 export const statusLabels = {
-  [TASK_STATUS.UNASSIGNED]: "Unassigned",
-  [TASK_STATUS.NOT_STARTED]: "Not started",
-  [TASK_STATUS.STARTED]: "Started",
-  [TASK_STATUS.STUCK]: "Stuck",
-  [TASK_STATUS.REVIEW]: "Ready to be checked",
-  [TASK_STATUS.COMPLETED]: "Completed"
+  [FORM_TASK_STATUS.NOT_STARTED]: "Not started",
+  [FORM_TASK_STATUS.STARTED]: "Started",
+  [FORM_TASK_STATUS.REVIEW]: "Ready to be checked",
+  [FORM_TASK_STATUS.COMPLETED]: "Completed"
 };

@@ -10,12 +10,12 @@ interface Props extends TippyProps {
 export const StyledTippy = styled(Tippy)<Props>`
 
   &.tippy-tooltip {
-  background-color: ${({ dark }) => dark ? base.colors.hoverDark : base.colors.white};
+  background-color: ${({ dark }) => dark ? base.colors.text : base.colors.white};
   color: ${({ dark }) => dark ? base.colors.white : base.colors.text};
   border: ${({ dark }) => dark ? 'none' : `1px solid ${base.colors.border}`};
 
     .tippy-svg-arrow {
-      fill: ${({ dark }) => dark ? base.colors.hoverDark : base.colors.white};
+      fill: ${({ dark }) => dark ? base.colors.text : base.colors.white};
     }
 
     .tippy-content {

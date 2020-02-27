@@ -131,7 +131,7 @@ class CreateTaskModal extends Component<Props> {
               />
               <SelectMultipleImage 
                 name="assigned"
-                label="Assign task to"
+                label="Assign task"
                 values={formik.values.assigned}
                 options={this.handleAssignOptions()}
               />
