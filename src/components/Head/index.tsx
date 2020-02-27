@@ -12,7 +12,6 @@ export default ({title, description, image}: Props) => {
     <Helmet>
       <title>{title}</title>
       <meta name="description" content={description} />
-      
     </Helmet>
   )
 } 
