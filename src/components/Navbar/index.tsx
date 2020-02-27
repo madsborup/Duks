@@ -8,7 +8,7 @@ import {
   fetchProjects,
   showModal
 } from "../../actions";
-import Profile from '../Profile'
+import Tooltip from "../Tooltip";
 import { ReactComponent as ProjectIconDefault } from "../../assets/svg/ProjectIconDefault.svg";
 import {
   StyledNavbar,
@@ -28,13 +28,15 @@ class Navbar extends Component<Props> {
   renderProjectLinks() {
     return this.props.projects.map((doc: ProjectData) => {
       return (
-        <ProjectLink
-          activeClassName="selected"
-          to={`/${doc.slug}`}
-          key={doc.slug}
-        >
-          <ProjectIconDefault />
-        </ProjectLink>
+        <Tooltip content={doc.title} placement="right" dark={true}>
+          <ProjectLink
+            activeClassName="selected"
+            to={`/${doc.slug}`}
+            key={doc.slug}
+          >
+            <ProjectIconDefault />
+          </ProjectLink>
+        </Tooltip>
       );
     });
   }
@@ -43,14 +45,16 @@ class Navbar extends Component<Props> {
     return (
       <StyledNavbar>
         <ProjectLinkContainer>{this.renderProjectLinks()}</ProjectLinkContainer>
-        <AddProjectIcon
-          onClick={() =>
-            this.props.showModal({
-              modalProps: { open: true },
-              modalType: "CREATE_PROJECT_MODAL"
-            })
-          }
-        />
+        <Tooltip content="Create a new project" placement='right' dark>
+          <AddProjectIcon
+            onClick={() =>
+              this.props.showModal({
+                modalProps: { open: true },
+                modalType: "CREATE_PROJECT_MODAL"
+              })
+            }
+          />
+        </Tooltip>
       </StyledNavbar>
     );
   }

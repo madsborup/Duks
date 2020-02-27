@@ -102,8 +102,9 @@ class Sidebar extends Component<Props> {
               };
             })}
             buttonProps={{
-              content: "Create flow",
-              onButtonClick: this.showCreateFlowModal
+              content: "Create Flow",
+              onButtonClick: this.showCreateFlowModal,
+              showIcon: true
             }}
           />
         </SidebarSection>

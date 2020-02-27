@@ -1,12 +1,13 @@
 import React from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-import { StyledLinkList, Link, LinkContent } from "./style";
+import { StyledLinkList, ListHeader, Link, LinkContent } from "./style";
 
 interface Match {
   projectSlug: string;
 }
 
 interface Props extends RouteComponentProps<Match> {
+  heading?: string;
   links: {
     content: { label: string; IconComponent?: React.ComponentType };
     path: string;
@@ -27,7 +28,11 @@ const LinkList: React.FC<Props> = (props: Props) => {
     });
   };
 
-  return <StyledLinkList>{renderLinks()}</StyledLinkList>;
+  return (<StyledLinkList>
+    <ListHeader>{props.heading}</ListHeader>
+    {renderLinks()}
+    </StyledLinkList>
+  );
 };
 
 export default withRouter(LinkList);
