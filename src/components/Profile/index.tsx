@@ -1,41 +1,53 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { StoreState } from "../../reducers";
-import { AuthData } from "../../actions";
+import { AuthData, signOut } from "../../actions";
+import PopoverMenu from "../../components/PopoverMenu";
+import { DropdownArrow } from '../../components/designSystem/icons/DropdownArrow'
 import {
-    Container,
-    ProfileDetails,
-    ProfileName,
-    ProfileImage,
-    ProfileEmail,
-    ArrowIcon
+  Container,
+  ProfileDetails,
+  ProfileName,
+  ProfileImage,
+  ProfileEmail
 } from "./style";
 
-interface ProfileProps {
-    auth: AuthData;
+interface Props {
+  auth: AuthData;
+  signOut: () => void;
 }
 
-class Profile extends Component<ProfileProps> {
-    render() {
-        return (
-            <Container>
-                <ProfileDetails>
-                    <ProfileName>
-                        {this.props.auth.user.displayName}
-                    </ProfileName>
-                    <ProfileEmail>{this.props.auth.user.email}</ProfileEmail>
-                </ProfileDetails>
-                <ProfileImage src={`${this.props.auth.user.photoURL}=s64-c`} />
-                <ArrowIcon />
-            </Container>
-        );
-    }
-}
+const Profile: React.FC<Props> = (props: Props) => {
+  const { displayName, email, photoURL } = props.auth.user;
 
-const mapStateToProps = ({
-    auth
-}: StoreState): { auth: AuthData } => {
-    return { auth };
+  return (
+    <PopoverMenu
+      placement="bottom-end"
+      items={[
+        {
+          type: "option",
+          label: "Log out",
+          onClick: () => props.signOut()
+        }
+      ]}
+    >
+      <Container>
+        <ProfileImage src={`${photoURL}=s64-c`} />
+        <ProfileDetails>
+          <ProfileName>{displayName}</ProfileName>
+          <ProfileEmail>{email}</ProfileEmail>
+        </ProfileDetails>
+        <DropdownArrow />
+      </Container>
+    </PopoverMenu>
+  );
 };
 
-export default connect(mapStateToProps)(Profile);
+const mapStateToProps = ({ auth }: StoreState): { auth: AuthData } => {
+  return { auth };
+};
+
+export default connect(
+  mapStateToProps,
+  { signOut }
+)(Profile);

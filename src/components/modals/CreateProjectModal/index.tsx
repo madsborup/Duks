@@ -25,7 +25,7 @@ class CreateProjectModal extends Component<Props> {
     return (
       <ModalBody>
         <CloseButton onClick={() => this.props.closeModal()} />
-        <ModalTitle>Create a new project</ModalTitle>
+        <ModalTitle>New project</ModalTitle>
         <Formik
           initialValues={{ title: "", description: "" }}
           onSubmit={values => {

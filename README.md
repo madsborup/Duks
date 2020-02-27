@@ -1,2 +1,3 @@
-Duks is a project management tool for people working in changing teams.
+# Duks
 
+Duks is a project management tool for people working in changing teams.  

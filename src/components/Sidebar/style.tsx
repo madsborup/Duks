@@ -14,10 +14,9 @@ export const StyledSidebar = styled.div`
 `;
 
 export const SidebarSection = styled.div`
-  border-top: 1px solid ${base.colors.border};
 
   &:first-child {
-    border: 0;
+    border-bottom: 1px solid ${base.colors.border};
   }
 `;
 

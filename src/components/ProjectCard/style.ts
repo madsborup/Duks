@@ -1,16 +1,17 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { NavLink } from "react-router-dom";
+import { DropdownArrow } from '../../components/designSystem/icons/DropdownArrow'
 import { ReactComponent as ArrowDown } from "../../assets/svg/ArrowDown.svg";
 import { ReactComponent as Dots } from "../../assets/svg/Options.svg";
 import base from "../designSystem/base";
 
 export const StyledProjectCard = styled.div`
   display: flex;
+  padding: ${base.spacing.small}px 0 ${base.spacing.xsmall}px;
+  cursor: pointer;
 
   &:hover {
-    background: ${base.colors.hover};
-
-    path {
+    ${DropdownArrow} path {
       stroke: ${base.colors.text};
     }
   }
@@ -31,19 +32,27 @@ export const ProjectAvatar = styled(NavLink)`
 export const ProjectMetaContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: ${base.spacing.small}px ${base.spacing.medium}px;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0 0 0 ${base.spacing.medium}px;
+  min-width: 0;
   width: 100%;
-
-  cursor: pointer;
 `;
 
 export const ProjectTitle = styled.span`
-  font-size: ${base.font.size.h6};
-  color: ${base.colors.text};
-  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: ${base.font.size.h5};
+  color: ${base.colors.heading};
+  font-weight: 600;
+  align-items: center;
 `;
 
 export const ProjectDescription = styled.span`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-size: ${base.font.size.h6};
   font-weight: 400;
   color: ${base.colors.textMuted};
@@ -57,14 +66,8 @@ export const ProjectActionsContainer = styled.div`
   cursor: pointer;
 `;
 
-export const DropdownIcon = styled(ArrowDown)`
-  height: 15px;
-  width: 15px;
-  margin-top: -6px;
-  cursor: pointer;
-`;
-
 export const OptionsIcon = styled(Dots)`
-  height: 24px;
+  width: 10px;
+  margin-left: ${base.spacing.xxsmall}px;
   cursor: pointer;
 `;

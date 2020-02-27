@@ -26,7 +26,7 @@ class CreateFlowModal extends Component<CreateFlowModalProps> {
     return (
       <ModalBody>
         <CloseButton onClick={() => this.props.closeModal()} />
-        <ModalTitle>Create a flow</ModalTitle>
+        <ModalTitle>New Flow</ModalTitle>
         <Formik
           initialValues={{ title: ""}}
           onSubmit={values => {
@@ -38,7 +38,7 @@ class CreateFlowModal extends Component<CreateFlowModalProps> {
               <Input
                 label="Title"
                 name="title"
-                placeholder="New project"
+                placeholder="A group of tasks..."
                 value={formik.values.title}
                 onChange={formik.handleChange}
               />
@@ -49,23 +49,6 @@ class CreateFlowModal extends Component<CreateFlowModalProps> {
           )}
         </Formik>
       </ModalBody>
-
-      // <ModalBody>
-      //   <CloseButton onClick={() => this.props.closeModal()} />
-      //   <ModalTitle>Create flow</ModalTitle>
-      //   <Form onSubmit={e => this.handleProjectSubmit(e)}>
-      //     <Input
-      //       placeholder="New flow"
-      //       value={this.state.title}
-      //       onChange={this.onTitleChange}
-      //     >
-      //       Title
-      //     </Input>
-      //     <ModalActions>
-      //       <PrimaryButton>Create</PrimaryButton>
-      //     </ModalActions>
-      //   </Form>
-      // </ModalBody>
     );
   }
 }

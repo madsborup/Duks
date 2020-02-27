@@ -7,12 +7,12 @@ export const GlobalStyle = createGlobalStyle`
         margin: 0;
         padding: 0;
         -webkit-appearance: none;
+        font-family: ${base.font.family.display};
         -webkit-font-smoothing: antialiased;
         text-rendering: optimizelegibility;
     }
 
     html {
-        font-family: ${base.font.family.display};
         background-color: ${base.colors.bg};
     }
 

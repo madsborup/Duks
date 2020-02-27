@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import base from "../designSystem/base";
 import { PrimaryButton } from "../designSystem/button";
 
@@ -9,16 +9,16 @@ interface ContainerProps {
 export const StyledHeader = styled.div<ContainerProps>`
   display: flex;
   align-items: center;
-  height: 71.67px;
+  height: 68px;
   border-bottom: 1px solid ${base.colors.border};
   padding-left: ${base.spacing.medium}px;
-  background: ${base.colors.white};
+  background: ${base.colors.header};
 `;
 
 export const Title = styled.div`
+  color: ${base.colors.heading};
   font-size: ${base.font.size.h4};
-  font-weight: 400;
-  margin-right: ${base.spacing.medium}px;
+  font-weight: 500;
 `;
 
 export const AddTaskButton = styled(PrimaryButton)`
@@ -29,8 +29,8 @@ export const AddTaskButton = styled(PrimaryButton)`
 
 export const ActionsContainer = styled.div`
   display: flex;
+  flex: 1;
   align-items: center;
   justify-content: flex-end;
-  width: 100%;
   height: 100%;
 `;

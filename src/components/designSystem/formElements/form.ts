@@ -27,7 +27,7 @@ export const SecondColumn = styled.div`
   flex-direction: column;
   grid-area: 1 / 2 / 2 / 3;
   border-left: 1px solid ${base.colors.border};
-  padding: ${base.spacing.small}px;
+  padding: 0 ${base.spacing.small}px;
 `;
 
 export const FormActions = styled.div`

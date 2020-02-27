@@ -5,6 +5,7 @@ import { ProjectsData, fetchProjects } from "../../actions";
 import { StoreState } from "../../reducers";
 import { Button } from "../designSystem/button";
 import { signOut } from "../../actions";
+import LoadingView from '../../views/viewHelpers/LoadingView'
 
 interface Props {
   currentUser: firebase.User;
@@ -27,8 +28,10 @@ export const withProjectsSubscription = (
       const { projects } = this.props;
 
       if (projects.isFetching) {
-        return <div>Loading projects... </div>;
+        return <LoadingView content="Loading projects..." />;
       }
+
+      //TODO: better handling of this (show onboarding?)
       if (isEmpty(projects.items)) {
         return (
           <div>

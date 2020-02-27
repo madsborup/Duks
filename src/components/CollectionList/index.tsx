@@ -18,16 +18,18 @@ interface Match {
 }
 
 interface Props extends RouteComponentProps<Match> {
-  title?: string;
+  heading?: string;
   collection: {
     label?: string;
     slug?: string;
     photoURL?: string;
     firstIcon?: React.ReactNode;
     secondIcon?: React.ReactNode;
+    border?: boolean;
   }[];
   buttonProps: {
     content: string;
+    showIcon?: boolean;
     onButtonClick: Function;
   };
 }
@@ -40,14 +42,13 @@ const CollectionList: React.FC<Props> = (props: Props) => {
           activeClassName="selected"
           to={`/${props.match.params.projectSlug}/${item.slug}`}
           key={item.slug}
+          border={item.border}
         >
-          <ListItem>
-            {item.firstIcon ? item.firstIcon : null}
+          <ListItem border={item.border}>
+            {item.firstIcon}
             {item.label}
           </ListItem>
-          <IconContainer>
-            {item.secondIcon ? item.secondIcon : null}
-          </IconContainer>
+          <IconContainer>{item.secondIcon}</IconContainer>
         </ListLink>
       ) : item.photoURL ? (
         <ListItem>
@@ -61,12 +62,16 @@ const CollectionList: React.FC<Props> = (props: Props) => {
   return (
     <React.Fragment>
       <StyledCollectionList>
-        <ListHeader>{props.title}</ListHeader>
+        <ListHeader>
+          {props.heading}{" "}
+          <CollectionAddButton
+            onClick={() => props.buttonProps.onButtonClick()}
+          >
+            {props.buttonProps.showIcon && <CollectionAddIcon />}
+            {props.buttonProps.content}
+          </CollectionAddButton>
+        </ListHeader>
         {renderListItems()}
-        <CollectionAddButton onClick={() => props.buttonProps.onButtonClick()}>
-          <CollectionAddIcon />
-          {props.buttonProps.content}
-        </CollectionAddButton>
       </StyledCollectionList>
     </React.Fragment>
   );

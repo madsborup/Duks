@@ -24,6 +24,7 @@ import {
   SelectMultipleImage,
   TextArea
 } from "../../designSystem/formElements";
+import { Option } from "../../designSystem/formElements";
 import { TextButton, PrimaryButton } from "../../designSystem/button";
 
 interface Props {
@@ -98,18 +99,20 @@ const EditTaskModal: React.FC<Props> = (props: Props) => {
     return options;
   };
 
-  const handleStatusOptions = (): { label: string; value: string }[] => {
-    return Object.values(FORM_TASK_STATUS).map(status => {
+  const handleStatusOptions = (): Option[] => {
+    const options = Object.values(FORM_TASK_STATUS).map(status => {
       return { label: statusLabels[status], value: status };
     });
+
+    return options.reverse();
   };
 
-  const handlePriorityOptions = (): { label: string; value: string }[] => {
+  const handlePriorityOptions = (): Option[] => {
     const options = Object.values(TASK_PRIORITY).map(priority => {
       return { label: priority, value: priority };
     });
 
-    return options.reverse()
+    return options.reverse();
   };
 
   return (
@@ -147,13 +150,20 @@ const EditTaskModal: React.FC<Props> = (props: Props) => {
               />
               <SelectMultipleImage
                 name="assigned"
-                label="Assigned to"
+                label="Assigned"
                 values={formik.values.assigned}
                 options={handleAssignOptions()}
               />
             </FirstColumn>
             <SecondColumn>
-              <Switch name="isStuck" label="Stuck?" />
+              <Switch name="isStuck" label="Stuck" />
+              <Select
+                label="Priority"
+                name="priority"
+                value={formik.values.priority}
+                options={handlePriorityOptions()}
+                onChange={formik.handleChange}
+              />
               {assigned && assigned.length > 0 && (
                 <Select
                   name="status"
@@ -163,13 +173,6 @@ const EditTaskModal: React.FC<Props> = (props: Props) => {
                   value={formik.values.status}
                 />
               )}
-              <Select
-                label="Priority"
-                name="priority"
-                value={formik.values.priority}
-                options={handlePriorityOptions()}
-                onChange={formik.handleChange}
-              />
               {/* <div>
                 Created: {createdAt.toDate().getDate()}/
                 {createdAt.toDate().getMonth() + 1}{" "}

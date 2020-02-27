@@ -4,13 +4,16 @@ import { StyledLabel } from "../label";
 import Tooltip from "../../../Tooltip";
 import {
   StyledSelect,
+  Option,
   StyledSelectMultipleImage,
   ImageCheckbox,
 } from "./style";
 
+export type Option = { label: string; value: string | number | undefined }
+
 interface Props {
   label: string;
-  options: { label: string; value: string | number | undefined }[];
+  options: Option[];
 }
 
 interface SelectMultipleImageProps {
@@ -28,9 +31,9 @@ export const Select: React.FC<Formik.FieldAttributes<Props>> = ({
   const renderOptions = () => {
     return props.options.map(option => {
       return (
-        <option value={option.value} key={option.value}>
+        <Option value={option.value} key={option.value}>
           {option.label}
-        </option>
+        </Option>
       );
     });
   };

@@ -7,8 +7,8 @@ export const StyledTextArea = styled.textarea<Props>`
   font-weight: ${({ big }) => big ? "600" : "400"};
   border: 1px solid ${base.colors.border};
   border-radius: ${base.BORDER_RADIUS}px;
-  padding: ${base.spacing.xsmall}px ${base.spacing.small}px;
-  min-height: ${({ big }) => big ? "40px" : "120px"};
+  padding: ${base.spacing.xsmall}px;
+  min-height: ${({ big }) => big ? "40px" : "100px"};
   box-shadow: none;
   outline: none;
   resize: none;

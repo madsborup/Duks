@@ -1,4 +1,5 @@
-import "../../assets/font/inter.css";
+import "../../assets/fonts/Inter/inter.css";
+import '../../assets/fonts/Roboto/roboto.css'
 import { rgba, tint } from 'polished'
 
 const BASELINE = 20;
@@ -21,31 +22,38 @@ export default {
     background: "#FFF",
     viewBackground: "#F3F3F5",
     navbar: "#201C3A",
-    sidebar: "#FFF",
-    heading: "#F3F3F5",
+    sidebar: "#FAFAFB",
+    header: "#FAFAFB",
+    shadow: "#FAFAFB",
     subHeading: "#FAFAFB",
-    border: "#E1E1E5",
-    hover: "#FAFAFB",
+    border: "#e6e6eb",
+    hover: "#F8F9F9",
+    hoverDark: "#635E74",
     selected: `${tint(0.85, "#5FAAFC")}`,
     //Typography and icons
+    heading: "#050037",
     text: "#4C4760",
-    textMuted: "#A9A6B6",
+    textMuted: "#888794",
     iconDark: "#7B7788",
     iconLight: "#FAFAFB",
     //Palette
     primary: "#5A51FB",
     primaryMuted: `${tint(0.1, "#5A51FB")};`,
+    primarySelected: `${tint(0.85, "#5A51FB")};`,
     secondary: "#5FAAFC",
     disabled: "#E1E1E5",
-    danger: "#5FAAFC",
+    danger: "#EA3D4C",
+    warning: "#F7D161",
     //Misc.
     boxShadow: "0 4px 14px rgba(27, 23, 45, 0.20)",
   },
   font: {
     family: {
-      display: `'Inter', sans-serif`
+      display: `'Inter', sans-serif`,
+      google: `'Roboto', sans-serif`
     },
     size: {
+      xsmall: `${SCALES.XSMALL + 0.2}rem`,
       small: `${SCALES.SMALL}rem`,
       regular: `${SCALES.MEDIUM}rem`,
       h1: `${SCALES.XLARGE}rem`,

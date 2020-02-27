@@ -4,8 +4,14 @@ import { connect } from "react-redux";
 import { Redirect, withRouter, RouteComponentProps } from "react-router-dom";
 import { StoreState } from "../../reducers";
 import { signIn } from "../../actions";
-import H1 from '../../components/designSystem/H1'
-import { LoginView, Container, GoogleSigninButton } from "./style";
+import Head from "../../components/Head";
+import {
+  LoginView,
+  Container,
+  Title,
+  GoogleSigninButton,
+  GoogleG
+} from "./style";
 
 interface Props extends RouteComponentProps {
   isLoggingIn: boolean;
@@ -20,12 +26,18 @@ const Login: React.FC<Props> = (props: Props) => {
 
   if (!props.isLoggingIn) {
     return (
-      <LoginView>
-        <Container>
-          <H1>Login</H1>
-          <GoogleSigninButton onClick={() => props.signIn()}>Sign-in with Google</GoogleSigninButton>
-        </Container>
-      </LoginView>
+      <React.Fragment>
+        <Head title={`Login`} description={"Duks sign-in page"} />
+        <LoginView>
+          <Container>
+            <Title>Duks</Title>
+            <GoogleSigninButton onClick={() => props.signIn()}>
+              <GoogleG />
+              Sign-in with Google
+            </GoogleSigninButton>
+          </Container>
+        </LoginView>
+      </React.Fragment>
     );
   } else {
     return <div>Logging in...</div>;

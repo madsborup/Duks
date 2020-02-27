@@ -1,10 +1,12 @@
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 import base from '../designSystem/base'
 
 export const StyledBoardTaskColumn = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: ${base.BORDER_RADIUS}px;
+  background: ${base.colors.shadow};
+  padding: ${base.spacing.xsmall}px;
 `;
 
 export const ColumnHeader = styled.div`
