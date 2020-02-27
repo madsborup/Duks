@@ -1,11 +1,16 @@
 import styled from "styled-components/macro";
-import Select from "react-select";
 import base from "../../base";
 
+interface ImageOptionProps {
+  imgUrl: string;
+}
+
 export const StyledSelect = styled.select`
-  padding: ${base.spacing.xsmall}px ${base.spacing.small}px;
+  padding: ${base.spacing.xsmall}px;
   font-size: ${base.font.size.regular};
   border: 1px solid ${base.colors.border};
+  background: ${base.colors.subHeading};
+  border-radius: ${base.BORDER_RADIUS}px;
   font-weight: 400;
   box-shadow: none;
   outline: none;
@@ -16,18 +21,19 @@ export const StyledSelect = styled.select`
   }
 `;
 
-interface OptionProps {
-  imgUrl: string;
-}
+export const Option = styled.option`
+  background: white;
+`;
 
 export const StyledSelectMultipleImage = styled.div`
   display: flex;
   padding: ${base.spacing.xxsmall}px;
   border-radius: ${base.BORDER_RADIUS}px;
-  padding-left: ${base.spacing.small}px;
+  padding: ${base.spacing.xsmall}px;
+  border: 1px solid ${base.colors.border};
 `;
 
-export const ImageCheckbox = styled.input<OptionProps>`
+export const ImageCheckbox = styled.input<ImageOptionProps>`
   background-image: ${({ imgUrl }) => `url(${imgUrl})`};
   background-size: cover;
   width: 45px;

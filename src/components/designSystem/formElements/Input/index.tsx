@@ -4,6 +4,8 @@ import { StyledLabel } from "../label";
 import {
   StyledInput,
   StyledBigInput,
+  SwitchContainer,
+  SwitchLabel,
   StyledSwitch,
 } from "./style";
 
@@ -50,14 +52,14 @@ export const Switch: React.FC<Formik.FieldAttributes<Props>> = ({
   const [field] = useField(props);
 
   return (
-    <React.Fragment>
-      {label && <StyledLabel htmlFor={props.name}>{label}</StyledLabel>}
+    <SwitchContainer>
+      {label && <SwitchLabel htmlFor={props.name}>{label}</SwitchLabel>}
       <StyledSwitch
         type="checkbox"
         checked={field.value}
         {...field}
         {...props}
       />
-    </React.Fragment>
+    </SwitchContainer>
   );
 };

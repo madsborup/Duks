@@ -6,7 +6,7 @@ export const StyledInput = styled.input`
   font-weight: 400;
   border: 1px solid ${base.colors.border};
   border-radius: ${base.BORDER_RADIUS}px;
-  padding: ${base.spacing.xsmall}px ${base.spacing.small}px;
+  padding: ${base.spacing.xsmall}px;
   box-shadow: none;
   outline: none;
 
@@ -25,7 +25,7 @@ export const StyledBigInput = styled.input`
   line-height: 1;
   border: 1px solid transparent;
   border-radius: ${base.BORDER_RADIUS}px;
-  padding: ${base.spacing.xsmall}px ${base.spacing.small}px;
+  padding: ${base.spacing.xsmall}px;
   margin-top: ${base.spacing.small}px;
   box-shadow: none;
   outline: none;
@@ -37,12 +37,29 @@ export const StyledBigInput = styled.input`
   }
 `;
 
+export const SwitchContainer = styled.div`
+  display: flex;
+  padding: ${base.spacing.small}px 0 ${base.spacing.xxsmall}px;
+  align-items: center;
+`;
+
+export const SwitchLabel = styled.label`
+  font-size: ${base.font.size.regular};
+  font-weight: 400;
+  color: ${base.colors.textMuted};
+  letter-spacing: ${base.font.letterSpacing.heading};
+  margin-right: ${base.spacing.xsmall}px;
+`;
+
 export const StyledSwitch = styled.input`
   height: 20px;
   width: 20px;
-  border: 1px solid grey;
+  border: 1px solid ${base.colors.border};
+  outline: 0;
+  border-radius: 2px;
+  cursor: pointer;
 
   &:checked {
-    background: blue;
+    background: ${base.colors.secondary};
   }
 `;
