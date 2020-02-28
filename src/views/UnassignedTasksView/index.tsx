@@ -33,7 +33,7 @@ const UnassignedTasksView: React.FC<Props> = (props: Props) => {
     return props.tasks.map((task: TaskData) => {
       return (
         <React.Fragment>
-          <TaskCard task={task} flowSlug={task.flowSlug} key={task.id} tableView/>
+          <TaskCard task={task} flowSlug={task.flowSlug} key={task.id} row/>
         </React.Fragment>
       );
     });
