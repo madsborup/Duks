@@ -46,7 +46,7 @@ export const ColumnContainer = styled.div`
   overflow-x: auto;
   grid-template-columns: repeat(auto-fit, minmax(100px, 300px));
   grid-gap: ${base.spacing.small}px;
-  padding: ${base.spacing.medium}px ${base.spacing.medium}px;
+  padding: ${base.spacing.small}px;
 `;
 
 const AssignedBoard: React.FC<Props> = (props: Props) => {

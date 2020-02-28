@@ -15,8 +15,8 @@ import Head from "../../components/Head";
 import PopoverMenu from "../../components/PopoverMenu";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
-import TaskCard from "../../components/TaskCard";
-import { View, OptionsIcon } from "./style";
+import TaskRow from "../../components/TaskRow";
+import { View, TableHeader, TableColumnHeader, OptionsIcon } from "./style";
 
 interface Match {
   projectSlug: string;
@@ -49,11 +49,11 @@ class FlowView extends Component<Props> {
         if (task) {
           return (
             <React.Fragment>
-              <TaskCard
+              <TaskRow
                 flowSlug={flowSlug}
                 task={task}
                 key={task.id}
-                tableView
+                row
               />
             </React.Fragment>
           );
@@ -115,7 +115,23 @@ class FlowView extends Component<Props> {
                     <OptionsIcon />
                   </PopoverMenu>
                 </Header>
-                <View>{this.renderTasks()}</View>
+                <View>
+                  <TableHeader>
+                    <div>
+                      Title
+                    </div>
+                    <TableColumnHeader>
+                      Priority
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                      Assigned
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                      Status
+                    </TableColumnHeader>
+                  </TableHeader>
+                  {this.renderTasks()}
+                  </View>
               </SecondColumn>
             </TwoColumnGrid>
           </ViewGrid>
