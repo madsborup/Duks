@@ -17,14 +17,13 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: ${base.BORDER_RADIUS}px;
-  padding: ${base.spacing.large}px;
 `;
 
 export const Title = styled.span`
   font-size: 52px;
   color: ${base.colors.heading};
-  font-weight: 700;
-  margin-bottom: ${base.spacing.large}px;
+  font-weight: 800;
+  margin-bottom: ${base.spacing.small}px;
 `;
 
 export const GoogleSigninButton = styled(OutlineButton)`
