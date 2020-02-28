@@ -7,17 +7,17 @@ import Tooltip from "../Tooltip";
 import { StoreState } from "../../reducers";
 import { getFlow } from "../../selectors/getFlow";
 import {
-  StyledTaskCard,
+  StyledTaskRow,
   Content,
   TaskTitle,
-  MetaContainer,
   DangerLabel,
+  PriorityContainer,
   PriorityLabelLow,
   PriorityLabelMedium,
   PriorityLabelHigh,
+  StatusLabel,
   Date,
   DateIcon,
-  TaskInfoContainer,
   AssignedContainer,
   AvatarContainer,
   AssigneeAvatar
@@ -67,7 +67,7 @@ const TaskCard: React.FC<Props> = (props: Props) => {
 
   if (props.task && props.flow) {
     return (
-      <StyledTaskCard
+      <StyledTaskRow
         flowColor={props.flow.color}
         onClick={() =>
           props.showModal({
@@ -82,21 +82,20 @@ const TaskCard: React.FC<Props> = (props: Props) => {
       >
         <Content flowColor={props.flow.color}>
           <TaskTitle flowColor={props.flow.color}>{title}</TaskTitle>
-          <MetaContainer>
-            <TaskInfoContainer>
-              {HandlePriority(props.task.priority)}
-              {props.task.date && (
-                <Date>
-                  <DateIcon />
-                  {HandleDate(props.task.date)}
-                </Date>
-              )}
-              {props.task.isStuck && <DangerLabel>Stuck</DangerLabel>}
-            </TaskInfoContainer>
-            <AssignedContainer>{renderAssignedAvatars()}</AssignedContainer>
-          </MetaContainer>
+          <PriorityContainer>
+            {HandlePriority(props.task.priority)}
+          </PriorityContainer>
+          <AssignedContainer>{renderAssignedAvatars()}</AssignedContainer>
+          {props.task.date && (
+            <Date>
+              <DateIcon />
+              {HandleDate(props.task.date)}
+            </Date>
+          )}
+          <StatusLabel>{props.task.status}</StatusLabel>
+          {/* {props.task.isStuck && <DangerLabel>Stuck</DangerLabel>} */}
         </Content>
-      </StyledTaskCard>
+      </StyledTaskRow>
     );
   }
 
