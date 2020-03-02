@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Route, Redirect } from "react-router-dom";
+import _, { isEmpty } from "lodash";
 import history from "../../helpers/history";
+import { ProjectsData } from "../../actions";
 import { StoreState } from "../../reducers";
-import LoadingView from '../../views/viewHelpers/LoadingView'
+import LoadingView from "../../views/viewHelpers/LoadingView";
 import Routes from "../../Routes";
 import Login from "../../views/Login";
 
@@ -16,7 +18,7 @@ const RedirectHandler: React.FC<Props> = (props: Props) => {
   const { isVerifyingUser, isAuthenticated } = props;
 
   if (isVerifyingUser) {
-    return <LoadingView content="Logging in..." />
+    return <LoadingView content="Logging in..." />;
   }
 
   if (!isAuthenticated) {
@@ -28,14 +30,14 @@ const RedirectHandler: React.FC<Props> = (props: Props) => {
     );
   }
 
-  history.replace('/');
+  history.replace("/");
   return <Routes />;
 };
 
 const mapStateToProps = ({ auth }: StoreState) => {
   return {
     isAuthenticated: auth.isAuthenticated,
-    isVerifyingUser: auth.isVerifying
+    isVerifyingUser: auth.isVerifying,
   };
 };
 

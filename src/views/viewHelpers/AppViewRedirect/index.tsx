@@ -27,6 +27,5 @@ const mapStateToProps = ({ projects }: StoreState) => {
 };
 
 export default compose<React.ComponentType>(
-  withProjectsSubscription,
   connect(mapStateToProps)
 )(AppViewRedirect);

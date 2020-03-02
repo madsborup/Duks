@@ -15,16 +15,9 @@ import { getProject } from "../../selectors/getProject";
 import ProjectCard from "../ProjectCard";
 import LinkList from "../LinkList";
 import CollectionList from "../CollectionList";
-import { ReactComponent as BoardsIcon } from "../../assets/svg/BoardsIcon.svg";
-import { ReactComponent as UnassignedIcon } from "../../assets/svg/UnassignedIcon.svg";
-import {
-  StyledSidebar,
-  SidebarSection,
-  RightArrowIcon,
-  FlowIcon,
-  FlowAttributes,
-  FlowDayCounter
-} from "./style";
+import Tooltip from "../Tooltip";
+import { CollectionAddButton } from "../CollectionList/style";
+import { StyledSidebar, SidebarSection, FlowIcon } from "./style";
 
 interface Props extends RouteComponentProps {
   currentProject: ProjectData;

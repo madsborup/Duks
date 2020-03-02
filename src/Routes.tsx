@@ -10,6 +10,7 @@ import {
 import { ThemeProvider } from "styled-components";
 import ModalRoot from "./components/modals/ModalRoot";
 import { StoreState } from "./reducers";
+import { ProjectsData } from "./actions";
 import theme from "./components/designSystem/base";
 import AppViewWrapper from "./components/AppViewWrapper";
 import Navbar from "./components/Navbar";
@@ -26,42 +27,39 @@ interface Match {
 interface Props extends RouteComponentProps<Match> {
   isAuthenticated: boolean;
   isVerifyingUser: boolean;
+  projects: ProjectsData;
 }
 
-class Routes extends React.Component<Props> {
-  render() {
-    const { projectSlug } = this.props.match.params;
+const Routes: React.FC<Props> = (props: Props) => {
+  return (
+    <ThemeProvider theme={theme}>
+      <ModalRoot />
+      <AppViewWrapper>
+        <Switch>
+          <Route path="/" exact component={AppViewRedirect} />
+          <Route path="/:projectSlug" exact component={ProjectView} />
+          <Route path="/:projectSlug/boards" component={BoardsView} />
+          <Route
+            path="/:projectSlug/unassigned"
+            exact
+            component={UnassignedTasksView}
+          />
+          <Route
+            path="/:projectSlug/:flowSlug"
+            exact
+            component={ProjectFlowView}
+          />
+        </Switch>
+      </AppViewWrapper>
+    </ThemeProvider>
+  );
+};
 
-    return (
-      <ThemeProvider theme={theme}>
-        <ModalRoot />
-        <Navbar />
-        <AppViewWrapper>
-          <Switch>
-            <Route path="/" exact component={AppViewRedirect} />
-            <Route path="/:projectSlug" exact component={ProjectView} />
-            <Route path="/:projectSlug/boards" component={BoardsView} />
-            <Route
-              path="/:projectSlug/unassigned"
-              exact
-              component={UnassignedTasksView}
-            />
-            <Route
-              path="/:projectSlug/:flowSlug"
-              exact
-              component={ProjectFlowView}
-            />
-          </Switch>
-        </AppViewWrapper>
-      </ThemeProvider>
-    );
-  }
-}
-
-const mapStateToProps = ({ auth }: StoreState) => {
+const mapStateToProps = ({ auth, projects }: StoreState) => {
   return {
     isAuthenticated: auth.isAuthenticated,
-    isVerifyingUser: auth.isVerifying
+    isVerifyingUser: auth.isVerifying,
+    projects
   };
 };
 

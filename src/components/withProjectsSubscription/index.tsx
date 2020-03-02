@@ -5,7 +5,8 @@ import { ProjectsData, fetchProjects } from "../../actions";
 import { StoreState } from "../../reducers";
 import { Button } from "../designSystem/button";
 import { signOut } from "../../actions";
-import LoadingView from '../../views/viewHelpers/LoadingView'
+import LoadingView from "../../views/viewHelpers/LoadingView";
+import Navbar from "../../components/Navbar";
 
 interface Props {
   currentUser: firebase.User;
@@ -31,13 +32,12 @@ export const withProjectsSubscription = (
         return <LoadingView content="Loading projects..." />;
       }
 
-      //TODO: better handling of this (show onboarding?)
+      //TODO: consider replacing with onboarding flow
       if (isEmpty(projects.items)) {
         return (
-          <div>
-            No projects.{" "}
-            <Button onClick={() => this.props.signOut()}>Logout</Button>
-          </div>
+          <React.Fragment>
+            <Navbar />
+          </React.Fragment>
         );
       }
       return <Component {...this.props} />;

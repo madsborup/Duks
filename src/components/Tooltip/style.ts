@@ -3,7 +3,7 @@ import Tippy, { TippyProps } from "@tippy.js/react";
 import base from "../designSystem/base";
 import "tippy.js/dist/svg-arrow.css";
 
-interface Props extends TippyProps {
+interface Props {
   dark?: boolean;
 }
 
@@ -27,6 +27,6 @@ export const StyledTippy = styled(Tippy)<Props>`
 export const StyledTooltip = styled.div`
   padding: ${base.spacing.xxsmall}px ${base.spacing.xsmall}px;
   font-size: ${base.font.size.h6};
-  font-weight: 400;
+  font-weight: 500;
   border-radius: ${base.BORDER_RADIUS}px;
 `;

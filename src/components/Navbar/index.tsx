@@ -1,13 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { StoreState } from "../../reducers";
-import {
-  AuthData,
-  ProjectData,
-  ProjectsData,
-  fetchProjects,
-  showModal
-} from "../../actions";
+import _, { isEmpty } from "lodash";
+import { AuthData, ProjectData, fetchProjects, showModal } from "../../actions";
 import Tooltip from "../Tooltip";
 import { ReactComponent as ProjectIconDefault } from "../../assets/svg/ProjectIconDefault.svg";
 import {
@@ -44,17 +39,39 @@ class Navbar extends Component<Props> {
   render() {
     return (
       <StyledNavbar>
-        <ProjectLinkContainer>{this.renderProjectLinks()}</ProjectLinkContainer>
-        <Tooltip content="Create a new project" placement='right' dark>
-          <AddProjectIcon
-            onClick={() =>
-              this.props.showModal({
-                modalProps: { open: true },
-                modalType: "CREATE_PROJECT_MODAL"
-              })
-            }
-          />
-        </Tooltip>
+        <ProjectLinkContainer>
+          {this.renderProjectLinks()}
+          {_.isEmpty(this.props.projects) ? (
+            <Tooltip
+              content="Create a new project"
+              placement="right"
+              dark
+              visible
+              key={1}
+              hideOnClick={false}
+            >
+              <AddProjectIcon
+                onClick={() =>
+                  this.props.showModal({
+                    modalProps: { open: true },
+                    modalType: "CREATE_PROJECT_MODAL"
+                  })
+                }
+              />
+            </Tooltip>
+          ) : (
+            <Tooltip content="Create a new project" placement="right" dark key={2}>
+              <AddProjectIcon
+                onClick={() =>
+                  this.props.showModal({
+                    modalProps: { open: true },
+                    modalType: "CREATE_PROJECT_MODAL"
+                  })
+                }
+              />
+            </Tooltip>
+          )}
+        </ProjectLinkContainer>
       </StyledNavbar>
     );
   }
