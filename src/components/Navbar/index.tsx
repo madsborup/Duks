@@ -23,7 +23,7 @@ class Navbar extends Component<Props> {
   renderProjectLinks() {
     return this.props.projects.map((doc: ProjectData) => {
       return (
-        <Tooltip content={doc.title} placement="right" dark={true}>
+        <Tooltip content={doc.title} placement="right" >
           <ProjectLink
             activeClassName="selected"
             to={`/${doc.slug}`}
@@ -43,9 +43,8 @@ class Navbar extends Component<Props> {
           {this.renderProjectLinks()}
           {_.isEmpty(this.props.projects) ? (
             <Tooltip
-              content="Create a new project"
+              content="Create a new project to start creating Flows"
               placement="right"
-              dark
               visible
               key={1}
               hideOnClick={false}
@@ -60,7 +59,7 @@ class Navbar extends Component<Props> {
               />
             </Tooltip>
           ) : (
-            <Tooltip content="Create a new project" placement="right" dark key={2}>
+            <Tooltip content="Create a new project" placement="right" key={2}>
               <AddProjectIcon
                 onClick={() =>
                   this.props.showModal({

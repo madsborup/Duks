@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import base from "./base";
 
 export const NAVBAR_WIDTH = 62;
@@ -63,4 +63,19 @@ export const SecondColumnOverflowX = styled.section`
   top: 0;
   overflow-x: auto;
   border-right: 1px solid ${base.colors.border};
+`;
+
+export const View = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+`;
+
+export const Content = styled.div`
+  padding: ${base.spacing.medium}px;
+  height: 100%;
+  background: ${base.colors.viewBackground};
+`;
+export const ContentLight = styled(Content)`
+  background: ${base.colors.subHeading};
 `;

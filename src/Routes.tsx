@@ -14,10 +14,11 @@ import { ProjectsData } from "./actions";
 import theme from "./components/designSystem/base";
 import AppViewWrapper from "./components/AppViewWrapper";
 import Navbar from "./components/Navbar";
-import ProjectView from "./views/ProjectView";
-import BoardsView from "./views/BoardsView";
-import UnassignedTasksView from "./views/UnassignedTasksView";
-import ProjectFlowView from "./views/FlowView";
+import Project from "./views/Project";
+import Boards from "./views/Boards";
+import UnassignedTasks from "./views/UnassignedTasks";
+import Flow from "./views/Flow";
+import ProjectSettings from "./views/ProjectSettings";
 import AppViewRedirect from "./views/viewHelpers/AppViewRedirect";
 
 interface Match {
@@ -37,18 +38,19 @@ const Routes: React.FC<Props> = (props: Props) => {
       <AppViewWrapper>
         <Switch>
           <Route path="/" exact component={AppViewRedirect} />
-          <Route path="/:projectSlug" exact component={ProjectView} />
-          <Route path="/:projectSlug/boards" component={BoardsView} />
+          <Route path="/:projectSlug" exact component={Project} />
+          <Route path="/:projectSlug/boards" component={Boards} />
           <Route
             path="/:projectSlug/unassigned"
             exact
-            component={UnassignedTasksView}
+            component={UnassignedTasks}
           />
           <Route
-            path="/:projectSlug/:flowSlug"
+            path="/:projectSlug/settings"
             exact
-            component={ProjectFlowView}
+            component={ProjectSettings}
           />
+          <Route path="/:projectSlug/:flowSlug" exact component={Flow} />
         </Switch>
       </AppViewWrapper>
     </ThemeProvider>

@@ -21,10 +21,6 @@ export const StyledButton = styled.button<ButtonProps>`
   outline: 0;
   cursor: pointer;
 
-  &:focus {
-    transition: box-shadow 0.2s ease-in-out;
-  }
-
   &:hover:enabled {
     cursor: pointer;
   }
@@ -36,15 +32,11 @@ export const StyledButton = styled.button<ButtonProps>`
     font-weight: 500;
   }
 
-  &:active {
-    transition: box-shadow 0.2s ease-in-out;
-  }
 `;
 
 export const StyledPrimaryButton = styled(StyledButton)`
   background: ${base.colors.primary};
   color: ${base.colors.white};
-  transition: box-shadow 0.2s ease-in-out;
 
   &:disabled {
     background: ${base.colors.viewBackground};
@@ -58,6 +50,7 @@ export const StyledPrimaryButton = styled(StyledButton)`
 
 export const StyledOutlineButton = styled(StyledButton)`
   border: 1px solid ${base.colors.border};
+  color: ${base.colors.heading};
 
   &:hover {
     background: ${base.colors.hover};
@@ -75,5 +68,14 @@ export const StyledTextButton = styled(StyledButton)`
     color: ${base.colors.text};
     border: 1px solid transparent;
     background: none;
+  }
+`;
+
+export const StyledDangerButton = styled(StyledButton)`
+  border: 1px solid ${base.colors.danger};
+  color: ${base.colors.danger};
+
+  &:hover {
+    background: ${base.colors.hover};
   }
 `;

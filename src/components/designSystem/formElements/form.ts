@@ -16,18 +16,18 @@ export const TwoColumnForm = styled.form`
   margin: 0;
 `;
 
-export const FirstColumn = styled.div`
+export const FormFirstColumn = styled.div`
   display: flex;
   flex-direction: column;
   grid-area: 1 / 1 / 2 / 2;
 `;
 
-export const SecondColumn = styled.div`
+export const FormSecondColumn = styled.div`
   display: flex;
   flex-direction: column;
   grid-area: 1 / 2 / 2 / 3;
   border-left: 1px solid ${base.colors.border};
-  padding: 0 ${base.spacing.small}px;
+  padding-left: ${base.spacing.small}px;
 `;
 
 export const FormActions = styled.div`
@@ -35,3 +35,7 @@ export const FormActions = styled.div`
   justify-content: flex-end;
   grid-area: 2 / 1 / 3 / 3;
 `
+export const FormSecondColumnHeader = styled.div`
+  display: flex;
+  align-items: center;
+`;

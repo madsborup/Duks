@@ -5,7 +5,8 @@ import {
   StyledButton,
   StyledPrimaryButton,
   StyledOutlineButton,
-  StyledTextButton
+  StyledTextButton,
+  StyledDangerButton
 } from "./style";
 
 export interface ButtonProps
@@ -42,4 +43,8 @@ export const OutlineButton = (props: ButtonProps): JSX.Element => {
 
 export const TextButton = (props: ButtonProps): JSX.Element => {
   return handleButtonLinking(StyledTextButton, props);
+};
+
+export const DangerButton = (props: ButtonProps): JSX.Element => {
+  return handleButtonLinking(StyledDangerButton, props);
 };

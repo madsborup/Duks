@@ -8,7 +8,6 @@ import {
   ListItemImage,
   ListItemText,
   IconContainer,
-  RightArrowIcon,
   CollectionAddButton,
   CollectionAddIcon
 } from "./style";
@@ -63,7 +62,7 @@ const CollectionList: React.FC<Props> = (props: Props) => {
     <React.Fragment>
       <StyledCollectionList>
         <ListHeader>
-          {props.heading}{" "}
+          {props.heading}
           <CollectionAddButton
             onClick={() => props.buttonProps.onButtonClick()}
           >

@@ -63,7 +63,7 @@ export const SelectMultipleImage: React.FC<
       render={arrayHelpers => (
         <StyledSelectMultipleImage>
           {props.options.map((option, i) => (
-            <Tooltip content="replace me" placement="right" key={i} dark>
+            <Tooltip content="replace me" placement="right" key={i}>
             <ImageCheckbox
               name={field.name}
               type="checkbox"
