@@ -71,7 +71,7 @@ export const ModalBody = styled.div<ModalBodyProps>`
 
 export const ModalTitle = styled.div`
   color: ${base.colors.heading};
-  font-size: ${base.font.size.h1};
+  font-size: ${base.font.size.h2};
   font-weight: 600;
 `;
 

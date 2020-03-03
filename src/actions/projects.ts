@@ -48,7 +48,7 @@ export interface FetchProjectsSuccessAction {
 //remember to also delete taskgroups and tasks related to the project!
 export interface DeleteProjectAction {
   type: ActionTypes.DELETE_PROJECT;
-  id: number;
+  id: string;
 }
 
 export const createProject = (title: string, description: string) => async (
@@ -100,10 +100,8 @@ export const fetchProjects = (uid: string) => async (dispatch: Dispatch) => {
         if (!snapshot.empty) {
           projects = snapshot.docs.reduce(
             (prev, doc) => ({
-              // let id = doc.id;
-              // return {id, ...data} as ProjectData;
               ...prev,
-              [doc.data().slug]: doc.data()
+              [doc.data().slug]: { ...doc.data(), ["id"]: doc.id }
             }),
             {}
           );
@@ -117,5 +115,37 @@ export const fetchProjects = (uid: string) => async (dispatch: Dispatch) => {
       });
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const deleteProject = (id: string) => async (dispatch: Dispatch) => {
+  try {
+    await firestore
+      .collection("projects")
+      .doc(id)
+      .delete();
+    
+    dispatch<DeleteProjectAction>({ type: ActionTypes.DELETE_PROJECT, id });
+  } catch (e) {
+    console.log("Error deleting document:", e);
+  }
+};
+
+export const editProject = (
+  id: string,
+  values: {
+    title: string;
+    description: string;
+  }
+) => async (dispatch: Dispatch) => {
+  try {
+    firestore
+      .collection("projects")
+      .doc(id)
+      .update(values);
+
+      dispatch<EditProjectAction>({ type: ActionTypes.EDIT_PROJECT });
+  } catch (e) {
+    console.log("Error updating task", e);
   }
 };
