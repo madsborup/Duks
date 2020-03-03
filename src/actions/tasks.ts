@@ -7,7 +7,6 @@ import { StoreState } from "../reducers";
 import { addDocToCollection } from "../firebase/utils/addDocToCollection";
 
 export enum TASK_STATUS {
-  UNASSIGNED = "Unassigned",
   NOT_STARTED = "Not started",
   STARTED = "Started",
   REVIEW = "Ready for review",
@@ -64,7 +63,7 @@ export interface FetchTasksSuccessAction {
 
 export interface DeleteTaskAction {
   type: ActionTypes.DELETE_TASK;
-  id: number;
+  id: string;
 }
 
 export const createTask = (
@@ -85,9 +84,7 @@ export const createTask = (
     priority: priority,
     projectSlug: projectSlug,
     createdBy: creator,
-    status: _.isEmpty(assigned)
-      ? TASK_STATUS.UNASSIGNED
-      : TASK_STATUS.NOT_STARTED,
+    status: TASK_STATUS.NOT_STARTED,
     isStuck: false
   });
 
@@ -153,5 +150,18 @@ export const editTask = (
       .update(values);
   } catch (e) {
     console.log("Error updating task", e);
+  }
+};
+
+export const deleteTask = (id: string) => async (dispatch: Dispatch) => {
+  try {
+    await firestore
+      .collection("tasks")
+      .doc(id)
+      .delete();
+    
+    dispatch<DeleteTaskAction>({ type: ActionTypes.DELETE_TASK, id });
+  } catch (e) {
+    console.log("Error deleting document:", e);
   }
 };
