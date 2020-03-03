@@ -5,6 +5,7 @@ import { StoreState } from "../../../reducers";
 import _, { includes } from "lodash";
 import { statusLabels, FORM_TASK_STATUS } from "../../../utils/statusLabels";
 import { getProject } from "../../../selectors/getProject";
+import history from '../../../helpers/history'
 import { ModalBody, ModalTitle, CloseButton, ModalActions } from "../styles";
 import {
   editTask,
@@ -12,18 +13,22 @@ import {
   TASK_STATUS,
   TASK_PRIORITY,
   ProjectData,
-  MemberData
+  MemberData,
+  deleteTask
 } from "../../../actions";
 import {
   TwoColumnForm,
-  FirstColumn,
-  SecondColumn,
+  FormFirstColumn,
+  FormSecondColumn,
   FormActions,
+  FormSecondColumnHeader,
   Switch,
   Select,
   SelectMultipleImage,
   TextArea
 } from "../../designSystem/formElements";
+import PopoverMenu from "../../PopoverMenu";
+import { ThreeDotsVert } from '../../designSystem/icons/ThreeDotsVert'
 import { Option } from "../../designSystem/formElements";
 import { TextButton, PrimaryButton } from "../../designSystem/button";
 
@@ -33,6 +38,7 @@ interface Props {
   currentProject: ProjectData;
   closeModal: Function;
   editTask: Function;
+  deleteTask: Function;
 }
 
 interface FormValues {
@@ -81,7 +87,7 @@ const EditTaskModal: React.FC<Props> = (props: Props) => {
       }
     );
 
-    props.editTask(id, {
+    props.editTask(props.task.id, {
       title,
       description,
       assigned: assignedMembers,
@@ -115,6 +121,12 @@ const EditTaskModal: React.FC<Props> = (props: Props) => {
     return options.reverse();
   };
 
+  const onTaskDelete = () => {
+    props.deleteTask(props.task.id);
+
+    props.closeModal();
+  }
+
   return (
     <ModalBody big>
       <CloseButton onClick={() => props.closeModal()} />
@@ -134,7 +146,7 @@ const EditTaskModal: React.FC<Props> = (props: Props) => {
       >
         {formik => (
           <TwoColumnForm onSubmit={formik.handleSubmit}>
-            <FirstColumn>
+            <FormFirstColumn>
               <TextArea
                 type="text"
                 name="title"
@@ -154,8 +166,23 @@ const EditTaskModal: React.FC<Props> = (props: Props) => {
                 values={formik.values.assigned}
                 options={handleAssignOptions()}
               />
-            </FirstColumn>
-            <SecondColumn>
+            </FormFirstColumn>
+            <FormSecondColumn>
+              <FormSecondColumnHeader>
+              <PopoverMenu
+                      placement="bottom-start"
+                      items={[
+                        {
+                          type: "option",
+                          label: "Delete Task",
+                          onClick: () => onTaskDelete(),
+                          danger: true
+                        }
+                      ]}
+                    >
+                      <ThreeDotsVert />
+                    </PopoverMenu>
+              </FormSecondColumnHeader>
               <Switch name="isStuck" label="Stuck" />
               <Select
                 label="Priority"
@@ -177,7 +204,7 @@ const EditTaskModal: React.FC<Props> = (props: Props) => {
                 Created: {createdAt.toDate().getDate()}/
                 {createdAt.toDate().getMonth() + 1}{" "}
               </div> */}
-            </SecondColumn>
+            </FormSecondColumn>
             <FormActions>
               <ModalActions>
                 <TextButton onClick={() => props.closeModal()}>
@@ -201,5 +228,5 @@ const mapStateToProps = (state: StoreState, ownProps: Props) => {
 
 export default connect(
   mapStateToProps,
-  { editTask }
+  { editTask, deleteTask }
 )(EditTaskModal);

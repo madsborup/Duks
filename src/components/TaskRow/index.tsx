@@ -42,7 +42,7 @@ const TaskCard: React.FC<Props> = (props: Props) => {
     return assigned.map((assignee, i) => {
       return (
         <AvatarContainer>
-          <Tooltip content={assignee.name} placement="right" key={i} dark>
+          <Tooltip content={assignee.name} placement="right" key={i}>
             <AssigneeAvatar src={`${assignee.photoURL}=s48-c`} key={i} />
           </Tooltip>
         </AvatarContainer>

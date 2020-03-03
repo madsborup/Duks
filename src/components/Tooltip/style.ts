@@ -3,19 +3,14 @@ import Tippy, { TippyProps } from "@tippy.js/react";
 import base from "../designSystem/base";
 import "tippy.js/dist/svg-arrow.css";
 
-interface Props {
-  dark?: boolean;
-}
-
-export const StyledTippy = styled(Tippy)<Props>`
+export const StyledTippy = styled(Tippy)`
 
   &.tippy-tooltip {
-  background-color: ${({ dark }) => dark ? base.colors.text : base.colors.white};
-  color: ${({ dark }) => dark ? base.colors.white : base.colors.text};
-  border: ${({ dark }) => dark ? 'none' : `1px solid ${base.colors.border}`};
+  background-color: ${base.colors.text};
+  color: ${base.colors.white};
 
     .tippy-svg-arrow {
-      fill: ${({ dark }) => dark ? base.colors.text : base.colors.white};
+      fill: ${base.colors.text};
     }
 
     .tippy-content {

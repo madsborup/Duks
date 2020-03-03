@@ -2,7 +2,6 @@ import styled from "styled-components/macro";
 import { NavLink } from "react-router-dom";
 import { DropdownArrow } from '../../components/designSystem/icons/DropdownArrow'
 import { ReactComponent as ArrowDown } from "../../assets/svg/ArrowDown.svg";
-import { ReactComponent as Dots } from "../../assets/svg/Options.svg";
 import base from "../designSystem/base";
 
 export const StyledProjectCard = styled.div`
@@ -63,11 +62,5 @@ export const ProjectActionsContainer = styled.div`
   align-items: center;
   justify-content: flex-end;
   padding: 0 ${base.spacing.small}px;
-  cursor: pointer;
-`;
-
-export const OptionsIcon = styled(Dots)`
-  width: 10px;
-  margin-left: ${base.spacing.xxsmall}px;
   cursor: pointer;
 `;

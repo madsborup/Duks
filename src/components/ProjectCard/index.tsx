@@ -1,16 +1,16 @@
 import React from "react";
 import { ProjectData } from "../../actions";
 import { connect } from "react-redux";
-import PopoverMenu from "../../components/PopoverMenu";
+import history from '../../helpers/history'
+import PopoverMenu from "../PopoverMenu";
 import { showModal } from "../../actions";
-import { DropdownArrow } from '../../components/designSystem/icons/DropdownArrow'
+import { DropdownArrow } from '../designSystem/icons/DropdownArrow'
 import {
   StyledProjectCard,
   ProjectMetaContainer,
   ProjectTitle,
   ProjectDescription,
-  ProjectActionsContainer,
-  OptionsIcon
+  ProjectActionsContainer
 } from "./style";
 
 interface Props {
@@ -28,15 +28,7 @@ const ProjectCard: React.FC<Props> = (props: Props) => {
         {
           type: "option",
           label: "Settings",
-          onClick: () => console.log("something")
-        },
-        {
-          type: "divider"
-        },
-        {
-          type: "option",
-          label: "Leave Project",
-          onClick: () => console.log("something")
+          onClick: () => history.push("settings")
         }
       ]}
     >
