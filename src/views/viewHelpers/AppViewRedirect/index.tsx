@@ -15,6 +15,7 @@ interface Props {
 }
 
 const AppViewRedirect: React.FC<Props> = (props: Props) => {
+
   return (
     <Redirect to={`/${Object.values(props.projects.items)[0].slug}/boards`} />
   );

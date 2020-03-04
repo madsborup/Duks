@@ -24,13 +24,16 @@ const RedirectHandler: React.FC<Props> = (props: Props) => {
   if (!isAuthenticated) {
     return (
       <React.Fragment>
-        <Route path="/login" component={Login} />
+        <Route path="/login" exact component={Login} />
         <Redirect to="/login" />
       </React.Fragment>
     );
   }
 
-  history.replace("/");
+  if (history.location) {
+    history.push(history.location)
+  }
+
   return <Routes />;
 };
 

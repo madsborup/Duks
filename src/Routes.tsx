@@ -3,6 +3,7 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import {
   Route,
+  Redirect,
   Switch,
   withRouter,
   RouteComponentProps
@@ -51,6 +52,7 @@ const Routes: React.FC<Props> = (props: Props) => {
             component={ProjectSettings}
           />
           <Route path="/:projectSlug/:flowSlug" exact component={Flow} />
+          <Redirect to="/" />
         </Switch>
       </AppViewWrapper>
     </ThemeProvider>
