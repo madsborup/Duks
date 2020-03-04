@@ -1,16 +1,18 @@
-import React from 'react'
-import { StyledLoadingView } from './style'
+import React from "react";
+import { Spinner } from "../../../components/designSystem/icons/Spinner";
+import { StyledLoadingView, Content } from "./style";
 
 interface Props {
-  content: string;
+  content?: string;
 }
 
 const LoadingView: React.FC<Props> = (props: Props) => {
   return (
     <StyledLoadingView>
-      {props.content}
+      <Spinner />
+      <Content>{props.content}</Content>
     </StyledLoadingView>
-  )
-}
+  );
+};
 
 export default LoadingView;
