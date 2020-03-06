@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { StoreState } from "../../reducers";
-import { AuthData, signOut } from "../../actions";
+import { AuthData, signOut, showModal } from "../../actions";
 import PopoverMenu from "../../components/PopoverMenu";
-import { DropdownArrow } from '../../components/designSystem/icons/DropdownArrow'
+import { LabelCounter } from "../../components/PopoverMenu/style";
+import { DropdownArrow } from "../../components/designSystem/icons/DropdownArrow";
 import {
   Container,
   ProfileDetails,
@@ -15,15 +16,39 @@ import {
 interface Props {
   auth: AuthData;
   signOut: () => void;
+  showModal: Function;
 }
 
 const Profile: React.FC<Props> = (props: Props) => {
-  const { displayName, email, photoURL } = props.auth.user;
+  const { displayName, email, photoURL, invites } = props.auth.user;
+
+  const showPendingInvitesModal = () => {
+    props.showModal({
+      modalProps: {
+        open: true
+      },
+      modalType: "PENDING_INVITES_MODAL"
+    });
+  };
 
   return (
     <PopoverMenu
       placement="bottom-end"
       items={[
+        {
+          type: "option",
+          label: (
+            <div style={{ display: "flex" }}>
+              Invites {invites.length > 0 && <LabelCounter>{invites.length}</LabelCounter>}
+            </div>
+          ),
+          disabled: !invites || invites.length === 0,
+          onClick: () =>
+            invites && invites.length > 0 && showPendingInvitesModal()
+        },
+        {
+          type: "divider"
+        },
         {
           type: "option",
           label: "Log out",
@@ -49,5 +74,5 @@ const mapStateToProps = ({ auth }: StoreState): { auth: AuthData } => {
 
 export default connect(
   mapStateToProps,
-  { signOut }
+  { signOut, showModal }
 )(Profile);

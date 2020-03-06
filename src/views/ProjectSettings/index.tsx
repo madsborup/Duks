@@ -63,7 +63,7 @@ const Flow: React.FC<Props> = (props: Props) => {
     props.deleteProject(currentProject.id);
     console.log(currentProject.id);
 
-    history.push(`/${props.match.params.projectSlug}/boards`);
+    history.replace('/');
   };
 
   return (
@@ -124,9 +124,9 @@ const Flow: React.FC<Props> = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state: StoreState, ownProps: Props) => {
+const mapStateToProps = ({projects}: StoreState, ownProps: Props) => {
   return {
-    currentProject: getProject(state, ownProps.match.params)
+    currentProject: getProject(projects, ownProps.match.params)
   };
 };
 

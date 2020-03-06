@@ -6,7 +6,7 @@ interface Props {
   projectSlug: string;
 }
 
-const getProjectFromSlug = (state: StoreState, props: Props) => state.projects.items[props.projectSlug]
+const getProjectFromSlug = (projects: ProjectsData, props: Props) => projects.items[props.projectSlug]
 
 export const getProject = createSelector(
   [getProjectFromSlug],

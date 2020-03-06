@@ -7,6 +7,8 @@ import CreateProjectModal from "./CreateProjectModal";
 import CreateTaskModal from "./CreateTaskModal";
 import CreateFlowModal from "./CreateFlowModal";
 import EditTaskModal from './EditTaskModal'
+import InviteModal from './InviteModal'
+import PendingInvitesModal from './PendingInvitesModal'
 import { modalStyles } from "./styles";
 
 interface State {
@@ -22,7 +24,9 @@ export const MODAL_COMPONENTS = {
   CREATE_TASK_MODAL: CreateTaskModal,
   CREATE_PROJECT_MODAL: CreateProjectModal,
   CREATE_FLOW_MODAL: CreateFlowModal,
-  EDIT_TASK_MODAL: EditTaskModal
+  EDIT_TASK_MODAL: EditTaskModal,
+  INVITE_MODAL: InviteModal,
+  PENDING_INVITES_MODAL: PendingInvitesModal
 };
 
 export type ModalTypes = keyof typeof MODAL_COMPONENTS;

@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import isEmpty from "lodash/isEmpty";
-import { ProjectsData, fetchProjects } from "../../actions";
+import { ProjectsData, fetchProjects, UserData } from "../../actions";
 import { StoreState } from "../../reducers";
 import { Button } from "../designSystem/button";
 import { signOut } from "../../actions";
@@ -9,7 +9,7 @@ import LoadingView from "../../views/viewHelpers/LoadingView";
 import Navbar from "../../components/Navbar";
 
 interface Props {
-  currentUser: firebase.User;
+  currentUser: UserData;
   fetchProjects: Function;
   signOut: Function;
   projects: ProjectsData;

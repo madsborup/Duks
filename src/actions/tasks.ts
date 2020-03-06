@@ -1,7 +1,6 @@
 import { firestore } from "../firebase";
 import { Dispatch } from "redux";
 import _ from "lodash";
-import { MemberData } from "./projects";
 import { ActionTypes } from "../actions";
 import { StoreState } from "../reducers";
 import { addDocToCollection } from "../firebase/utils/addDocToCollection";
@@ -23,7 +22,7 @@ export interface TaskData {
   id: string;
   title: string;
   description: string;
-  assigned: MemberData[];
+  assigned: string[];
   status: TASK_STATUS;
   priority: TASK_PRIORITY;
   isStuck: boolean;
@@ -72,7 +71,7 @@ export const createTask = (
   projectSlug: string,
   flowSlug: string,
   priority: TASK_PRIORITY,
-  assigned: MemberData[]
+  assigned: string[]
 ) => async (dispatch: Dispatch, getState: () => StoreState) => {
   const creator = getState().auth.user.uid;
 
@@ -139,7 +138,7 @@ export const editTask = (
   values: {
     title: string;
     description: string;
-    assigned: MemberData[];
+    assigned: string[];
     status: TASK_STATUS;
   }
 ) => async (dispatch: Dispatch) => {

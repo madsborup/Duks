@@ -13,10 +13,10 @@ import {
   Content
 } from "../../components/designSystem/layout";
 import Head from "../../components/Head";
-import SegmentedControl from "../../components/SegmentedControl";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
 import TaskCard from "../../components/TaskCard";
+import { CardContainer } from "./style";
 
 interface Match {
   projectSlug: string;
@@ -34,7 +34,7 @@ const UnassignedTasks: React.FC<Props> = (props: Props) => {
     return props.tasks.map((task: TaskData) => {
       return (
         <React.Fragment>
-          <TaskCard task={task} flowSlug={task.flowSlug} key={task.id} row />
+          <TaskCard task={task} flowSlug={task.flowSlug} key={task.id} />
         </React.Fragment>
       );
     });
@@ -56,7 +56,7 @@ const UnassignedTasks: React.FC<Props> = (props: Props) => {
             <View>
               <Header title="Unassigned tasks" projectSlug={projectSlug} />
               <Content>
-                {renderTasks()}
+                <CardContainer>{renderTasks()}</CardContainer>
               </Content>
             </View>
           </SecondColumn>
@@ -67,10 +67,10 @@ const UnassignedTasks: React.FC<Props> = (props: Props) => {
 };
 
 //TODO: create selector for getting unassigned tasks
-const mapStateToProps = (state: StoreState, ownProps: Props) => {
+const mapStateToProps = ({projects, tasks}: StoreState, ownProps: Props) => {
   return {
-    project: getProject(state, ownProps.match.params),
-    tasks: Object.values(state.tasks.items).filter(task => {
+    project: getProject(projects, ownProps.match.params),
+    tasks: Object.values(tasks.items).filter(task => {
       return task.assigned && task.assigned.length === 0;
     })
   };

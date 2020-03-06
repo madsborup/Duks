@@ -2,15 +2,21 @@ import React, { Component } from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { withRouter, RouteComponentProps } from "react-router";
-import { TaskData, TASK_PRIORITY, FlowData, showModal } from "../../actions";
+import {
+  TaskData,
+  TASK_PRIORITY,
+  FlowData,
+  ProjectData,
+  showModal
+} from "../../actions";
 import Tooltip from "../Tooltip";
 import { StoreState } from "../../reducers";
 import { getFlow } from "../../selectors/getFlow";
+import { getProject } from "../../selectors/getProject";
 import {
   StyledTaskRow,
   Content,
   TaskTitle,
-  DangerLabel,
   PriorityContainer,
   PriorityLabelLow,
   PriorityLabelMedium,
@@ -30,7 +36,8 @@ interface Match {
 interface Props extends RouteComponentProps<Match> {
   task: TaskData;
   flowSlug: string;
-  flow: FlowData;
+  currentFlow: FlowData;
+  currentProject: ProjectData;
   showModal: Function;
 }
 
@@ -40,13 +47,22 @@ const TaskCard: React.FC<Props> = (props: Props) => {
 
   const renderAssignedAvatars = () => {
     return assigned.map((assignee, i) => {
-      return (
-        <AvatarContainer>
-          <Tooltip content={assignee.name} placement="right" key={i}>
-            <AssigneeAvatar src={`${assignee.photoURL}=s48-c`} key={i} />
-          </Tooltip>
-        </AvatarContainer>
-      );
+      //get user object from project members
+      if (props.currentProject) {
+        const user = props.currentProject.members.find(
+          member => member.uid === assignee
+        );
+
+        if (user) {
+          return (
+            <AvatarContainer>
+              <Tooltip content={user.displayName} placement="right" key={i}>
+                <AssigneeAvatar src={`${user.photoURL}=s48-c`} key={i} />
+              </Tooltip>
+            </AvatarContainer>
+          );
+        }
+      }
     });
   };
 
@@ -65,10 +81,10 @@ const TaskCard: React.FC<Props> = (props: Props) => {
     }
   };
 
-  if (props.task && props.flow) {
+  if (props.task && props.currentFlow) {
     return (
       <StyledTaskRow
-        flowColor={props.flow.color}
+        flowColor={props.currentFlow.color}
         onClick={() =>
           props.showModal({
             modalProps: {
@@ -80,8 +96,8 @@ const TaskCard: React.FC<Props> = (props: Props) => {
           })
         }
       >
-        <Content flowColor={props.flow.color}>
-          <TaskTitle flowColor={props.flow.color}>{title}</TaskTitle>
+        <Content flowColor={props.currentFlow.color}>
+          <TaskTitle flowColor={props.currentFlow.color}>{title}</TaskTitle>
           <PriorityContainer>
             {HandlePriority(props.task.priority)}
           </PriorityContainer>
@@ -104,9 +120,10 @@ const TaskCard: React.FC<Props> = (props: Props) => {
 };
 
 //TODO: fix any type
-const mapStateToProps = ({ flows }: StoreState, ownProps: any) => {
+const mapStateToProps = ({ flows, projects }: StoreState, ownProps: Props) => {
   return {
-    flow: getFlow(flows, ownProps)
+    currentFlow: getFlow(flows, ownProps),
+    currentProject: getProject(projects, ownProps.match.params)
   };
 };
 

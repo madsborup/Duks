@@ -9,7 +9,7 @@ interface ContainerProps {
 export const StyledHeader = styled.div<ContainerProps>`
   display: flex;
   align-items: center;
-  height: 68px;
+  min-height: 68px;
   border-bottom: 1px solid ${base.colors.border};
   padding-left: ${base.spacing.medium}px;
   background: ${base.colors.header};

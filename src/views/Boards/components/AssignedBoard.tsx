@@ -3,7 +3,7 @@ import styled from "styled-components/macro";
 import { connect } from "react-redux";
 import _, { includes } from "lodash";
 import { createStructuredSelector } from "reselect";
-import { TaskData, TASK_PRIORITY, ProjectData } from "../../../actions";
+import { TaskData, TASK_PRIORITY, ProjectsData, ProjectData } from "../../../actions";
 import { StoreState } from "../../../reducers";
 import { getProject } from "../../../selectors/getProject";
 import base from "../../../components/designSystem/base";
@@ -51,13 +51,10 @@ export const ColumnContainer = styled.div`
 const AssignedBoard: React.FC<Props> = (props: Props) => {
   const renderTaskColumns = () => {
     return props.currentProject.members.map((member, i) => {
-      let columnTasks = Object.values(props.tasks).filter(task => {
-        for (let key in task.assigned) {
-          if (task.assigned[key].id === member.id) {
-            return true;
-          }
-        }
-      });
+      //get tasks for each member
+      let columnTasks = Object.values(props.tasks).filter(task =>
+        task.assigned.filter(assignee => assignee === member.uid)
+      );
 
       //Sort tasks based on priority
       const sortedTasks = columnTasks.sort((a, b) => {
@@ -82,7 +79,7 @@ const AssignedBoard: React.FC<Props> = (props: Props) => {
           <HeaderContent>
             <img src={member.photoURL} />
             <div>
-              {member.name}
+              {member.displayName}
               <TaskCounter>{columnTasks.length}</TaskCounter>
             </div>
           </HeaderContent>
@@ -103,11 +100,11 @@ const AssignedBoard: React.FC<Props> = (props: Props) => {
 };
 
 const mapStateToProps = createStructuredSelector<
-  StoreState,
+  ProjectsData,
   { projectSlug: string },
   { currentProject: ProjectData }
 >({
   currentProject: getProject
 });
 
-export default connect(mapStateToProps)(AssignedBoard);
+export default connect(mapStateToProps, {})(AssignedBoard);

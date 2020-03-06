@@ -5,7 +5,7 @@ export const createUserDocument = async (user: firebase.User) => {
     const snapshot = await userRef.get();
 
     if (!snapshot.exists) {
-        const { displayName, email, photoURL } = user;
+        const { displayName, email, photoURL, uid } = user;
         const createdAt = new Date();
 
         try {
@@ -13,7 +13,8 @@ export const createUserDocument = async (user: firebase.User) => {
                 displayName,
                 email,
                 photoURL,
-                createdAt
+                createdAt,
+                uid
             });
         } catch (e) {
             console.log("Error creating user", e.message);

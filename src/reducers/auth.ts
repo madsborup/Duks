@@ -1,10 +1,10 @@
-import { AuthData, Action, ActionTypes } from "../actions";
+import { AuthData, UserData, Action, ActionTypes } from "../actions";
 
 const INITIAL_STATE: AuthData = {
   isLogginIn: false,
   isVerifying: false,
   isAuthenticated: false,
-  user: {} as firebase.User
+  user: {} as UserData
 };
 
 const auth = (state: AuthData = INITIAL_STATE, action: Action) => {

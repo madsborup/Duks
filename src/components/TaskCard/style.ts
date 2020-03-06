@@ -7,7 +7,6 @@ import { ReactComponent as PriorityLowIcon } from "../../assets/svg/priority_low
 import { ReactComponent as PriorityMediumIcon } from "../../assets/svg/priority_medium.svg";
 import { ReactComponent as PriorityHighIcon } from "../../assets/svg/priority_high.svg";
 
-
 interface Props {
   flowColor: string;
 }

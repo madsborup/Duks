@@ -1,3 +1,5 @@
+import { CreateFlowAction, FetchFlowsAction } from "./flows";
+import { ShowModalAction, HideModalAction } from "./modal";
 import {
   SignInRequestAction,
   SignInSuccesAction,
@@ -11,8 +13,6 @@ import {
   FetchProjectsAction,
   FetchProjectsSuccessAction
 } from "./projects";
-import { CreateFlowAction, FetchFlowsAction } from "./flows";
-import { ShowModalAction, HideModalAction } from "./modal";
 import {
   CreateTaskAction,
   FetchTasksRequestAction,

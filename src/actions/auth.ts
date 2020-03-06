@@ -4,12 +4,22 @@ import { ActionTypes } from "./types";
 import firebase, { auth, firestore, googleAuthProvider } from "../firebase";
 import { createUserDocument } from "../firebase/utils/createUserDocument";
 import { signInWithGoogle } from "../firebase/utils/signInWithGoogle";
+import { fetchUserFromId } from "../firebase/utils/fetchUser";
+
+export interface UserData {
+  uid: string;
+  displayName: string;
+  photoURL: string;
+  email: string;
+  createdAt: Date
+  invites: string[]
+}
 
 export interface AuthData {
   isLogginIn: boolean;
   isVerifying: boolean;
   isAuthenticated: boolean;
-  user: firebase.User;
+  user: UserData;
 }
 
 export interface SignInRequestAction {
@@ -18,7 +28,7 @@ export interface SignInRequestAction {
 
 export interface SignInSuccesAction {
   type: ActionTypes.SIGN_IN_SUCCESS;
-  user: firebase.User;
+  user: UserData;
 }
 
 export interface VerifyRequestAction {
@@ -44,7 +54,7 @@ export const signInRequest = () => {
   };
 };
 
-export const signInSucces = (user: firebase.User) => {
+export const signInSucces = (user: UserData) => {
   return {
     type: ActionTypes.SIGN_IN_SUCCESS,
     user
@@ -67,9 +77,7 @@ export const signIn = () => async (dispatch: Dispatch) => {
   dispatch(signInRequest());
 
   try {
-    const user = await signInWithGoogle();
-
-    dispatch(signInSucces(user));
+    await signInWithGoogle();
   } catch (error) {
     console.log("Sign in failed:", error);
   }
@@ -83,9 +91,10 @@ export const signOut = () => async (dispatch: Dispatch) => {
 
 export const verifyAuthentication = () => (dispatch: Dispatch) => {
   dispatch(verifyRequest());
-  auth.onAuthStateChanged(user => {
-    if (user !== null) {
-      createUserDocument(user);
+  auth.onAuthStateChanged(async auth => {
+    if (auth !== null) {
+      createUserDocument(auth);
+      let user = await fetchUserFromId(auth.uid);
       dispatch(signInSucces(user));
     }
 

@@ -59,6 +59,18 @@ class Sidebar extends Component<Props> {
     });
   };
 
+  showInviteModal = () => {
+    const projectSlug = this.props.projectSlug;
+
+    this.props.showModal({
+      modalProps: {
+        open: true,
+        projectSlug
+      },
+      modalType: "INVITE_MODAL"
+    });
+  };
+
   render() {
     const { projectSlug, currentProject } = this.props;
 
@@ -105,11 +117,11 @@ class Sidebar extends Component<Props> {
           <CollectionList
             heading="Members"
             collection={currentProject.members.map(member => {
-              return { label: member.name, photoURL: member.photoURL };
+              return { label: member.displayName, photoURL: member.photoURL };
             })}
             buttonProps={{
               content: "Invite",
-              onButtonClick: this.showCreateFlowModal
+              onButtonClick: this.showInviteModal
             }}
           />
         </SidebarSection>
@@ -118,11 +130,11 @@ class Sidebar extends Component<Props> {
   }
 }
 
-const mapStateToProps = (state: StoreState, ownProps: Props) => {
+const mapStateToProps = ({projects, flows}: StoreState, ownProps: Props) => {
   return {
-    currentProject: getProject(state, ownProps),
-    isFetching: state.projects.isFetching,
-    flows: state.flows.items
+    currentProject: getProject(projects, ownProps),
+    isFetching: projects.isFetching,
+    flows: flows.items
   };
 };
 

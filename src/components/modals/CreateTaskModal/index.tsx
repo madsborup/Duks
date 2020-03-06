@@ -4,7 +4,6 @@ import { Formik } from "formik";
 import _, { includes } from 'lodash'
 import {
   ProjectData,
-  MemberData,
   TASK_PRIORITY,
   createTask,
   FlowData
@@ -37,20 +36,13 @@ class CreateTaskModal extends Component<Props> {
     priority: TASK_PRIORITY,
     assigned: string[]
   ) => {
-    //get member objects from project to save to task
-    const assignedMembers: MemberData[] = this.props.currentProject.members.filter(
-      member => {
-        return _.includes(assigned, member.id);
-      }
-    );
-
     this.props.createTask(
       title,
       description,
       this.props.projectSlug,
       flowSlug,
       priority,
-      assignedMembers
+      assigned
     );
     this.props.closeModal();
   };
@@ -63,7 +55,7 @@ class CreateTaskModal extends Component<Props> {
 
   handleAssignOptions(): { imgUrl: string; value: string }[] {
     return this.props.currentProject.members.map(member => {
-      return { imgUrl: member.photoURL, value: member.id };
+      return { imgUrl: member.photoURL, value: member.uid };
     });
   };
 
@@ -108,6 +100,7 @@ class CreateTaskModal extends Component<Props> {
                 placeholder="New project"
                 value={formik.values.title}
                 onChange={formik.handleChange}
+                required
               />
               <TextArea
                 name="description"
@@ -149,10 +142,10 @@ class CreateTaskModal extends Component<Props> {
   }
 }
 
-const mapStateToProps = (state: StoreState, ownProps: Props) => {
+const mapStateToProps = ({projects, flows}: StoreState, ownProps: Props) => {
   return {
-    currentProject: getProject(state, ownProps),
-    flows: Object.values(state.flows.items)
+    currentProject: getProject(projects, ownProps),
+    flows: Object.values(flows.items)
   };
 };
 

@@ -2,7 +2,7 @@ import { ActionTypes } from "./types";
 import { ModalTypes } from "../components/modals/ModalRoot";
 import { TaskData } from './tasks'
 
-//Using any here - not good! Temporary until a good solution is found to pass prop type to ModalRoot
+//TODO: consider changing any type to a prop type to pass to ModalRoot instead
 export interface ModalData {
     modalProps: any;
     modalType: ModalTypes | null;

@@ -6,9 +6,10 @@ import { StyledTippy, StyledPopoverMenu, Option, Divider } from "./style";
 
 type MenuItem = {
   type: 'option' | 'divider';
-  label?: string;
+  label?: string | React.ReactNode;
   onClick?: () => void;
   danger?: boolean;
+  disabled?: boolean
 }
 
 interface Props {
@@ -24,7 +25,7 @@ const PopoverMenu: React.FC<Props> = (props: Props) => {
   const renderOptions = () => {
     return items.map((item, i) => {
       if (item.type === 'option') {
-      return <Option onClick={item.onClick} danger={item.danger} key={i}>{item.label}</Option>;
+      return <Option onClick={item.onClick} danger={item.danger} disabled={item.disabled} key={i}>{item.label}</Option>;
       } else if (item.type === 'divider') {
         return <Divider />
       }

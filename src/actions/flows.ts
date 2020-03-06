@@ -71,8 +71,6 @@ export const createFlow = (title: string, projectSlug: string) => async (
 export const fetchFlows = (projectSlug: string) => async (
   dispatch: Dispatch
 ) => {
-  let flows: FlowData[] = [];
-
   try {
     firestore
       .collection("flows")

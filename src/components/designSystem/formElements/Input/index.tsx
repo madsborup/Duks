@@ -1,6 +1,7 @@
 import React from "react";
 import Formik, { useField } from "formik";
 import { StyledLabel } from "../label";
+import { Error } from '../Error'
 import {
   StyledInput,
   StyledBigInput,
@@ -22,9 +23,8 @@ export const Input: React.FC<Formik.FieldAttributes<Props>> = ({
   return (
     <React.Fragment>
       {label && <StyledLabel htmlFor={props.name}>{label}</StyledLabel>}
-      <StyledInput {...field} {...props}>
-        {meta.touched && meta.error ? <div>{meta.error}</div> : null}
-      </StyledInput>
+      <StyledInput {...field} {...props} />
+      {meta.touched && meta.error && <Error>{meta.error}</Error>}
     </React.Fragment>
   );
 };
@@ -39,7 +39,7 @@ export const BigInput: React.FC<Formik.FieldAttributes<Props>> = ({
     <React.Fragment>
       {label && <StyledLabel htmlFor={props.name}>{label}</StyledLabel>}
       <StyledBigInput {...field} {...props}>
-        {meta.touched && meta.error ? <div>{meta.error}</div> : null}
+        {meta.touched && meta.error && <Error>{meta.error}</Error>}
       </StyledBigInput>
     </React.Fragment>
   );

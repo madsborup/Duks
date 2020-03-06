@@ -13,7 +13,7 @@ import {
   TASK_STATUS,
   TASK_PRIORITY,
   ProjectData,
-  MemberData,
+  UserData,
   deleteTask
 } from "../../../actions";
 import {
@@ -65,9 +65,7 @@ const EditTaskModal: React.FC<Props> = (props: Props) => {
   const initialValues: FormValues = {
     title,
     description,
-    assigned: assigned.map(assignee => {
-      return assignee.id;
-    }),
+    assigned,
     priority,
     status,
     isStuck
@@ -81,16 +79,11 @@ const EditTaskModal: React.FC<Props> = (props: Props) => {
     status: TASK_STATUS,
     isStuck: boolean
   ) => {
-    const assignedMembers: MemberData[] = props.currentProject.members.filter(
-      member => {
-        return _.includes(assigned, member.id);
-      }
-    );
 
     props.editTask(props.task.id, {
       title,
       description,
-      assigned: assignedMembers,
+      assigned,
       priority,
       status,
       isStuck
@@ -99,7 +92,7 @@ const EditTaskModal: React.FC<Props> = (props: Props) => {
 
   const handleAssignOptions = (): { imgUrl: string; value: string }[] => {
     const options = props.currentProject.members.map(member => {
-      return { imgUrl: member.photoURL, value: member.id };
+      return { imgUrl: member.photoURL, value: member.uid };
     });
 
     return options;
@@ -220,9 +213,9 @@ const EditTaskModal: React.FC<Props> = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state: StoreState, ownProps: Props) => {
+const mapStateToProps = ({projects}: StoreState, ownProps: Props) => {
   return {
-    currentProject: getProject(state, ownProps)
+    currentProject: getProject(projects, ownProps)
   };
 };
 
