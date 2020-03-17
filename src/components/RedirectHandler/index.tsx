@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { compose } from 'redux'
 import { Route, Redirect } from "react-router-dom";
-import _, { isEmpty } from "lodash";
-import history from "../../helpers/history";
-import { ProjectsData } from "../../actions";
 import { StoreState } from "../../reducers";
+import history from '../../helpers/history'
 import LoadingView from "../../views/viewHelpers/LoadingView";
 import Routes from "../../Routes";
 import Login from "../../views/Login";
@@ -28,10 +27,6 @@ const RedirectHandler: React.FC<Props> = (props: Props) => {
         <Redirect to="/login" />
       </React.Fragment>
     );
-  }
-
-  if (history.location) {
-    history.push(history.location)
   }
 
   return <Routes />;

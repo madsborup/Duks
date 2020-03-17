@@ -1,17 +1,19 @@
 import React from "react";
 import { connect } from "react-redux";
+import { compose } from "redux";
+import { Redirect, withRouter, RouteComponentProps } from "react-router-dom";
 import isEmpty from "lodash/isEmpty";
 import { ProjectsData, fetchProjects, UserData } from "../../actions";
 import { StoreState } from "../../reducers";
 import { Button } from "../designSystem/button";
 import { signOut } from "../../actions";
+import history from "../../helpers/history";
 import LoadingView from "../../views/viewHelpers/LoadingView";
 import Navbar from "../../components/Navbar";
 
 interface Props {
   currentUser: UserData;
   fetchProjects: Function;
-  signOut: Function;
   projects: ProjectsData;
 }
 
@@ -40,6 +42,7 @@ export const withProjectsSubscription = (
           </React.Fragment>
         );
       }
+      
       return <Component {...this.props} />;
     }
   }
@@ -53,6 +56,6 @@ export const withProjectsSubscription = (
 
   return connect(
     mapStateToProps,
-    { fetchProjects, signOut }
+    { fetchProjects }
   )(WithProjectsSubscription);
 };

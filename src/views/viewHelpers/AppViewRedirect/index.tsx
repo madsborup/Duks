@@ -1,24 +1,16 @@
 import React, { Component } from "react";
-import history from "../../../helpers/history";
-import { Redirect } from "react-router-dom";
-import { compose } from "redux";
+import { Redirect, RouteComponentProps } from "react-router-dom";
 import { connect } from "react-redux";
 import { StoreState } from "../../../reducers";
 import { ProjectsData } from "../../../actions";
-import { withProjectsSubscription } from "../../../components/withProjectsSubscription";
 
-//TODO: implement logic that gets current user most recent location and redirect the user
-//to that path
-
-interface Props {
+interface Props extends RouteComponentProps {
   projects: ProjectsData;
 }
 
 const AppViewRedirect: React.FC<Props> = (props: Props) => {
-
-  return (
-    <Redirect to={`/${Object.values(props.projects.items)[0].slug}/boards`} />
-  );
+  // redirect to most recent project
+  return <Redirect to={`/${Object.values(props.projects.items)[0].slug}`} />;
 };
 
 const mapStateToProps = ({ projects }: StoreState) => {
@@ -27,6 +19,4 @@ const mapStateToProps = ({ projects }: StoreState) => {
   };
 };
 
-export default compose<React.ComponentType>(
-  connect(mapStateToProps)
-)(AppViewRedirect);
+export default connect(mapStateToProps)(AppViewRedirect);

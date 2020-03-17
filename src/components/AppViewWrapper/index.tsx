@@ -1,17 +1,32 @@
-import React from 'react'
-import { StyledAppViewWrapper } from './style'
-import { withProjectsSubscription } from "../withProjectsSubscription";
-import LoadingView from '../../views/viewHelpers/LoadingView'
-import Navbar from '../Navbar'
+import React, { Component } from "react";
+import { Route } from "react-router-dom";
+import { StyledAppViewWrapper } from "./style";
+import Navbar from "../Navbar";
+import Sidebar from "../Sidebar";
+import {
+  ViewGrid,
+  TwoColumnGrid,
+  FirstColumn,
+  SecondColumn
+} from "../../components/designSystem/layout";
 
-//TODO: add withProjects HOC
-const AppViewWrapper: React.FC = (props) => {
+const AppViewWrapper: React.FC = ({children}) => {
+
   return (
-    <StyledAppViewWrapper>
-      <Navbar />
-      {props.children}
-    </StyledAppViewWrapper>
-  )
-}
+    <React.Fragment>
+      <StyledAppViewWrapper>
+        <Navbar />
+        <ViewGrid>
+          <TwoColumnGrid>
+            <FirstColumn>
+              <Route path="/:projectSlug" component={Sidebar} />
+            </FirstColumn>
+            <SecondColumn>{children}</SecondColumn>
+          </TwoColumnGrid>
+        </ViewGrid>
+      </StyledAppViewWrapper>
+    </React.Fragment>
+  );
+};
 
-export default withProjectsSubscription(AppViewWrapper);
+export default AppViewWrapper;

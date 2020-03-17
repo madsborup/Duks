@@ -3,7 +3,9 @@ import ReactDOM from "react-dom";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
 import { Router } from "react-router-dom";
+import { ThemeProvider } from "styled-components";
 import history from "./helpers/history";
+import theme from "./components/designSystem/theme";
 import { store } from "./store";
 import { verifyAuthentication } from "./actions";
 import { GlobalStyle } from "./globalStyles";
@@ -16,8 +18,10 @@ store.dispatch(verifyAuthentication());
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <GlobalStyle />
-      <RedirectHandler />
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <RedirectHandler />
+      </ThemeProvider>
     </Router>
   </Provider>,
   document.getElementById("root")

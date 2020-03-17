@@ -1,45 +1,23 @@
 import React, { Component } from "react";
-import { compose } from "redux";
-import { connect } from "react-redux";
-import {
-  Route,
-  Redirect,
-  Switch,
-  withRouter,
-  RouteComponentProps
-} from "react-router-dom";
-import { ThemeProvider } from "styled-components";
+import { Route, Switch } from "react-router-dom";
 import ModalRoot from "./components/modals/ModalRoot";
-import { StoreState } from "./reducers";
-import { ProjectsData } from "./actions";
-import theme from "./components/designSystem/base";
 import AppViewWrapper from "./components/AppViewWrapper";
-import Navbar from "./components/Navbar";
+import AppViewRedirect from "./views/viewHelpers/AppViewRedirect";
 import Project from "./views/Project";
 import Boards from "./views/Boards";
 import UnassignedTasks from "./views/UnassignedTasks";
 import Flow from "./views/Flow";
 import ProjectSettings from "./views/ProjectSettings";
-import AppViewRedirect from "./views/viewHelpers/AppViewRedirect";
+import { withProjectsSubscription } from "./components/withProjectsSubscription";
 
-interface Match {
-  projectSlug: string;
-}
-
-interface Props extends RouteComponentProps<Match> {
-  isAuthenticated: boolean;
-  isVerifyingUser: boolean;
-  projects: ProjectsData;
-}
-
-const Routes: React.FC<Props> = (props: Props) => {
+const Routes: React.FC = () => {
   return (
-    <ThemeProvider theme={theme}>
+    <React.Fragment>
       <ModalRoot />
+      <Route path="/" component={AppViewRedirect} />
+      <Route path="/:projectSlug" component={Project} />
       <AppViewWrapper>
         <Switch>
-          <Route path="/" exact component={AppViewRedirect} />
-          <Route path="/:projectSlug" exact component={Project} />
           <Route path="/:projectSlug/boards" component={Boards} />
           <Route
             path="/:projectSlug/unassigned"
@@ -52,22 +30,10 @@ const Routes: React.FC<Props> = (props: Props) => {
             component={ProjectSettings}
           />
           <Route path="/:projectSlug/:flowSlug" exact component={Flow} />
-          <Redirect to="/" />
         </Switch>
       </AppViewWrapper>
-    </ThemeProvider>
+    </React.Fragment>
   );
 };
 
-const mapStateToProps = ({ auth, projects }: StoreState) => {
-  return {
-    isAuthenticated: auth.isAuthenticated,
-    isVerifyingUser: auth.isVerifying,
-    projects
-  };
-};
-
-export default compose<React.ComponentType>(
-  withRouter,
-  connect(mapStateToProps)
-)(Routes);
+export default withProjectsSubscription(Routes);
