@@ -2,6 +2,7 @@ import firebase, { firestore } from "../firebase";
 import { Dispatch } from "redux";
 import { ActionTypes, UserData } from "../actions";
 import { StoreState } from "../reducers";
+import { deleteFlow } from '../actions'
 import { addDocToCollection } from "../firebase/utils/addDocToCollection";
 
 export interface ProjectMember {
@@ -109,13 +110,8 @@ export const fetchProjects = (userId: string) => async (dispatch: Dispatch) => {
             }),
             {}
           );
-          if (projects !== null) {
-            dispatch(fetchProjectsSuccess(projects));
-          }
-        } else {
-          //TODO: handle case when user has no projects
-          dispatch(fetchProjectsSuccess(projects));
         }
+        dispatch(fetchProjectsSuccess(projects));
       });
   } catch (error) {
     console.log(error);
@@ -128,6 +124,10 @@ export const deleteProject = (id: string) => async (dispatch: Dispatch) => {
       .collection("projects")
       .doc(id)
       .delete();
+
+    //delete flows associated with project
+    let flowsRef = await firestore.collection("flows").where("projectID", "==", id).get();
+    flowsRef.forEach(flow => deleteFlow(flow.id))
 
     dispatch<DeleteProjectAction>({ type: ActionTypes.DELETE_PROJECT, id });
   } catch (e) {
@@ -170,10 +170,14 @@ export const addUserToProject = (user: ProjectMember, projectId: string) => {
     let batch = firestore.batch();
     let projectRef = firestore.collection("projects").doc(projectId);
 
-    batch.update(projectRef, { members: firebase.firestore.FieldValue.arrayUnion(user) })
-    batch.update(projectRef, { memberIDs: firebase.firestore.FieldValue.arrayUnion(user.uid) })
+    batch.update(projectRef, {
+      members: firebase.firestore.FieldValue.arrayUnion(user)
+    });
+    batch.update(projectRef, {
+      memberIDs: firebase.firestore.FieldValue.arrayUnion(user.uid)
+    });
 
-    batch.commit()
+    batch.commit();
   } catch (e) {
     console.log("Error adding member", e);
   }

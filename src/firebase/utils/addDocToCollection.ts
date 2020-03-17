@@ -15,11 +15,11 @@ const isProject = (project: any): project is ProjectData => {
 };
 
 const isFlow = (flow: any): flow is FlowData => {
-  return "projectSlug" in flow;
+  return "projectID" in flow;
 };
 
 const isTask = (task: any): task is TaskData => {
-  return "taskGroupSlug" in task;
+  return "flowID" in task;
 };
 
 const setDocument = async (

@@ -23,7 +23,7 @@ export interface FlowData {
   slug: string;
   color: string;
   endDate: Date;
-  projectSlug: string;
+  projectID: string;
 }
 
 export interface FlowsData {
@@ -50,14 +50,14 @@ export interface DeleteFlowAction {
 }
 
 //TODO: consider adding current project slug to store and access data their instead of passing in to this action creator
-export const createFlow = (title: string, projectSlug: string) => async (
+export const createFlow = (title: string, projectID: string) => async (
   dispatch: Dispatch,
   getState: () => StoreState
 ) => {
   const creator = getState().auth.user.uid;
 
   addDocToCollection<FlowData>("flows", {
-    projectSlug: projectSlug,
+    projectID: projectID,
     title: title,
     createdBy: creator,
     color: FLOW_COLORS[Math.floor(Math.random() * FLOW_COLORS.length)]
@@ -68,20 +68,20 @@ export const createFlow = (title: string, projectSlug: string) => async (
   });
 };
 
-export const fetchFlows = (projectSlug: string) => async (
+export const fetchFlows = (projectID: string) => async (
   dispatch: Dispatch
 ) => {
   try {
     firestore
       .collection("flows")
-      .where("projectSlug", "==", projectSlug)
+      .where("projectID", "==", projectID)
       .onSnapshot(snapshot => {
         let flows = {};
 
         flows = snapshot.docs.reduce(
           (prev, doc) => ({
             ...prev,
-            [doc.data().slug]: { ...doc.data(), ["id"]: doc.id }
+            [doc.id]: { ...doc.data(), ["id"]: doc.id }
           }),
           {}
         );
@@ -97,11 +97,16 @@ export const fetchFlows = (projectSlug: string) => async (
 };
 
 export const deleteFlow = (id: string) => async (dispatch: Dispatch) => {
+  console.log("fired")
   try {
     await firestore
       .collection("flows")
       .doc(id)
       .delete();
+    
+    //delete tasks associated with flow
+    let tasksRef = await firestore.collection("tasks").where("flowID", "==", id).get();
+    tasksRef.forEach(task => task.ref.delete())
     
     dispatch<DeleteFlowAction>({ type: ActionTypes.DELETE_FLOW, id });
   } catch (e) {

@@ -29,8 +29,8 @@ export interface TaskData {
   date: firebase.firestore.Timestamp;
   createdBy: string;
   createdAt: firebase.firestore.Timestamp;
-  flowSlug: string;
-  projectSlug: string;
+  flowID: string;
+  projectID: string;
 }
 
 export interface TasksData {
@@ -68,8 +68,8 @@ export interface DeleteTaskAction {
 export const createTask = (
   title: string,
   description: string,
-  projectSlug: string,
-  flowSlug: string,
+  projectID: string,
+  flowID: string,
   priority: TASK_PRIORITY,
   assigned: string[]
 ) => async (dispatch: Dispatch, getState: () => StoreState) => {
@@ -79,9 +79,9 @@ export const createTask = (
     title: title,
     description: description,
     assigned: assigned,
-    flowSlug: flowSlug,
+    flowID: flowID,
     priority: priority,
-    projectSlug: projectSlug,
+    projectID: projectID,
     createdBy: creator,
     status: TASK_STATUS.NOT_STARTED,
     isStuck: false
@@ -105,15 +105,15 @@ export const fetchTasksSuccess = (tasks: { [key: string]: TaskData }) => {
   };
 };
 
-export const fetchTasks = (projectSlug: string) => async (
+export const fetchTasks = (projectID: string) => async (
   dispatch: Dispatch
 ) => {
   dispatch(fetchTasksRequest());
-
+  console.log(projectID)
   try {
     firestore
       .collection("tasks")
-      .where("projectSlug", "==", projectSlug)
+      .where("projectID", "==", projectID)
       .onSnapshot(snapshot => {
         let tasks = {};
 
