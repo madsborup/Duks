@@ -21,9 +21,9 @@ interface Props {
 
 class Navbar extends Component<Props> {
   renderProjectLinks() {
-    return this.props.projects.map((doc: ProjectData) => {
+    return this.props.projects.map((doc: ProjectData, i) => {
       return (
-        <Tooltip content={doc.title} placement="right" >
+        <Tooltip content={doc.title} placement="right" key={i}>
           <ProjectLink
             activeClassName="selected"
             to={`/${doc.slug}`}

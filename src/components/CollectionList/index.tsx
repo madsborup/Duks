@@ -35,12 +35,12 @@ interface Props extends RouteComponentProps<Match> {
 
 const CollectionList: React.FC<Props> = (props: Props) => {
   const renderListItems = () => {
-    return props.collection.map(item => {
+    return props.collection.map((item, i) => {
       return item.slug ? (
         <ListLink
           activeClassName="selected"
           to={`/${props.match.params.projectSlug}/${item.slug}`}
-          key={item.slug}
+          key={i}
           border={item.border}
         >
           <ListItem border={item.border}>
@@ -50,7 +50,7 @@ const CollectionList: React.FC<Props> = (props: Props) => {
           <IconContainer>{item.secondIcon}</IconContainer>
         </ListLink>
       ) : item.photoURL ? (
-        <ListItem>
+        <ListItem key={i}>
           <ListItemImage src={item.photoURL} />
           <ListItemText>{item.label}</ListItemText>
         </ListItem>

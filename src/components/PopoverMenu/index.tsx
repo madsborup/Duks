@@ -27,7 +27,7 @@ const PopoverMenu: React.FC<Props> = (props: Props) => {
       if (item.type === 'option') {
       return <Option onClick={item.onClick} danger={item.danger} disabled={item.disabled} key={i}>{item.label}</Option>;
       } else if (item.type === 'divider') {
-        return <Divider />
+        return <Divider key={i} />
       }
     });
   };

@@ -11,8 +11,8 @@ import {
 } from "../../actions";
 import Tooltip from "../Tooltip";
 import { StoreState } from "../../reducers";
-import { getFlow } from "../../selectors/getFlow";
-import { getProject } from "../../selectors/getProject";
+import { getFlowFromID } from "../../selectors/getFlow";
+import { getProjectFromSlug } from "../../selectors/getProject";
 import {
   StyledTaskCard,
   Content,
@@ -36,7 +36,7 @@ interface Match {
 
 interface Props extends RouteComponentProps<Match> {
   task: TaskData;
-  flowSlug: string;
+  flowID: string;
   flow: FlowData;
   currentProject: ProjectData;
   showModal: Function;
@@ -44,7 +44,6 @@ interface Props extends RouteComponentProps<Match> {
 
 const TaskCard: React.FC<Props> = (props: Props) => {
   const { title, assigned } = props.task;
-  const { projectSlug } = props.match.params;
 
   const renderAssignedAvatars = () => {
     return assigned.map((assignee, i) => {
@@ -56,9 +55,9 @@ const TaskCard: React.FC<Props> = (props: Props) => {
 
         if (user) {
           return (
-            <AvatarContainer>
-              <Tooltip content={user.displayName} placement="right" key={i}>
-                <AssigneeAvatar src={`${user.photoURL}=s48-c`} key={i} />
+            <AvatarContainer key={i}>
+              <Tooltip content={user.displayName} placement="right">
+                <AssigneeAvatar src={`${user.photoURL}=s48-c`} />
               </Tooltip>
             </AvatarContainer>
           );
@@ -91,7 +90,7 @@ const TaskCard: React.FC<Props> = (props: Props) => {
             modalProps: {
               open: true,
               task: props.task,
-              projectSlug: projectSlug
+              projectID: props.currentProject.id
             },
             modalType: "EDIT_TASK_MODAL"
           })
@@ -124,13 +123,13 @@ const TaskCard: React.FC<Props> = (props: Props) => {
 //TODO: fix any type
 const mapStateToProps = ({ flows, projects }: StoreState, ownProps: Props) => {
   return {
-    flow: getFlow(flows, ownProps),
-    currentProject: getProject(projects, ownProps.match.params)
+    flow: getFlowFromID(flows, ownProps),
+    currentProject: getProjectFromSlug(projects, ownProps.match.params)
   };
 };
 
 export default compose<
-  React.ComponentType<{ flowSlug: string; task: TaskData; row?: boolean }>
+  React.ComponentType<{ flowID: string; task: TaskData; row?: boolean }>
 >(
   withRouter,
   connect(
