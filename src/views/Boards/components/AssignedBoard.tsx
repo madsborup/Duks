@@ -1,27 +1,22 @@
 import React from "react";
 import styled from "styled-components/macro";
-import { connect } from "react-redux";
 import _, { includes } from "lodash";
-import { createStructuredSelector } from "reselect";
 import { TaskData, TASK_PRIORITY, ProjectsData, ProjectData } from "../../../actions";
-import { StoreState } from "../../../reducers";
-import { getProject } from "../../../selectors/getProject";
-import base from "../../../components/designSystem/base";
+import theme from '../../../components/designSystem/theme'
 import BoardTaskColumn from "../../../components/BoardTaskColumn";
 import { TaskCounter } from "../style";
 
 interface Props {
   tasks: { [key: string]: TaskData };
-  projectSlug: string;
   currentProject: ProjectData;
 }
 
 const HeaderContent = styled.div`
   display: flex;
   align-items: center;
-  font-size: ${base.font.size.h5};
+  font-size: ${theme.font.size.h5};
   font-weight: 500;
-  color: ${base.colors.textMuted};
+  color: ${theme.colors.textMuted};
   line-height: 1;
   width: 100%;
 
@@ -29,8 +24,8 @@ const HeaderContent = styled.div`
     width: 45px;
     height: 45px;
     border-radius: 50%;
-    border: 3px solid ${base.colors.white};
-    margin-right: ${base.spacing.xsmall}px;
+    border: 3px solid ${theme.colors.white};
+    margin-right: ${theme.spacing.xsmall};
   }
 
   div {
@@ -45,7 +40,7 @@ export const ColumnContainer = styled.div`
   align-items: start;
   overflow-x: auto;
   grid-template-columns: repeat(auto-fit, minmax(100px, 300px));
-  grid-gap: ${base.spacing.small}px;
+  grid-gap: ${theme.spacing.small};
 `;
 
 const AssignedBoard: React.FC<Props> = (props: Props) => {
@@ -53,7 +48,7 @@ const AssignedBoard: React.FC<Props> = (props: Props) => {
     return props.currentProject.members.map((member, i) => {
       //get tasks for each member
       let columnTasks = Object.values(props.tasks).filter(task =>
-        task.assigned.filter(assignee => assignee === member.uid)
+        task.assigned.includes(member.uid)
       );
 
       //Sort tasks based on priority
@@ -99,12 +94,5 @@ const AssignedBoard: React.FC<Props> = (props: Props) => {
   return <ColumnContainer>{renderTaskColumns()}</ColumnContainer>;
 };
 
-const mapStateToProps = createStructuredSelector<
-  ProjectsData,
-  { projectSlug: string },
-  { currentProject: ProjectData }
->({
-  currentProject: getProject
-});
 
-export default connect(mapStateToProps, {})(AssignedBoard);
+export default AssignedBoard;

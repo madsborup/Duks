@@ -1,21 +1,23 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { RouteComponentProps, Route, Redirect } from "react-router-dom";
+import { compose } from "redux";
+import {
+  RouteComponentProps,
+  Route,
+  Redirect,
+  withRouter
+} from "react-router-dom";
 import { StoreState } from "../../reducers";
 import { TaskData, FlowData, ProjectData } from "../../actions";
-import { getProject } from "../../selectors/getProject";
+import { getProjectFromSlug } from "../../selectors/getProject";
 import Head from "../../components/Head";
 import SegmentedControl from "../../components/SegmentedControl";
 import Header from "../../components/Header";
 import Subheader from "../../components/Subheader";
-import Sidebar from "../../components/Sidebar";
+import LoadingView from '../../views/viewHelpers/LoadingView'
 import StatusBoard from "./components/StatusBoard";
 import AssignedBoard from "./components/AssignedBoard";
 import {
-  ViewGrid,
-  TwoColumnGrid,
-  FirstColumn,
-  SecondColumn,
   View,
   Content
 } from "../../components/designSystem/layout";
@@ -31,58 +33,49 @@ interface Props extends RouteComponentProps<Match> {
 }
 
 const Boards: React.FC<Props> = (props: Props) => {
+  const { currentProject } = props;
   const { projectSlug } = props.match.params;
 
-  if(props.currentProject) {
+  if (currentProject) {
     return (
-    <React.Fragment>
-      <Head
-        title={`${props.currentProject.title} - Boards`}
-        description={"View task boards"}
-      />
-      <ViewGrid>
-        <TwoColumnGrid>
-          <FirstColumn>
-            <Sidebar projectSlug={projectSlug} />
-          </FirstColumn>
-          <SecondColumn>
-            <View>
-              <Header projectSlug={projectSlug} title="Boards" />
-              <Subheader>
-                <SegmentedControl
-                  controls={[
-                    { label: "Status", path: `/${projectSlug}/boards` },
-                    {
-                      label: "Assigned",
-                      path: `/${projectSlug}/boards/assigned`
-                    }
-                  ]}
-                />
-              </Subheader>
-              <Content>
-                <Route
-                  path="/:projectSlug/boards"
-                  exact
-                  render={() => <StatusBoard tasks={props.tasks} />}
-                />
-                <Route
-                  path="/:projectSlug/boards/assigned"
-                  exact
-                  render={() => (
-                    <AssignedBoard
-                      tasks={props.tasks}
-                      projectSlug={projectSlug}
-                    />
-                  )}
-                />
-              </Content>
-            </View>
-          </SecondColumn>
-        </TwoColumnGrid>
-      </ViewGrid>
-    </React.Fragment>
-    )}
-  else return <Redirect to="/" />
+      <View>
+        <Head
+          title={`${currentProject.title} - Boards`}
+          description={"View task boards"}
+        />
+        <Header projectID={currentProject.id} title="Boards" />
+        <Subheader>
+          <SegmentedControl
+            controls={[
+              { label: "Status", path: `/${projectSlug}/boards` },
+              {
+                label: "Assigned",
+                path: `/${projectSlug}/boards/assigned`
+              }
+            ]}
+          />
+        </Subheader>
+        <Content>
+          <Route
+            path="/:projectSlug/boards"
+            exact
+            render={() => <StatusBoard tasks={props.tasks} />}
+          />
+          <Route
+            path="/:projectSlug/boards/assigned"
+            exact
+            render={() => (
+              <AssignedBoard
+                tasks={props.tasks}
+                currentProject={currentProject}
+              />
+            )}
+          />
+        </Content>
+      </View>
+    );
+  }
+  return <LoadingView />;
 };
 
 const mapStateToProps = (
@@ -90,13 +83,15 @@ const mapStateToProps = (
   ownProps: Props
 ) => {
   return {
-    currentProject: getProject(projects, ownProps.match.params),
+    currentProject: getProjectFromSlug(projects, ownProps.match.params),
     tasks: tasks.items,
     flows: flows.items
   };
 };
 
-export default connect(
-  mapStateToProps,
-  null
+export default compose<React.ComponentType>(
+  withRouter,
+  connect(
+    mapStateToProps
+  )
 )(Boards);

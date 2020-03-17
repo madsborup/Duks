@@ -3,7 +3,7 @@ import styled from "styled-components";
 import _, { isEmpty } from "lodash";
 import { TaskData, TASK_STATUS, TASK_PRIORITY } from "../../../actions";
 import { statusLabels } from "../../../utils/statusLabels";
-import base from "../../../components/designSystem/base";
+import theme from "../../../components/designSystem/theme";
 import BoardTaskColumn from "../../../components/BoardTaskColumn";
 import { TaskCounter } from "../style";
 
@@ -14,8 +14,8 @@ interface Props {
 const HeaderContent = styled.div`
   display: flex;
   align-items: center;
-  color: ${base.colors.textMuted};
-  font-size: ${base.font.size.h5};
+  color: ${theme.colors.textMuted};
+  font-size: ${theme.font.size.h5};
   line-height: 1;
   font-weight: 500;
   width: 100%;
@@ -25,7 +25,7 @@ export const ColumnContainer = styled.div`
   display: grid;
   align-items: start;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  grid-gap: ${base.spacing.xsmall}px;
+  grid-gap: ${theme.spacing.xsmall};
 `;
 
 const StatusBoard: React.FC<Props> = (props: Props) => {

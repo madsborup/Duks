@@ -4,7 +4,7 @@ import { Formik } from "formik";
 import { StoreState } from "../../../reducers";
 import _, { includes } from "lodash";
 import { statusLabels, FORM_TASK_STATUS } from "../../../utils/statusLabels";
-import { getProject } from "../../../selectors/getProject";
+import { getProjectFromID } from "../../../selectors/getProject";
 import history from '../../../helpers/history'
 import { ModalBody, ModalTitle, CloseButton, ModalActions } from "../styles";
 import {
@@ -34,7 +34,7 @@ import { TextButton, PrimaryButton } from "../../designSystem/button";
 
 interface Props {
   task: TaskData;
-  projectSlug: string;
+  projectID: string;
   currentProject: ProjectData;
   closeModal: Function;
   editTask: Function;
@@ -215,7 +215,7 @@ const EditTaskModal: React.FC<Props> = (props: Props) => {
 
 const mapStateToProps = ({projects}: StoreState, ownProps: Props) => {
   return {
-    currentProject: getProject(projects, ownProps)
+    currentProject: getProjectFromID(projects, ownProps)
   };
 };
 

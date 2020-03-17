@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { RouteComponentProps } from "react-router-dom";
 import { StoreState } from "../../reducers";
 import { ProjectData, TaskData } from "../../actions";
-import { getProject } from "../../selectors/getProject";
+import { getProjectFromSlug } from "../../selectors/getProject";
 import {
   ViewGrid,
   TwoColumnGrid,
@@ -23,53 +23,40 @@ interface Match {
 }
 
 interface Props extends RouteComponentProps<Match> {
-  project: ProjectData;
+  currentProject: ProjectData;
   tasks: TaskData[];
 }
 
 const UnassignedTasks: React.FC<Props> = (props: Props) => {
-  const { projectSlug } = props.match.params;
 
   const renderTasks = () => {
     return props.tasks.map((task: TaskData) => {
       return (
         <React.Fragment>
-          <TaskCard task={task} flowSlug={task.flowSlug} key={task.id} />
+          <TaskCard task={task} flowID={task.flowID} key={task.id} />
         </React.Fragment>
       );
     });
   };
 
   return (
-    <React.Fragment>
+    <View>
       <Head
-        title={`${props.project.title} - Unassigned tasks`}
+        title={`${props.currentProject.title} - Unassigned tasks`}
         description={"View unassigned tasks"}
       />
-
-      <ViewGrid>
-        <TwoColumnGrid>
-          <FirstColumn>
-            <Sidebar projectSlug={projectSlug} />
-          </FirstColumn>
-          <SecondColumn>
-            <View>
-              <Header title="Unassigned tasks" projectSlug={projectSlug} />
-              <Content>
-                <CardContainer>{renderTasks()}</CardContainer>
-              </Content>
-            </View>
-          </SecondColumn>
-        </TwoColumnGrid>
-      </ViewGrid>
-    </React.Fragment>
+      <Header title="Unassigned tasks" projectID={props.currentProject.id} />
+      <Content>
+        <CardContainer>{renderTasks()}</CardContainer>
+      </Content>
+    </View>
   );
 };
 
 //TODO: create selector for getting unassigned tasks
-const mapStateToProps = ({projects, tasks}: StoreState, ownProps: Props) => {
+const mapStateToProps = ({ projects, tasks }: StoreState, ownProps: Props) => {
   return {
-    project: getProject(projects, ownProps.match.params),
+    currentProject: getProjectFromSlug(projects, ownProps.match.params),
     tasks: Object.values(tasks.items).filter(task => {
       return task.assigned && task.assigned.length === 0;
     })

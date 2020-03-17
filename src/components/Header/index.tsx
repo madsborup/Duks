@@ -8,7 +8,7 @@ import { Button, PrimaryButton } from "../designSystem/button";
 
 interface Props {
   title?: string;
-  projectSlug: string;
+  projectID: string;
   isFlowsEmpty: boolean;
   signOut: Function;
   showModal: Function;
@@ -24,7 +24,7 @@ const Header: React.FC<Props> = (props: Props) => {
         <PrimaryButton
           onClick={() =>
             props.showModal({
-              modalProps: { open: true, projectSlug: props.projectSlug },
+              modalProps: { open: true, projectID: props.projectID },
               modalType: "CREATE_TASK_MODAL"
             })
           }

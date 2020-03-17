@@ -5,7 +5,7 @@ import _, { includes } from "lodash";
 import { inviteUserToProject, ProjectData, UserData } from "../../../actions";
 import { searchForUser } from '../../../firebase/utils/searchForUser'
 import { fetchUser } from '../../../firebase/utils/fetchUser'
-import { getProject } from '../../../selectors/getProject'
+import { getProjectFromSlug } from '../../../selectors/getProject'
 import { StoreState } from '../../../reducers'
 import { ModalBody, ModalTitle, CloseButton, ModalActions } from "../styles";
 import {
@@ -81,7 +81,7 @@ const InviteModal: React.FC<Props> = (props: Props) => {
 
 const mapStateToProps = ({projects}: StoreState, ownProps: Props) => {
   return {
-    currentProject: getProject(projects, ownProps)
+    currentProject: getProjectFromSlug(projects, ownProps)
   }
 }
 

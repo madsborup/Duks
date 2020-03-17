@@ -15,7 +15,7 @@ import {
 } from "../../components/designSystem/layout";
 import Subheader from "../../components/Subheader";
 import SegmentedControl from "../../components/SegmentedControl";
-import { getProject } from "../../selectors/getProject";
+import { getProjectFromSlug } from "../../selectors/getProject";
 import Head from "../../components/Head";
 import PopoverMenu from "../../components/PopoverMenu";
 import Header from "../../components/Header";
@@ -61,72 +61,60 @@ const Flow: React.FC<Props> = (props: Props) => {
 
   const onProjectDelete = () => {
     props.deleteProject(currentProject.id);
-    console.log(currentProject.id);
 
-    history.replace('/');
+    history.replace("/");
   };
 
   return (
-    <ViewGrid>
+    <View>
       <Head
         title={`Settings - ${currentProject.title}`}
         description={"Tasks assigned to flow."}
       />
-      <TwoColumnGrid>
-        <FirstColumn>
-          <Sidebar projectSlug={projectSlug} />
-        </FirstColumn>
-        <SecondColumn>
-          <View>
-            <Header title={`Project settings`} projectSlug={projectSlug} />
-            <Subheader>
-              <SegmentedControl
-                controls={[
-                  { label: "Overview", path: `/${projectSlug}/settings` }
-                ]}
+      <Header title={`Project settings`} projectID={currentProject.id} />
+      <Subheader>
+        <SegmentedControl
+          controls={[{ label: "Overview", path: `/${projectSlug}/settings` }]}
+        />
+      </Subheader>
+      <ContentLight>
+        <Formik
+          initialValues={initialValues}
+          onSubmit={({ title, description }) => {
+            onEditSubmit(title, description);
+          }}
+        >
+          {formik => (
+            <SettingsForm onSubmit={formik.handleSubmit}>
+              <Input
+                name="title"
+                label="Title"
+                value={formik.values.title}
+                onChange={formik.handleChange}
               />
-            </Subheader>
-            <ContentLight>
-              <Formik
-                initialValues={initialValues}
-                onSubmit={({ title, description }) => {
-                  onEditSubmit(title, description);
-                }}
-              >
-                {formik => (
-                  <SettingsForm onSubmit={formik.handleSubmit}>
-                    <Input
-                      name="title"
-                      label="Title"
-                      value={formik.values.title}
-                      onChange={formik.handleChange}
-                    />
-                    <TextArea
-                      name="description"
-                      label="Description"
-                      value={formik.values.description}
-                      onChange={formik.handleChange}
-                    />
-                    <FormActions>
-                      <DangerButton onClick={() => onProjectDelete()}>
-                        Delete Project
-                      </DangerButton>
-                      <OutlineButton type="submit">Save</OutlineButton>
-                    </FormActions>
-                  </SettingsForm>
-                )}
-              </Formik>
-            </ContentLight>
-          </View>
-        </SecondColumn>
-      </TwoColumnGrid>
-    </ViewGrid>
+              <TextArea
+                name="description"
+                label="Description"
+                value={formik.values.description}
+                onChange={formik.handleChange}
+              />
+              <FormActions>
+                <DangerButton onClick={() => onProjectDelete()}>
+                  Delete Project
+                </DangerButton>
+                <OutlineButton type="submit">Save</OutlineButton>
+              </FormActions>
+            </SettingsForm>
+          )}
+        </Formik>
+      </ContentLight>
+    </View>
   );
 };
 
-const mapStateToProps = ({projects}: StoreState, ownProps: Props) => {
+const mapStateToProps = ({ projects }: StoreState, ownProps: Props) => {
   return {
-    currentProject: getProject(projects, ownProps.match.params)
+    currentProject: getProjectFromSlug(projects, ownProps.match.params)
   };
 };
 

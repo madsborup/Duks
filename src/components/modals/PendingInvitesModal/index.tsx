@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { firestore } from "../../../firebase";
-import { UserData, ProjectData, ProjectMember, addUserToProject } from "../../../actions";
+import { UserData, ProjectData, addUserToProject } from "../../../actions";
 import { StoreState } from "../../../reducers";
-import { ModalBody, ModalTitle, CloseButton, ModalActions } from "../styles";
-import { StyledForm, Input } from "../../designSystem/formElements";
+import { ModalBody, ModalTitle, CloseButton } from "../styles";
 import { PrimaryButton, OutlineButton } from "../../designSystem/button";
 import { ReactComponent as ProjectIconDefault } from "../../../assets/svg/ProjectIconDefault.svg";
-import base from "../../designSystem/base";
+import theme from "../../designSystem/theme";
 import {
   Container,
   ProjectContainer,
@@ -46,30 +45,32 @@ class PendingInvitesModal extends Component<Props, State> {
         .get();
     });
     let docs = await Promise.all(projectRefs);
-    let projectDocs = docs.map(doc => ({...doc.data(), ['id']: doc.id} as ProjectData));
+    let projectDocs = docs.map(
+      doc => ({ ...doc.data(), ["id"]: doc.id } as ProjectData)
+    );
 
     this.setState({ projects: projectDocs });
   };
 
-    //TODO: consider moving to actions
+  //TODO: consider moving to actions
   removeInviteFromUser = (projectId: string) => {
-    const userInvites = this.props.currentUser.invites
-    const newInvites = userInvites.filter(invite => invite !== projectId)
-    let userRef = firestore.collection('users').doc(this.props.currentUser.uid);
+    const userInvites = this.props.currentUser.invites;
+    const newInvites = userInvites.filter(invite => invite !== projectId);
+    let userRef = firestore.collection("users").doc(this.props.currentUser.uid);
 
-    userRef.update({invites: newInvites});
-  }
+    userRef.update({ invites: newInvites });
+  };
 
   onAcceptInvite = (projectId: string) => {
     const { displayName, uid, photoURL, email } = this.props.currentUser;
-    addUserToProject({displayName, uid, photoURL, email}, projectId);
+    addUserToProject({ displayName, uid, photoURL, email }, projectId);
     this.props.closeModal();
-  }
+  };
 
   onDeclineInvite = (projectId: string) => {
     this.removeInviteFromUser(projectId);
     this.props.closeModal();
-  }
+  };
 
   renderInvites = () => {
     return this.state.projects.map(project => {
@@ -83,7 +84,10 @@ class PendingInvitesModal extends Component<Props, State> {
             <OutlineButton onClick={() => this.onDeclineInvite(project.id)}>
               Decline
             </OutlineButton>
-            <PrimaryButton onClick={() => this.onAcceptInvite(project.id)} style={{marginLeft: `${base.spacing.xsmall}px`}}>
+            <PrimaryButton
+              onClick={() => this.onAcceptInvite(project.id)}
+              style={{ marginLeft: `${theme.spacing.xsmall}px` }}
+            >
               Accept
             </PrimaryButton>
           </ProjectActions>
@@ -98,8 +102,9 @@ class PendingInvitesModal extends Component<Props, State> {
         <CloseButton onClick={() => this.props.closeModal()} />
         <ModalTitle>Invites</ModalTitle>
         <Container>
-        Project
-        {this.renderInvites()}</Container>
+          Project
+          {this.renderInvites()}
+        </Container>
       </ModalBody>
     );
   }

@@ -22,9 +22,7 @@ interface Props extends RouteComponentProps {
 }
 
 const Login: React.FC<Props> = (props: Props) => {
-  return props.isAuthenticated ? 
-    <Redirect to="/" />
-   : (
+  return (
     <React.Fragment>
       <Head title={`Login`} description={"Duks sign-in page"} />
       <LoginView>

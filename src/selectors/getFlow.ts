@@ -1,13 +1,27 @@
-import { createSelector } from 'reselect'
-import { FlowsData } from '../actions'
+import { createSelector } from "reselect";
+import { FlowsData, FlowData } from "../actions";
 
-interface Props {
+interface PropsID {
+  flowID: string;
+}
+
+interface PropsSlug {
   flowSlug: string;
 }
 
-const getFlowFromSlug = (flows: FlowsData, props: Props) => flows.items[props.flowSlug]
+const selectFlowFromID = (flows: FlowsData, props: PropsID) =>
+  flows.items[props.flowID];
 
-export const getFlow = createSelector(
-  [getFlowFromSlug],
-  (flow) => flow
-)
+const selectFlowFromSlug = (flows: FlowsData, props: PropsSlug) =>
+  Object.values(flows.items).find(flow => flow.slug === props.flowSlug) as FlowData;
+
+export const getFlowFromID = createSelector(
+  [selectFlowFromID],
+  flow => flow
+);
+
+export const getFlowFromSlug = createSelector(
+  [selectFlowFromSlug],
+  flow => flow
+);
+

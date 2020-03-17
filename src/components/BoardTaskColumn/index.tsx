@@ -17,13 +17,11 @@ const BoardTaskColumn: React.FC<Props> = (props: Props) => {
   const renderTaskCards = () => {
     return props.tasks.map((task: TaskData, i) => {
       return (
-        <React.Fragment>
           <TaskCard
-            flowSlug={task.flowSlug}
+            flowID={task.flowID}
             task={task}
             key={i}
           />
-        </React.Fragment>
       );
     });
   };

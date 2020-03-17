@@ -1,14 +1,26 @@
-import { createSelector } from 'reselect'
-import { ProjectsData } from '../actions'
-import { StoreState } from '../reducers'
+import { createSelector } from "reselect";
+import { ProjectsData, ProjectData } from "../actions";
 
-interface Props {
+interface PropsSlug {
   projectSlug: string;
 }
 
-const getProjectFromSlug = (projects: ProjectsData, props: Props) => projects.items[props.projectSlug]
+interface PropsID {
+  projectID: string;
+}
 
-export const getProject = createSelector(
-  [getProjectFromSlug],
-  (project) => project
-)
+const selectProjectFromSlug = (projects: ProjectsData, props: PropsSlug) =>
+  projects.items[props.projectSlug];
+
+const selectProjectFromID = (projects: ProjectsData, props: PropsID) =>
+  Object.values(projects.items).find(project => project.id === props.projectID) as ProjectData;
+
+export const getProjectFromSlug = createSelector(
+  [selectProjectFromSlug],
+  project => project
+);
+
+export const getProjectFromID = createSelector(
+  [selectProjectFromID],
+  project => project
+);
