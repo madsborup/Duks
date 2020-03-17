@@ -1,10 +1,10 @@
 import styled from 'styled-components'
-import base from './base'
+import theme from './theme'
 
 const H3 = styled.h3`
-    font-family: ${base.font.family.display};
-    font-size: ${base.font.size.regular};
-    color: ${base.colors.text};
+    font-family: ${theme.font.family.display};
+    font-size: ${theme.font.size.regular};
+    color: ${theme.colors.text};
     font-weight: 400;
 `;
 

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
-import base from "../designSystem/base";
+import theme from "../designSystem/theme";
 
 export const StyledSegmentedControl = styled.div`
   display: flex;
@@ -10,9 +10,9 @@ export const Control = styled(NavLink)`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: ${base.spacing.xsmall}px ${base.spacing.medium}px;
-  color: ${base.colors.textMuted};
-  font-size: ${base.font.size.h6};
+  padding: ${theme.spacing.xsmall} ${theme.spacing.medium};
+  color: ${theme.colors.textMuted};
+  font-size: ${theme.font.size.h6};
   text-decoration: none;
   font-weight: 500;
   line-height: 1;
@@ -20,11 +20,11 @@ export const Control = styled(NavLink)`
   border-top: 1px solid transparent;
 
   &:hover {
-    background: ${base.colors.viewBackground};
+    background: ${theme.colors.viewBackground};
   }
 
   &.${props => props.activeClassName} {
-    color: ${base.colors.primary};
-    border-bottom: 2px solid ${base.colors.primary};
+    color: ${theme.colors.primary};
+    border-bottom: 2px solid ${theme.colors.primary};
   }
 `;

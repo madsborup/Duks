@@ -1,17 +1,17 @@
 import styled from "styled-components/macro";
-import base from "../../designSystem/base";
+import theme from "../../designSystem/theme";
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: ${base.spacing.small}px;
+  margin-top: ${theme.spacing.small};
 `;
 
 export const ProjectContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: ${base.spacing.small}px;
+  margin-top: ${theme.spacing.small};
 `;
 
 export const Project = styled.div`
@@ -24,14 +24,14 @@ export const Project = styled.div`
   }
 
   rect {
-    fill: ${base.colors.text};
+    fill: ${theme.colors.text};
   }
 `;
 
 export const ProjectTitle = styled.div`
-  color: ${base.colors.text};
+  color: ${theme.colors.text};
   font-weight: 600;
-  margin-left: ${base.spacing.xsmall}px;
+  margin-left: ${theme.spacing.xsmall};
 `;
 
 export const Members = styled.div``;

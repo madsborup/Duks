@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro'
 import { ReactComponent as ArrowDown } from '../../../assets/svg/ArrowDown.svg';
-import base from '../base'
+import theme from '../theme'
 
 export const DropdownArrow = styled(ArrowDown)`
   width: 12px;
@@ -8,6 +8,6 @@ export const DropdownArrow = styled(ArrowDown)`
   cursor: pointer;
 
   path {
-    stroke: ${base.colors.textMuted};
+    stroke: ${theme.colors.textMuted};
   }
 `;

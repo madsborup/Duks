@@ -1,18 +1,18 @@
 import styled from "styled-components/macro";
-import base from "../../components/designSystem/base";
+import theme from "../../components/designSystem/theme";
 
 export const SettingsForm = styled.form`
   display: flex;
   flex-direction: column;
   max-width: 560px;
-  background: ${base.colors.white};
-  padding: ${base.spacing.small}px;
-  border: 1px solid ${base.colors.border};
-  border-radius: ${base.BORDER_RADIUS}px;
+  background: ${theme.colors.white};
+  padding: ${theme.spacing.small};
+  border: 1px solid ${theme.colors.border};
+  border-radius: ${theme.BORDER_RADIUS};
 `;
 
 export const FormActions = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: ${base.spacing.medium}px;
+  margin-top: ${theme.spacing.medium};
 `;

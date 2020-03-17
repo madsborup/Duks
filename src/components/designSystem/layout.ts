@@ -1,5 +1,5 @@
 import styled from "styled-components/macro";
-import base from "./base";
+import theme from "./theme";
 
 export const NAVBAR_WIDTH = 62;
 export const MIN_FIRST_COLUMN_WIDTH = 220;
@@ -38,8 +38,8 @@ export const FirstColumn = styled.section`
   overflow: hidden auto;
   max-width: ${MAX_FIRST_COLUMN_WIDTH}px;
   grid-area: first;
-  background: ${base.colors.sidebar};
-  border-right: 1px solid ${base.colors.border};
+  background: ${theme.colors.sidebar};
+  border-right: 1px solid ${theme.colors.border};
 
   ::-webkit-scrollbar {
     display: none;
@@ -52,7 +52,7 @@ export const SecondColumn = styled.section`
   position: sticky;
   height: 100%;
   top: 0;
-  border-right: 1px solid ${base.colors.border};
+  border-right: 1px solid ${theme.colors.border};
 `;
 
 export const SecondColumnOverflowX = styled.section`
@@ -62,7 +62,7 @@ export const SecondColumnOverflowX = styled.section`
   height: 100%;
   top: 0;
   overflow-x: auto;
-  border-right: 1px solid ${base.colors.border};
+  border-right: 1px solid ${theme.colors.border};
 `;
 
 export const View = styled.div`
@@ -72,10 +72,10 @@ export const View = styled.div`
 `;
 
 export const Content = styled.div`
-  padding: ${base.spacing.medium}px;
+  padding: ${theme.spacing.medium};
   height: 100%;
-  background: ${base.colors.viewBackground};
+  background: ${theme.colors.viewBackground};
 `;
 export const ContentLight = styled(Content)`
-  background: ${base.colors.subHeading};
+  background: ${theme.colors.subHeading};
 `;

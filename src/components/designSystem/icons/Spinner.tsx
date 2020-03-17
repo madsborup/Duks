@@ -1,6 +1,6 @@
 import styled, { keyframes } from 'styled-components/macro'
 import { ReactComponent as SpinnerIcon } from '../../../assets/svg/spinner.svg';
-import base from '../base'
+import theme from '../theme'
 
 
 const loading = keyframes`
@@ -25,10 +25,10 @@ export const Spinner = styled(SpinnerIcon)`
   animation: ${loading} 2s infinite;
 
   circle {
-    stroke: ${base.colors.subHeading};
+    stroke: ${theme.colors.subHeading};
   }
 
   path {
-    fill: ${base.colors.primary};
+    fill: ${theme.colors.primary};
   }
 `;

@@ -3,7 +3,7 @@ import '../../assets/fonts/Roboto/roboto.css'
 import { rgba, tint } from 'polished'
 
 const BASELINE = 20;
-const BORDER_RADIUS = 4;
+const BORDER_RADIUS = "4px";
 
 const SCALES = {
   XXSMALL: 0.25,
@@ -68,12 +68,12 @@ export default {
     }
   },
   spacing: {
-    xxsmall: `${SCALES.XXSMALL * BASELINE}`,
-    xsmall: `${SCALES.XSMALL * BASELINE}`,
-    small: `${SCALES.SMALL * BASELINE}`,
-    medium: `${SCALES.MEDIUM * BASELINE}`,
-    large: `${SCALES.LARGE * BASELINE}`,
-    xlarge: `${SCALES.XLARGE * BASELINE}`
+    xxsmall: `${SCALES.XXSMALL * BASELINE}px`,
+    xsmall: `${SCALES.XSMALL * BASELINE}px`,
+    small: `${SCALES.SMALL * BASELINE}px`,
+    medium: `${SCALES.MEDIUM * BASELINE}px`,
+    large: `${SCALES.LARGE * BASELINE}px`,
+    xlarge: `${SCALES.XLARGE * BASELINE}px`
   },
   BORDER_RADIUS
 };

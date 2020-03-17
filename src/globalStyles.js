@@ -1,24 +1,23 @@
 import { createGlobalStyle } from "styled-components";
-import base from "./components/designSystem/base";
+import theme from "./components/designSystem/theme";
 
 export const GlobalStyle = createGlobalStyle`
-
     * {
         margin: 0;
         padding: 0;
         -webkit-appearance: none;
-        font-family: ${base.font.family.display};
+        font-family: ${theme.font.family.display};
         -webkit-font-smoothing: antialiased;
         text-rendering: optimizelegibility;
     }
 
     html {
-        background-color: ${base.colors.bg};
+        background-color: ${theme.colors.bg};
     }
 
     body {
-        color: ${base.colors.text};
-        font-size: ${base.font.size.regular};
+        color: ${theme.colors.text};
+        font-size: ${theme.font.size.regular};
         line-height: 1.5;
         overscroll-behavior-y: none;
     }

@@ -1,8 +1,8 @@
 import styled from 'styled-components'
-import base from './base'
+import theme from './theme'
 
 const P = styled.p`
-    margin-bottom: ${base.spacing.medium}px;
+    margin-bottom: ${theme.spacing.medium};
 `;
 
 export default P;

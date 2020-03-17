@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import base from '../../../components/designSystem/base'
+import theme from '../../../components/designSystem/theme'
 
 export const StyledLoadingView = styled.div`
   display:flex;
@@ -11,9 +11,9 @@ export const StyledLoadingView = styled.div`
 `;
 
 export const Content = styled.div`
-  padding: ${base.spacing.small}px;
-  font-size: ${base.font.size.h3};
-  color: ${base.colors.textMuted};
+  padding: ${theme.spacing.small};
+  font-size: ${theme.font.size.h3};
+  color: ${theme.colors.textMuted};
   letter-spacing: 0.2px;
   font-weight: 500;
 `;

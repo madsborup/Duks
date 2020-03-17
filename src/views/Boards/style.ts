@@ -1,6 +1,6 @@
 import styled from "styled-components/macro";
 import { rgba }  from 'polished'
-import base from "../../components/designSystem/base";
+import theme from "../../components/designSystem/theme";
 import { ReactComponent as FlowIcon } from "../../assets/svg/FlowCircle.svg";
 
 interface FlowCircleProps {
@@ -11,17 +11,17 @@ export const ColumnContainer = styled.div`
   display: grid;
   align-items: start;
   grid-template-columns: repeat( auto-fit, minmax(100px, 250px));
-  grid-gap: ${base.spacing.medium}px;
+  grid-gap: ${theme.spacing.medium};
 `;
 
 export const TaskCounter = styled.div`
-  font-size: ${base.font.size.small};
-  color: ${base.colors.iconDark};
-  background: ${base.colors.subHeading};
-  border: 1px solid ${base.colors.border};
-  padding: ${base.spacing.xxsmall}px;
-  margin-left: ${base.spacing.xxsmall}px;
-  border-radius: ${base.BORDER_RADIUS}px;
+  font-size: ${theme.font.size.small};
+  color: ${theme.colors.iconDark};
+  background: ${theme.colors.subHeading};
+  border: 1px solid ${theme.colors.border};
+  padding: ${theme.spacing.xxsmall};
+  margin-left: ${theme.spacing.xxsmall};
+  border-radius: ${theme.BORDER_RADIUS};
 `;
 
 export const FlowCircleContainer = styled.div`

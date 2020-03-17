@@ -1,5 +1,5 @@
 import styled from "styled-components/macro";
-import base from "../designSystem/base";
+import theme from "../designSystem/theme";
 import { NavLink } from "react-router-dom";
 import { NAVBAR_WIDTH } from '../designSystem/layout'
 import { ReactComponent as AddIcon } from "../../assets/svg/AddIcon.svg";
@@ -12,10 +12,10 @@ export const StyledNavbar = styled.div`
   position: fixed;
   grid-area: nav;
   top: 0;
-  padding-top: ${base.spacing.medium}px;
+  padding-top: ${theme.spacing.medium};
   height: 100vh;
   width: ${NAVBAR_WIDTH}px;
-  background-color: ${base.colors.navbar};
+  background-color: ${theme.colors.navbar};
 
   &::-webkit-scrollbar {
     display: none;
@@ -31,11 +31,11 @@ export const ProjectLinkContainer = styled.div`
 `;
 
 export const ProjectLink = styled(NavLink)`
-  margin-bottom: ${base.spacing.small}px;
+  margin-bottom: ${theme.spacing.small};
   outline: 0;
 
   rect {
-    fill: ${base.colors.viewBackground};
+    fill: ${theme.colors.viewBackground};
     opacity: 0.8;
   }
 
@@ -43,7 +43,7 @@ export const ProjectLink = styled(NavLink)`
 
     rect {
       opacity: 1;
-      fill: ${base.colors.white};
+      fill: ${theme.colors.white};
     }
   }
 `;

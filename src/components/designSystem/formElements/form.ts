@@ -1,5 +1,5 @@
 import styled from "styled-components/macro";
-import base from "../base";
+import theme from "../theme";
 
 export const StyledForm = styled.form`
   flex: 1 0 auto;
@@ -11,7 +11,7 @@ export const TwoColumnForm = styled.form`
   display: grid;
   grid-template-columns: 0.8fr auto; 
   grid-template-rows: 1fr auto; 
-  grid-gap: ${base.spacing.medium}px;
+  grid-gap: ${theme.spacing.medium};
   width: 100%;
   margin: 0;
 `;
@@ -26,8 +26,8 @@ export const FormSecondColumn = styled.div`
   display: flex;
   flex-direction: column;
   grid-area: 1 / 2 / 2 / 3;
-  border-left: 1px solid ${base.colors.border};
-  padding-left: ${base.spacing.small}px;
+  border-left: 1px solid ${theme.colors.border};
+  padding-left: ${theme.spacing.small};
 `;
 
 export const FormActions = styled.div`

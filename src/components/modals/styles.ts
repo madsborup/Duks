@@ -1,6 +1,5 @@
 import styled from "styled-components/macro";
-import base from "../designSystem/base";
-import { rgba } from "polished";
+import theme from "../designSystem/theme";
 import { ReactComponent as CloseIcon } from "../../assets/svg/close.svg";
 
 const MODAL_BIG_WIDTH = 680;
@@ -31,31 +30,31 @@ export const modalStyles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    background: `${base.colors.white}`,
+    background: `${theme.colors.white}`,
     top: "auto",
     bottom: "auto",
     left: "auto",
     right: "auto",
-    padding: `${base.spacing.medium}px`,
-    borderRadius: `${base.BORDER_RADIUS}px`,
-    boxShadow: `${base.colors.boxShadow}`,
-    border: `1px solid ${base.colors.border}`
+    padding: `${theme.spacing.medium}`,
+    borderRadius: `${theme.BORDER_RADIUS}`,
+    boxShadow: `${theme.colors.boxShadow}`,
+    border: `1px solid ${theme.colors.border}`
   }
 };
 
 export const CloseButton = styled(CloseIcon)`
   position: absolute;
-  top: ${base.spacing.small}px;
-  right: ${base.spacing.small}px;
+  top: ${theme.spacing.small};
+  right: ${theme.spacing.small};
   cursor: pointer;
 
   path {
-    fill: ${base.colors.iconDark};
+    fill: ${theme.colors.iconDark};
   }
 
   &:hover {
       path {
-          fill: ${base.colors.text};
+          fill: ${theme.colors.text};
       }
   }
 `;
@@ -66,12 +65,12 @@ export const ModalBody = styled.div<ModalBodyProps>`
   justify-content: space-between;
   width: ${({ big }) => big ? `${MODAL_BIG_WIDTH}px` : `${MODAL_SMALL_WIDTH}px`};
   height: 100%;
-  padding: ${base.spacing.xsmall}px;
+  padding: ${theme.spacing.xsmall};
 `;
 
 export const ModalTitle = styled.div`
-  color: ${base.colors.heading};
-  font-size: ${base.font.size.h2};
+  color: ${theme.colors.heading};
+  font-size: ${theme.font.size.h2};
   font-weight: 600;
 `;
 
@@ -79,5 +78,5 @@ export const ModalActions = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  margin-top: ${base.spacing.large}px;
+  margin-top: ${theme.spacing.large};
 `;

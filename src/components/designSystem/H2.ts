@@ -1,9 +1,9 @@
 import styled from 'styled-components'
-import base from './base'
+import theme from './theme'
 
 const H2 = styled.h2`
-    font-size: ${base.font.size.h2};
-    color: ${base.colors.text};
+    font-size: ${theme.font.size.h2};
+    color: ${theme.colors.text};
     font-weight: 600;
     line-height: 1.4;
     margin: 0;

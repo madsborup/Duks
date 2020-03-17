@@ -1,10 +1,10 @@
 import styled from "styled-components/macro";
-import base from "../base";
+import theme from "../theme";
 
 export const Error = styled.div`
-  font-size: ${base.font.size.h5};
+  font-size: ${theme.font.size.h5};
   font-weight: 500;
-  color: ${base.colors.danger};
-  padding-left: ${base.spacing.xxsmall}px;
-  padding-top: ${base.spacing.xxsmall}px;
+  color: ${theme.colors.danger};
+  padding-left: ${theme.spacing.xxsmall};
+  padding-top: ${theme.spacing.xxsmall};
 `;

@@ -1,7 +1,6 @@
 import styled from "styled-components/macro";
 import { rgba, tint } from "polished";
-import base from "../designSystem/base";
-import { ReactComponent as FlowCircle } from "../../assets/svg/FlowCircle.svg";
+import theme from "../designSystem/theme";
 import { ReactComponent as CalendarIcon } from "../../assets/svg/CalendarIcon.svg";
 import { ReactComponent as PriorityLowIcon } from "../../assets/svg/priority_low.svg";
 import { ReactComponent as PriorityMediumIcon } from "../../assets/svg/priority_medium.svg";
@@ -13,17 +12,17 @@ interface Props {
 
 export const StyledTaskCard = styled.div<Props>`
   display: flex;
-  margin-top: ${base.spacing.xsmall}px;
-  border-radius: ${base.BORDER_RADIUS}px;
+  margin-top: ${theme.spacing.xsmall};
+  border-radius: ${theme.BORDER_RADIUS};
   cursor: pointer;
   border-left: 5px solid ${({ flowColor }) => rgba(flowColor, 0.8)};
-  background: ${base.colors.white};
+  background: ${theme.colors.white};
   transition: box-shadow 0.2s ease-in-out;
   transition: transform 0.2s ease-in-out;
-  box-shadow: 1px 1px 2px 1px rgba(217, 217, 219, 0.6);
+  box-shadow: 1px 1px 2px 1px rgba(217, 217, 219, 0.5);
 
   &:hover {
-    box-shadow: 0 2px 8px 4px RGBA(0, 0, 0, 0.1);
+    box-shadow: 0 1px 7px 1px RGBA(0, 0, 0, 0.15);
     transform: translateY(-2px);
   }
 `;
@@ -33,13 +32,13 @@ export const Content = styled.div<Props>`
   flex-direction: column;
   width: 100%;
   align-items: flex-start;
-  padding: ${base.spacing.xsmall}px;
+  padding: ${theme.spacing.xsmall};
   overflow: hidden;
 `;
 
 export const TaskTitle = styled.span<Props>`
-  color: ${base.colors.text};
-  font-size: ${base.font.size.h6};
+  color: ${theme.colors.text};
+  font-size: ${theme.font.size.h6};
   font-weight: 500;
   line-height: 1.5;
 `;
@@ -47,7 +46,7 @@ export const TaskTitle = styled.span<Props>`
 export const MetaContainer = styled.div`
   display: flex;
   align-items: center;
-  margin-top: ${base.spacing.xsmall}px;
+  margin-top: ${theme.spacing.xsmall};
   width: 100%;
 `;
 
@@ -61,42 +60,42 @@ export const TaskInfoContainer = styled.div`
 `;
 
 export const DangerLabel = styled.div`
-  background: ${base.colors.viewBackground};
-  border: 1px solid ${base.colors.border};
+  background: ${theme.colors.viewBackground};
+  border: 1px solid ${theme.colors.border};
   padding: 4px 5px 2px 5px;
   height: 100%;
   font-size: 0.65rem;
   text-transform: uppercase;
   line-height: 1;
   font-weight: 700;
-  color: ${base.colors.text};
+  color: ${theme.colors.text};
   border-radius: 2px;
 `;
 
 export const PriorityLabelLow = styled(PriorityLowIcon)`
   height: 16px;
   width: 16px;
-  margin-right: ${base.spacing.xsmall}px;
+  margin-right: ${theme.spacing.xsmall};
 `;
 
 export const PriorityLabelMedium = styled(PriorityMediumIcon)`
   height: 16px;
   width: 16px;
-  margin-right: ${base.spacing.xsmall}px;
+  margin-right: ${theme.spacing.xsmall};
 `;
 
 export const PriorityLabelHigh = styled(PriorityHighIcon)`
   height: 16px;
   width: 16px;
-  margin-right: ${base.spacing.xsmall}px;
+  margin-right: ${theme.spacing.xsmall};
 `;
 
 export const Date = styled.div`
   display: flex;
   align-items: center;
-  color: ${base.colors.textMuted};
-  font-size: ${base.font.size.small};
-  margin-right: ${base.spacing.xsmall}px;
+  color: ${theme.colors.textMuted};
+  font-size: ${theme.font.size.small};
+  margin-right: ${theme.spacing.xsmall};
 `;
 
 export const DateIcon = styled(CalendarIcon)`
@@ -105,11 +104,11 @@ export const DateIcon = styled(CalendarIcon)`
   margin-right: 2px;
 
   path {
-    stroke: ${base.colors.textMuted};
+    stroke: ${theme.colors.textMuted};
   }
 
   rect {
-    stroke: ${base.colors.textMuted};
+    stroke: ${theme.colors.textMuted};
   }
 `;
 
@@ -123,7 +122,7 @@ export const AvatarContainer = styled.div`
   width: 25px;
   border-radius: 50%;
   opacity: 0.95;
-  margin: 0 0 0 -${base.spacing.xsmall}px;
+  margin: 0 0 0 -${theme.spacing.xsmall};
 `;
 
 export const AssigneeAvatar = styled.img`

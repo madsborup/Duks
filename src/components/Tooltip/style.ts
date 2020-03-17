@@ -1,16 +1,16 @@
 import styled from "styled-components";
 import Tippy, { TippyProps } from "@tippy.js/react";
-import base from "../designSystem/base";
+import theme from "../designSystem/theme";
 import "tippy.js/dist/svg-arrow.css";
 
 export const StyledTippy = styled(Tippy)`
 
   &.tippy-tooltip {
-  background-color: ${base.colors.text};
-  color: ${base.colors.white};
+  background-color: ${theme.colors.text};
+  color: ${theme.colors.white};
 
     .tippy-svg-arrow {
-      fill: ${base.colors.text};
+      fill: ${theme.colors.text};
     }
 
     .tippy-content {
@@ -20,8 +20,8 @@ export const StyledTippy = styled(Tippy)`
 `;
 
 export const StyledTooltip = styled.div`
-  padding: ${base.spacing.xxsmall}px ${base.spacing.xsmall}px;
-  font-size: ${base.font.size.h6};
+  padding: ${theme.spacing.xxsmall} ${theme.spacing.xsmall};
+  font-size: ${theme.font.size.h6};
   font-weight: 500;
-  border-radius: ${base.BORDER_RADIUS}px;
+  border-radius: ${theme.BORDER_RADIUS};
 `;

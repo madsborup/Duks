@@ -1,11 +1,11 @@
 import styled from 'styled-components'
-import base from '../base'
+import theme from '../theme'
 
 export const StyledLabel = styled.label`
-  font-size: ${base.font.size.regular};
+  font-size: ${theme.font.size.regular};
   font-weight: 400;
-  color: ${base.colors.textMuted};
-  letter-spacing: ${base.font.letterSpacing.heading};
-  margin: ${base.spacing.small}px 0 ${base.spacing.xxsmall}px;
+  color: ${theme.colors.textMuted};
+  letter-spacing: ${theme.font.letterSpacing.heading};
+  margin: ${theme.spacing.small} 0 ${theme.spacing.xxsmall};
   position: relative;
 `;
