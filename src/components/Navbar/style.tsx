@@ -35,15 +35,14 @@ export const ProjectLink = styled(NavLink)`
   outline: 0;
 
   rect {
-    fill: ${theme.colors.viewBackground};
-    opacity: 0.8;
+    fill: ${theme.colors.white};
+    opacity: 0.3;
   }
 
   &.${props => props.activeClassName} {
 
     rect {
       opacity: 1;
-      fill: ${theme.colors.white};
     }
   }
 `;
@@ -53,4 +52,22 @@ export const AddProjectIcon = styled(AddIcon)`
   outline: 0;
   width: 30px;
   height: 30px;
+
+  circle {
+    fill: ${theme.colors.iconDark};
+  }
+
+  rect {
+    fill: ${theme.colors.navbar};
+  }
+
+  &:hover {
+    circle {
+    fill: ${theme.colors.white};
+  }
+
+  rect {
+    fill: ${theme.colors.navbar};
+  }
+  }
 `;
