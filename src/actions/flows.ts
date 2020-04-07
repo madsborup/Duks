@@ -3,17 +3,7 @@ import { Dispatch } from "redux";
 import { ActionTypes } from ".";
 import { StoreState } from "../reducers";
 import { addDocToCollection } from "../firebase/utils/addDocToCollection";
-
-export const FLOW_COLORS = [
-  "#FD7468",
-  "#FDB365",
-  "#ADDFA2",
-  "#8EABF1",
-  "#272833",
-  "#2BBCC9",
-  "#3046AC",
-  "#44C292"
-];
+import { FLOW_COLORS } from '../utils/flowColors'
 
 export interface FlowData {
   id: string;
@@ -35,10 +25,6 @@ export interface CreateFlowAction {
   type: ActionTypes.CREATE_FLOW;
 }
 
-export interface EditFlowAction {
-  type: ActionTypes.EDIT_FLOW;
-}
-
 export interface FetchFlowsAction {
   type: ActionTypes.FETCH_FLOWS;
   flows: { [key: string]: FlowData };
@@ -49,7 +35,6 @@ export interface DeleteFlowAction {
   id: string;
 }
 
-//TODO: consider adding current project slug to store and access data their instead of passing in to this action creator
 export const createFlow = (title: string, projectID: string) => async (
   dispatch: Dispatch,
   getState: () => StoreState
