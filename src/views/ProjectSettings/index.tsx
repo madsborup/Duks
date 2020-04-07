@@ -1,31 +1,19 @@
-import React, { Component } from "react";
-import { StoreState } from "../../reducers";
-import { connect } from "react-redux";
-import { Formik } from "formik";
-import history from "../../helpers/history";
-import { ProjectData, editProject, deleteProject } from "../../actions";
-import { RouteComponentProps } from "react-router-dom";
-import {
-  ViewGrid,
-  TwoColumnGrid,
-  FirstColumn,
-  SecondColumn,
-  View,
-  ContentLight
-} from "../../components/designSystem/layout";
-import Subheader from "../../components/Subheader";
-import SegmentedControl from "../../components/SegmentedControl";
-import { getProjectFromSlug } from "../../selectors/getProject";
-import Head from "../../components/Head";
-import PopoverMenu from "../../components/PopoverMenu";
-import Header from "../../components/Header";
-import Sidebar from "../../components/Sidebar";
-import {
-  DangerButton,
-  OutlineButton
-} from "../../components/designSystem/button";
-import { SettingsForm, FormActions } from "./style";
-import { Input, TextArea } from "../../components/designSystem/formElements";
+import React from 'react';
+import { StoreState } from '../../reducers';
+import { connect } from 'react-redux';
+import { Formik } from 'formik';
+import history from '../../helpers/history';
+import { ProjectData, editProject, deleteProject } from '../../actions';
+import { RouteComponentProps } from 'react-router-dom';
+import { View, ContentLight } from '../../components/designSystem/layout';
+import Subheader from '../../components/Subheader';
+import SegmentedControl from '../../components/SegmentedControl';
+import { getProjectFromSlug } from '../../selectors/getProject';
+import Head from '../../components/Head';
+import Header from '../../components/Header';
+import { DangerButton, OutlineButton } from '../../components/designSystem/button';
+import { SettingsForm, FormActions } from './style';
+import { Input, TextArea } from '../../components/designSystem/formElements';
 
 interface Match {
   projectSlug: string;
@@ -33,8 +21,8 @@ interface Match {
 
 interface Props extends RouteComponentProps<Match> {
   currentProject: ProjectData;
-  editProject: Function;
-  deleteProject: Function;
+  editProject: (id: string, values: { title: string; description: string }) => void;
+  deleteProject: (id: string) => void;
 }
 
 interface FormValues {
@@ -43,8 +31,9 @@ interface FormValues {
 }
 
 const Flow: React.FC<Props> = (props: Props) => {
-  const { projectSlug } = props.match.params;
   const { currentProject } = props;
+  const { projectSlug } = props.match.params;
+
   const initialValues: FormValues = {
     title: currentProject.title,
     description: currentProject.description
@@ -62,20 +51,15 @@ const Flow: React.FC<Props> = (props: Props) => {
   const onProjectDelete = () => {
     props.deleteProject(currentProject.id);
 
-    history.replace("/");
+    history.replace('/');
   };
 
   return (
     <View>
-      <Head
-        title={`Settings - ${currentProject.title}`}
-        description={"Tasks assigned to flow."}
-      />
+      <Head title={`Settings - ${currentProject.title}`} description={'Tasks assigned to flow.'} />
       <Header title={`Project settings`} projectID={currentProject.id} />
       <Subheader>
-        <SegmentedControl
-          controls={[{ label: "Overview", path: `/${projectSlug}/settings` }]}
-        />
+        <SegmentedControl controls={[{ label: 'Overview', path: `/${projectSlug}/settings` }]} />
       </Subheader>
       <ContentLight>
         <Formik
@@ -99,9 +83,7 @@ const Flow: React.FC<Props> = (props: Props) => {
                 onChange={formik.handleChange}
               />
               <FormActions>
-                <DangerButton onClick={() => onProjectDelete()}>
-                  Delete Project
-                </DangerButton>
+                <DangerButton onClick={() => onProjectDelete()}>Delete Project</DangerButton>
                 <OutlineButton type="submit">Save</OutlineButton>
               </FormActions>
             </SettingsForm>

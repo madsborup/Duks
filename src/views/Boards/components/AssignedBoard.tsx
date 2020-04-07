@@ -1,10 +1,9 @@
-import React from "react";
-import styled from "styled-components/macro";
-import _, { includes } from "lodash";
-import { TaskData, TASK_PRIORITY, ProjectsData, ProjectData } from "../../../actions";
-import theme from '../../../components/designSystem/theme'
-import BoardTaskColumn from "../../../components/BoardTaskColumn";
-import { TaskCounter } from "../style";
+import React from 'react';
+import styled from 'styled-components/macro';
+import { TaskData, TASK_PRIORITY, ProjectData } from '../../../actions';
+import theme from '../../../components/designSystem/theme';
+import BoardTaskColumn from '../../../components/BoardTaskColumn';
+import { TaskCounter } from '../style';
 
 interface Props {
   tasks: { [key: string]: TaskData };
@@ -54,17 +53,9 @@ const AssignedBoard: React.FC<Props> = (props: Props) => {
       //Sort tasks based on priority
       const sortedTasks = columnTasks.sort((a, b) => {
         let first =
-          a.priority === TASK_PRIORITY.LOW
-            ? 3
-            : a.priority === TASK_PRIORITY.MEDIUM
-            ? 2
-            : 1;
+          a.priority === TASK_PRIORITY.LOW ? 3 : a.priority === TASK_PRIORITY.MEDIUM ? 2 : 1;
         let second =
-          b.priority === TASK_PRIORITY.LOW
-            ? 3
-            : b.priority === TASK_PRIORITY.MEDIUM
-            ? 2
-            : 1;
+          b.priority === TASK_PRIORITY.LOW ? 3 : b.priority === TASK_PRIORITY.MEDIUM ? 2 : 1;
 
         return first > second ? 1 : second > first ? -1 : 0;
       });
@@ -81,18 +72,11 @@ const AssignedBoard: React.FC<Props> = (props: Props) => {
         );
       };
 
-      return (
-        <BoardTaskColumn
-          headerContent={memberProfileAvatar()}
-          tasks={sortedTasks}
-          key={i}
-        />
-      );
+      return <BoardTaskColumn headerContent={memberProfileAvatar()} tasks={sortedTasks} key={i} />;
     });
   };
 
   return <ColumnContainer>{renderTaskColumns()}</ColumnContainer>;
 };
-
 
 export default AssignedBoard;

@@ -1,30 +1,22 @@
-import React, { Component } from "react";
-import { compose } from "redux";
-import { connect } from "react-redux";
-import { Redirect, withRouter, RouteComponentProps } from "react-router-dom";
-import history from "../../helpers/history";
-import { StoreState } from "../../reducers";
-import { signIn } from "../../actions";
-import Head from "../../components/Head";
-import LoadingView from "../viewHelpers/LoadingView";
-import {
-  LoginView,
-  Container,
-  Title,
-  GoogleSigninButton,
-  GoogleG
-} from "./style";
+import React from 'react';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { StoreState } from '../../reducers';
+import { signIn } from '../../actions';
+import Head from '../../components/Head';
+import { LoginView, Container, Title, GoogleSigninButton, GoogleG } from './style';
 
 interface Props extends RouteComponentProps {
   isLoggingIn: boolean;
   isAuthenticated: boolean;
-  signIn: Function;
+  signIn: () => void;
 }
 
 const Login: React.FC<Props> = (props: Props) => {
   return (
     <React.Fragment>
-      <Head title={`Login`} description={"Duks sign-in page"} />
+      <Head title={`Login`} description={'Duks sign-in page'} />
       <LoginView>
         <Container>
           <Title>Duks</Title>

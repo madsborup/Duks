@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { StoreState } from "../../reducers";
 import { connect } from "react-redux";
 import history from "../../helpers/history";
@@ -26,12 +26,11 @@ interface Props extends RouteComponentProps<Match> {
   currentProject: ProjectData;
   tasks: TaskData[];
   isFetching: boolean;
-  deleteFlow: Function;
+  deleteFlow: (id: string) => void;
 }
 
 const Flow: React.FC<Props> = (props: Props) => {
   const { currentProject, currentFlow } = props;
-  const { projectSlug } = props.match.params;
 
   const renderTasks = () => {
     const flowTasks: (TaskData | undefined)[] = props.tasks.map(
@@ -99,6 +98,7 @@ const Flow: React.FC<Props> = (props: Props) => {
       </View>
     );
   }
+  
   return <LoadingView />;
 };
 

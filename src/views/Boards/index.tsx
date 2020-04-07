@@ -1,26 +1,17 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { compose } from "redux";
-import {
-  RouteComponentProps,
-  Route,
-  Redirect,
-  withRouter
-} from "react-router-dom";
-import { StoreState } from "../../reducers";
-import { TaskData, FlowData, ProjectData } from "../../actions";
-import { getProjectFromSlug } from "../../selectors/getProject";
-import Head from "../../components/Head";
-import SegmentedControl from "../../components/SegmentedControl";
-import Header from "../../components/Header";
-import Subheader from "../../components/Subheader";
-import LoadingView from '../../views/viewHelpers/LoadingView'
-import StatusBoard from "./components/StatusBoard";
-import AssignedBoard from "./components/AssignedBoard";
-import {
-  View,
-  Content
-} from "../../components/designSystem/layout";
+import React from 'react';
+import { connect } from 'react-redux';
+import { RouteComponentProps, Route } from 'react-router-dom';
+import { StoreState } from '../../reducers';
+import { TaskData, FlowData, ProjectData } from '../../actions';
+import { getProjectFromSlug } from '../../selectors/getProject';
+import Head from '../../components/Head';
+import SegmentedControl from '../../components/SegmentedControl';
+import Header from '../../components/Header';
+import Subheader from '../../components/Subheader';
+import LoadingView from '../../views/viewHelpers/LoadingView';
+import StatusBoard from './components/StatusBoard';
+import AssignedBoard from './components/AssignedBoard';
+import { View, Content } from '../../components/designSystem/layout';
 
 interface Match {
   projectSlug: string;
@@ -39,17 +30,14 @@ const Boards: React.FC<Props> = (props: Props) => {
   if (currentProject) {
     return (
       <View>
-        <Head
-          title={`${currentProject.title} - Boards`}
-          description={"View task boards"}
-        />
+        <Head title={`${currentProject.title} - Boards`} description={'View task boards'} />
         <Header projectID={currentProject.id} title="Boards" />
         <Subheader>
           <SegmentedControl
             controls={[
-              { label: "Status", path: `/${projectSlug}/boards` },
+              { label: 'Status', path: `/${projectSlug}/boards` },
               {
-                label: "Assigned",
+                label: 'Assigned',
                 path: `/${projectSlug}/boards/assigned`
               }
             ]}
@@ -64,12 +52,7 @@ const Boards: React.FC<Props> = (props: Props) => {
           <Route
             path="/:projectSlug/boards/assigned"
             exact
-            render={() => (
-              <AssignedBoard
-                tasks={props.tasks}
-                currentProject={currentProject}
-              />
-            )}
+            render={() => <AssignedBoard tasks={props.tasks} currentProject={currentProject} />}
           />
         </Content>
       </View>
@@ -78,10 +61,7 @@ const Boards: React.FC<Props> = (props: Props) => {
   return <LoadingView />;
 };
 
-const mapStateToProps = (
-  { projects, tasks, flows }: StoreState,
-  ownProps: Props
-) => {
+const mapStateToProps = ({ projects, tasks, flows }: StoreState, ownProps: Props) => {
   return {
     currentProject: getProjectFromSlug(projects, ownProps.match.params),
     tasks: tasks.items,
@@ -89,9 +69,4 @@ const mapStateToProps = (
   };
 };
 
-export default compose<React.ComponentType>(
-  withRouter,
-  connect(
-    mapStateToProps
-  )
-)(Boards);
+export default connect(mapStateToProps)(Boards);

@@ -1,22 +1,14 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { RouteComponentProps } from "react-router-dom";
-import { StoreState } from "../../reducers";
-import { ProjectData, TaskData } from "../../actions";
-import { getProjectFromSlug } from "../../selectors/getProject";
-import {
-  ViewGrid,
-  TwoColumnGrid,
-  FirstColumn,
-  SecondColumn,
-  View,
-  Content
-} from "../../components/designSystem/layout";
-import Head from "../../components/Head";
-import Header from "../../components/Header";
-import Sidebar from "../../components/Sidebar";
-import TaskCard from "../../components/TaskCard";
-import { CardContainer } from "./style";
+import React from 'react';
+import { connect } from 'react-redux';
+import { RouteComponentProps } from 'react-router-dom';
+import { StoreState } from '../../reducers';
+import { ProjectData, TaskData } from '../../actions';
+import { getProjectFromSlug } from '../../selectors/getProject';
+import { View, Content } from '../../components/designSystem/layout';
+import Head from '../../components/Head';
+import Header from '../../components/Header';
+import TaskCard from '../../components/TaskCard';
+import { CardContainer } from './style';
 
 interface Match {
   projectSlug: string;
@@ -28,7 +20,6 @@ interface Props extends RouteComponentProps<Match> {
 }
 
 const UnassignedTasks: React.FC<Props> = (props: Props) => {
-
   const renderTasks = () => {
     return props.tasks.map((task: TaskData) => {
       return (
@@ -43,7 +34,7 @@ const UnassignedTasks: React.FC<Props> = (props: Props) => {
     <View>
       <Head
         title={`${props.currentProject.title} - Unassigned tasks`}
-        description={"View unassigned tasks"}
+        description={'View unassigned tasks'}
       />
       <Header title="Unassigned tasks" projectID={props.currentProject.id} />
       <Content>
@@ -53,7 +44,6 @@ const UnassignedTasks: React.FC<Props> = (props: Props) => {
   );
 };
 
-//TODO: create selector for getting unassigned tasks
 const mapStateToProps = ({ projects, tasks }: StoreState, ownProps: Props) => {
   return {
     currentProject: getProjectFromSlug(projects, ownProps.match.params),
@@ -63,7 +53,4 @@ const mapStateToProps = ({ projects, tasks }: StoreState, ownProps: Props) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  null
-)(UnassignedTasks);
+export default connect(mapStateToProps)(UnassignedTasks);

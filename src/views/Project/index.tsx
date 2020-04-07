@@ -1,9 +1,9 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Redirect, RouteComponentProps, withRouter } from "react-router-dom";
-import { StoreState } from "../../reducers";
-import { ProjectData, fetchTasks, fetchFlows } from "../../actions";
-import { getProjectFromSlug } from '../../selectors/getProject'
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { Redirect, RouteComponentProps } from 'react-router-dom';
+import { StoreState } from '../../reducers';
+import { ProjectData, fetchTasks, fetchFlows } from '../../actions';
+import { getProjectFromSlug } from '../../selectors/getProject';
 
 interface Match {
   projectSlug: string;
@@ -12,39 +12,25 @@ interface Match {
 interface Props extends RouteComponentProps<Match> {
   projects: { [key: string]: ProjectData };
   currentProject: ProjectData;
-  fetchTasks: Function;
-  fetchFlows: Function;
+  fetchTasks: (projectID: string) => void;
+  fetchFlows: (projectID: string) => void;
 }
 
-class Project extends React.Component<Props> {
-  componentDidMount() {
-    this.props.fetchTasks(this.props.currentProject.id);
-    this.props.fetchFlows(this.props.currentProject.id);
-  }
+const Project: React.FC<Props> = (props: Props) => {
+  const { projects, currentProject, match, fetchTasks, fetchFlows } = props;
 
-  componentDidUpdate(prev: Props) {
-    if (prev.match.params.projectSlug !== this.props.match.params.projectSlug) {
-      this.props.fetchTasks(this.props.currentProject.id);
-      this.props.fetchFlows(this.props.currentProject.id);
-    }
-  }
+  useEffect(() => {
+    fetchTasks(currentProject.id);
+    fetchFlows(currentProject.id);
+  }, [match.params.projectSlug]);
 
-  render() {
-    const currLocation = this.props.location.pathname;
-    const { projectSlug } = this.props.match.params;
-
-    // if (this.props.history.location.pathname === currLocation) {
-    //   return <Redirect to={currLocation} />
-    // }
-
-    //checking if project exists before redirecting, if not, redirect to most recent project
-    if (this.props.projects[projectSlug] !== undefined) {
-      return <Redirect to={`/${projectSlug}/boards`} />;
-    } else {
-      return <Redirect to={`${Object.values(this.props.projects)[0].slug}/boards`} />;
-    }
-  }
-}
+  //checking if project exists before redirecting, else redirect to most recent project
+  if (projects[match.params.projectSlug] !== undefined) {
+    return <Redirect to={`/${match.params.projectSlug}/boards`} />;
+  } 
+  
+  return <Redirect to={`${Object.values(props.projects)[0].slug}/boards`} />;
+};
 
 const mapStateToProps = ({ projects }: StoreState, ownProps: Props) => {
   return {
