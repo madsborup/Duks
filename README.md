@@ -13,4 +13,6 @@ Duks is a simple project management tool.
 - Redux
 - styled-components
 
-Built with create-react-app
+Firebase for authentication and database.
+
+Built with create-react-app.
