@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import { Redirect, RouteComponentProps } from "react-router-dom";
 import { connect } from "react-redux";
-import { StoreState } from "../../../reducers";
-import { ProjectsData } from "../../../actions";
+import { StoreState } from "../../reducers";
+import { ProjectsData } from "../../actions";
 
 interface Props extends RouteComponentProps {
   projects: ProjectsData;

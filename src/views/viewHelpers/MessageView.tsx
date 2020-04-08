@@ -1,5 +1,6 @@
+import React from "react";
 import styled from 'styled-components/macro'
-import theme from '../../../components/designSystem/theme'
+import theme from '../../components/designSystem/theme'
 
 export const StyledMessageView = styled.div`
   display:flex;
@@ -15,3 +16,17 @@ export const Message = styled.div`
   font-size: ${theme.font.size.h3};
   font-weight: 500;
 `;
+
+interface Props {
+  content: string;
+}
+
+const MessageView: React.FC<Props> = (props: Props) => {
+  return (
+    <StyledMessageView>
+      <Message>{props.content}</Message>
+    </StyledMessageView>
+  );
+};
+
+export default MessageView;
