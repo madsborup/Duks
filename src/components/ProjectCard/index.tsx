@@ -15,11 +15,11 @@ import {
 
 interface Props {
   project: ProjectData;
-  showModal: Function;
+  showModal: typeof showModal;
 }
 
 const ProjectCard: React.FC<Props> = (props: Props) => {
-  const { title, description, slug } = props.project;
+  const { title, description } = props.project;
 
   return (
     <PopoverMenu

@@ -1,16 +1,15 @@
-import React from "react";
-import Tippy from "@tippy.js/react";
+import React from 'react';
 import 'tippy.js/animations/shift-away.css';
-import { Placement } from 'popper.js'
-import { StyledTippy, StyledPopoverMenu, Option, Divider } from "./style";
+import { Placement } from 'popper.js';
+import { StyledTippy, StyledPopoverMenu, Option, Divider } from './style';
 
 type MenuItem = {
   type: 'option' | 'divider';
   label?: string | React.ReactNode;
   onClick?: () => void;
   danger?: boolean;
-  disabled?: boolean
-}
+  disabled?: boolean;
+};
 
 interface Props {
   items: MenuItem[];
@@ -19,15 +18,17 @@ interface Props {
   dark?: boolean;
 }
 
-const PopoverMenu: React.FC<Props> = (props: Props) => {
-  const { items, placement } = props;
-
+const PopoverMenu: React.FC<Props> = ({ items, placement, children }: Props) => {
   const renderOptions = () => {
     return items.map((item, i) => {
       if (item.type === 'option') {
-      return <Option onClick={item.onClick} danger={item.danger} disabled={item.disabled} key={i}>{item.label}</Option>;
+        return (
+          <Option onClick={item.onClick} danger={item.danger} disabled={item.disabled} key={i}>
+            {item.label}
+          </Option>
+        );
       } else if (item.type === 'divider') {
-        return <Divider key={i} />
+        return <Divider key={i} />;
       }
     });
   };
@@ -43,7 +44,7 @@ const PopoverMenu: React.FC<Props> = (props: Props) => {
       delay={0}
       distance={0}
     >
-      {props.children}
+      {children}
     </StyledTippy>
   );
 };

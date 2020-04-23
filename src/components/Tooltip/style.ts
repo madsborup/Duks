@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Tippy, { TippyProps } from "@tippy.js/react";
+import Tippy from "@tippy.js/react";
 import theme from "../designSystem/theme";
 import "tippy.js/dist/svg-arrow.css";
 

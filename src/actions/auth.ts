@@ -1,7 +1,6 @@
-import { Dispatch, ActionCreator } from "redux";
-import { ThunkAction } from "redux-thunk";
+import { Dispatch } from "redux";
 import { ActionTypes } from "./types";
-import firebase, { auth, firestore, googleAuthProvider } from "../firebase";
+import firebase, { auth } from "../firebase";
 import { createUserDocument } from "../firebase/utils/createUserDocument";
 import { signInWithGoogle } from "../firebase/utils/signInWithGoogle";
 import { fetchUserFromId } from "../firebase/utils/fetchUser";
@@ -50,7 +49,7 @@ export interface SignOutAction {
 
 export const signInRequest = () => {
   return {
-    type: ActionTypes.SIGN_IN_REQUEST
+    type: ActionTypes.SIGN_IN_REQUEST as typeof ActionTypes.SIGN_IN_REQUEST
   };
 };
 

@@ -1,5 +1,5 @@
 import styled from "styled-components/macro";
-import { rgba, tint } from "polished";
+import { rgba } from "polished";
 import theme from "../designSystem/theme";
 import { ReactComponent as CalendarIcon } from "../../assets/svg/CalendarIcon.svg";
 import { ReactComponent as PriorityLowIcon } from "../../assets/svg/priority_low.svg";

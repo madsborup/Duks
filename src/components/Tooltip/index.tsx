@@ -1,5 +1,4 @@
 import React from "react";
-import { Placement } from 'popper.js'
 import 'tippy.js/animations/shift-away.css';
 import 'tippy.js/dist/tippy.css';
 import { roundArrow } from 'tippy.js';

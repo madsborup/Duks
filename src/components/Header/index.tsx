@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { signOut, showModal } from "../../actions";
 import { StoreState } from '../../reducers'
 import { StyledHeader, Title, ActionsContainer } from "./style";
 import Profile from "../Profile";
-import { Button, PrimaryButton } from "../designSystem/button";
+import { PrimaryButton } from "../designSystem/button";
 
 interface Props {
   title?: string;

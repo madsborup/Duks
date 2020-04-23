@@ -82,7 +82,6 @@ export const fetchFlows = (projectID: string) => async (
 };
 
 export const deleteFlow = (id: string) => async (dispatch: Dispatch) => {
-  console.log("fired")
   try {
     await firestore
       .collection("flows")

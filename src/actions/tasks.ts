@@ -1,6 +1,5 @@
 import { firestore } from "../firebase";
 import { Dispatch } from "redux";
-import _ from "lodash";
 import { ActionTypes } from "../actions";
 import { StoreState } from "../reducers";
 import { addDocToCollection } from "../firebase/utils/addDocToCollection";
@@ -109,7 +108,7 @@ export const fetchTasks = (projectID: string) => async (
   dispatch: Dispatch
 ) => {
   dispatch(fetchTasksRequest());
-  console.log(projectID)
+
   try {
     firestore
       .collection("tasks")

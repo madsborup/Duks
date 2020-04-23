@@ -1,8 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-import _ from "lodash";
 import { ProjectData, FlowData, showModal } from "../../actions";
 import { StoreState } from "../../reducers";
 import { getProjectFromSlug } from "../../selectors/getProject";
@@ -20,7 +19,7 @@ interface Props extends RouteComponentProps<Match> {
   currentProject: ProjectData;
   isFetching: boolean;
   flows: { [key: string]: FlowData };
-  showModal: Function;
+  showModal: typeof showModal;
 }
 
 const Sidebar: React.FC<Props> = (props: Props) => {

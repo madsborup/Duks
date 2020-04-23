@@ -76,6 +76,7 @@ export const Content = styled.div`
   height: 100%;
   background: ${theme.colors.viewBackground};
 `;
+
 export const ContentLight = styled(Content)`
   background: ${theme.colors.subHeading};
 `;

@@ -24,6 +24,7 @@ export interface ProjectData {
 
 export interface ProjectsData {
   isFetching: boolean;
+  error?: string;
   items: { [key: string]: ProjectData };
 }
 
@@ -35,12 +36,17 @@ export interface EditProjectAction {
   type: ActionTypes.EDIT_PROJECT;
 }
 
-export interface FetchProjectsRequestAction {
-  type: ActionTypes.FETCH_PROJECTS_REQUEST;
+export interface DeleteProjectAction {
+  type: ActionTypes.DELETE_PROJECT;
+  id: string;
 }
 
 export interface FetchProjectsAction {
   type: ActionTypes.FETCH_PROJECTS;
+}
+
+export interface FetchProjectsRequestAction {
+  type: ActionTypes.FETCH_PROJECTS_REQUEST;
 }
 
 export interface FetchProjectsSuccessAction {
@@ -48,10 +54,9 @@ export interface FetchProjectsSuccessAction {
   projects: { [key: string]: ProjectData };
 }
 
-//remember to also delete taskgroups and tasks related to the project!
-export interface DeleteProjectAction {
-  type: ActionTypes.DELETE_PROJECT;
-  id: string;
+export interface FetchProjectsFailureAction {
+  type: ActionTypes.FETCH_PROJECTS_SUCCESS;
+  projects: { [key: string]: ProjectData };
 }
 
 export const createProject = (title: string, description: string) => async (

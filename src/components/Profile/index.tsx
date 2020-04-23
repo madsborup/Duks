@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { StoreState } from "../../reducers";
 import { AuthData, signOut, showModal } from "../../actions";
@@ -16,7 +16,7 @@ import {
 interface Props {
   auth: AuthData;
   signOut: () => void;
-  showModal: Function;
+  showModal: typeof showModal;
 }
 
 const Profile: React.FC<Props> = (props: Props) => {

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { withRouter, RouteComponentProps } from "react-router";
@@ -39,7 +39,7 @@ interface Props extends RouteComponentProps<Match> {
   flowID: string;
   flow: FlowData;
   currentProject: ProjectData;
-  showModal: Function;
+  showModal: typeof showModal;
 }
 
 const TaskCard: React.FC<Props> = (props: Props) => {
@@ -120,7 +120,7 @@ const TaskCard: React.FC<Props> = (props: Props) => {
   return <div>No flow</div>;
 };
 
-//TODO: fix any type
+
 const mapStateToProps = ({ flows, projects }: StoreState, ownProps: Props) => {
   return {
     flow: getFlowFromID(flows, ownProps),

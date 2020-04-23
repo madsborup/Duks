@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { withRouter, RouteComponentProps } from "react-router";
@@ -118,7 +118,6 @@ const TaskRow: React.FC<Props> = (props: Props) => {
   return <div>No flow</div>;
 };
 
-//TODO: fix any type
 const mapStateToProps = ({ flows, projects }: StoreState, ownProps: Props) => {
   return {
     currentFlow: getFlowFromID(flows, ownProps),
