@@ -1,12 +1,10 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { compose } from 'redux'
-import { Route, Redirect } from "react-router-dom";
-import { StoreState } from "../../reducers";
-import history from '../../helpers/history'
-import LoadingView from "../../views/viewHelpers/LoadingView";
-import Routes from "../../Routes";
-import Login from "../../views/Login";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Route, Redirect } from 'react-router-dom';
+import { StoreState } from '../../reducers';
+import LoadingView from '../../views/viewHelpers/LoadingView';
+import Routes from '../../Routes';
+import Login from '../../views/Login';
 
 interface Props {
   isAuthenticated: boolean;

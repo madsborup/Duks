@@ -1,25 +1,25 @@
 import styled from "styled-components/macro";
-import theme from "../designSystem/theme";
+import theme from "../../components/designSystem/theme";
 import { tint, rgba } from "polished";
-import { PrimaryButton } from "../designSystem/button";
-import { ReactComponent as flow_icon } from "../../assets/svg/flow_icon.svg";
+import { PrimaryButton } from "../../components/designSystem/button";
+import { ReactComponent as FlowCircle } from "../../assets/svg/FlowCircle.svg";
 import { ReactComponent as RightArrow } from "../../assets/svg/RightArrow.svg";
 
 interface FlowIconProps {
   flowcolor: string;
 }
 
-export const StyledSidebar = styled.div`
+export const StyledNavigation = styled.div`
 
 `;
 
-export const SidebarSection = styled.div`
+export const Section = styled.div`
   &:first-child {
     border-bottom: 1px solid ${theme.colors.border};
   }
 `;
 
-export const SidebarSectionHeader = styled.span`
+export const SectionHeader = styled.span`
   font-size: ${theme.font.size.regular};
   font-weight: 600;
   color: ${theme.colors.textMuted};
@@ -35,7 +35,7 @@ export const NewTaskButton = styled(PrimaryButton)`
   border-bottom: 4px solid ${theme.colors.primary};
 `;
 
-export const FlowIcon = styled(flow_icon)<FlowIconProps>`
+export const FlowIcon = styled(FlowCircle)<FlowIconProps>`
   min-width: 12px;
   width: 12px;
   margin-right: ${theme.spacing.xsmall}; 

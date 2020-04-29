@@ -1,5 +1,5 @@
 import styled from "styled-components/macro";
-import theme from "../designSystem/theme";
+import theme from "../../components/designSystem/theme";
 import { DropdownArrow } from '../../components/designSystem/icons/DropdownArrow'
 
 export const Container = styled.div`

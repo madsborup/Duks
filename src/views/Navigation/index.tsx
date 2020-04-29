@@ -5,14 +5,14 @@ import { withRouter, RouteComponentProps } from "react-router-dom";
 import { ProjectData, FlowData, showModal } from "../../actions";
 import { StoreState } from "../../reducers";
 import { getProjectFromSlug } from "../../selectors/getProject";
-import ProjectCard from "../ProjectCard";
-import LinkList from "../LinkList";
-import CollectionList from "../CollectionList";
-import LoadingView from '../../views/viewHelpers/LoadingView'
-import { StyledSidebar, SidebarSection, FlowIcon } from "./style";
+import ProjectCard from "../../components/ProjectCard";
+import LinkList from "../../components/LinkList";
+import CollectionList from "../../components/CollectionList";
+import LoadingView from '../viewHelpers/LoadingView'
+import { StyledNavigation, Section, FlowIcon } from "./style";
 
 interface Match {
-  projectSlug: string
+  projectSlug: string;
 }
 
 interface Props extends RouteComponentProps<Match> {
@@ -22,7 +22,7 @@ interface Props extends RouteComponentProps<Match> {
   showModal: typeof showModal;
 }
 
-const Sidebar: React.FC<Props> = (props: Props) => {
+const Navigation: React.FC<Props> = (props: Props) => {
   const { currentProject } = props;
   const { projectSlug } = props.match.params;
 
@@ -48,11 +48,11 @@ const Sidebar: React.FC<Props> = (props: Props) => {
 
   if (projectSlug && currentProject) {
   return (
-    <StyledSidebar>
-      <SidebarSection>
+    <StyledNavigation>
+      <Section>
         <ProjectCard project={currentProject} />
-      </SidebarSection>
-      <SidebarSection>
+      </Section>
+      <Section>
         <LinkList
           heading={"Project"}
           links={[
@@ -68,8 +68,8 @@ const Sidebar: React.FC<Props> = (props: Props) => {
             }
           ]}
         />
-      </SidebarSection>
-      <SidebarSection>
+      </Section>
+      <Section>
         <CollectionList
           heading="Flows"
           collection={Object.values(props.flows).map(flow => {
@@ -85,8 +85,8 @@ const Sidebar: React.FC<Props> = (props: Props) => {
             showIcon: true
           }}
         />
-      </SidebarSection>
-      <SidebarSection>
+      </Section>
+      <Section>
         <CollectionList
           heading="Members"
           collection={currentProject.members.map(member => {
@@ -97,8 +97,8 @@ const Sidebar: React.FC<Props> = (props: Props) => {
             onButtonClick: showInviteModal
           }}
         />
-      </SidebarSection>
-    </StyledSidebar>
+      </Section>
+    </StyledNavigation>
   );
   }
 
@@ -118,4 +118,4 @@ export default compose<React.ComponentType>(
   connect(
   mapStateToProps,
   { showModal }
-))(Sidebar);
+))(Navigation);
