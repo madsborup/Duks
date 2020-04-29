@@ -9,7 +9,7 @@ interface Props extends TippyProps {
 
 interface OptionProps {
   danger?: boolean;
-  disabled?: boolean
+  disabled?: boolean;
 }
 
 export const StyledTippy = styled(Tippy)<Props>`

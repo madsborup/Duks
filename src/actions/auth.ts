@@ -10,8 +10,8 @@ export interface UserData {
   displayName: string;
   photoURL: string;
   email: string;
-  createdAt: Date
-  invites: string[]
+  createdAt: Date;
+  invites: string[];
 }
 
 export interface AuthData {
@@ -93,7 +93,7 @@ export const verifyAuthentication = () => (dispatch: Dispatch) => {
   auth.onAuthStateChanged(async auth => {
     if (auth !== null) {
       createUserDocument(auth);
-      let user = await fetchUserFromId(auth.uid);
+      const user = await fetchUserFromId(auth.uid);
       dispatch(signInSucces(user));
     }
 
