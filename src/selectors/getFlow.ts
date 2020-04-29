@@ -9,10 +9,10 @@ interface PropsSlug {
   flowSlug: string;
 }
 
-const selectFlowFromID = (flows: FlowsData, props: PropsID) =>
+const selectFlowFromID = (flows: FlowsData, props: PropsID): FlowData =>
   flows.items[props.flowID];
 
-const selectFlowFromSlug = (flows: FlowsData, props: PropsSlug) =>
+const selectFlowFromSlug = (flows: FlowsData, props: PropsSlug): FlowData =>
   Object.values(flows.items).find(flow => flow.slug === props.flowSlug) as FlowData;
 
 export const getFlowFromID = createSelector(

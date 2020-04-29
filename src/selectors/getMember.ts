@@ -1,5 +1,5 @@
-import { createSelector } from "reselect";
-import { ProjectsData, UserData } from "../actions";
+import { createSelector } from 'reselect';
+import { ProjectsData } from '../actions';
 
 interface Props {
   projectSlug: string;
@@ -8,10 +8,10 @@ interface Props {
 
 const getMemberFromProject = (projects: ProjectsData, props: Props) =>
   projects.items[props.projectSlug].members.find(
-    member => member.uid === props.memberUid
+    (member) => member.uid === props.memberUid
   );
 
 export const getMember = createSelector(
   [getMemberFromProject],
-  member => member
+  (member) => member
 );
