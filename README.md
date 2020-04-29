@@ -1,5 +1,5 @@
 <div align="center">
-  [![Duks](./public/img/workspace.png)](https://duks.site)
+  ![Duks](./public/img/workspace.png)
 </div>
 
 ## Vision
