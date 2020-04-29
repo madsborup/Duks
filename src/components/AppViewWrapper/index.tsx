@@ -1,29 +1,24 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import { StyledAppViewWrapper } from './style';
-import Navbar from '../Navbar';
-import Sidebar from '../Sidebar';
+import Navigation from '../../views/Navigation';
 import {
   ViewGrid,
   TwoColumnGrid,
   FirstColumn,
-  SecondColumn
+  SecondColumn,
 } from '../../components/designSystem/layout';
 
 const AppViewWrapper: React.FC = ({ children }) => {
   return (
     <React.Fragment>
-      <StyledAppViewWrapper>
-        <Navbar />
-        <ViewGrid>
-          <TwoColumnGrid>
-            <FirstColumn>
-              <Route path="/:projectSlug" component={Sidebar} />
-            </FirstColumn>
-            <SecondColumn>{children}</SecondColumn>
-          </TwoColumnGrid>
-        </ViewGrid>
-      </StyledAppViewWrapper>
+      <ViewGrid>
+        <TwoColumnGrid>
+          <FirstColumn>
+            <Route path="/:projectSlug" component={Navigation} />
+          </FirstColumn>
+          <SecondColumn>{children}</SecondColumn>
+        </TwoColumnGrid>
+      </ViewGrid>
     </React.Fragment>
   );
 };
