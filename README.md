@@ -1,5 +1,7 @@
 <div align="center">
-![Duks](https://github.com/madsborup/Duks/blob/master/public/img/workspace.png)
+  
+  ![Duks](https://github.com/madsborup/Duks/blob/master/public/img/workspace.png)
+
 </div>
 
 ## Vision
