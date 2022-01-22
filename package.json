@@ -23,7 +23,7 @@
     "firebase-functions": "^3.3.0",
     "formik": "^2.1.1",
     "lodash": "^4.17.15",
-    "nanoid": "^2.1.7",
+    "nanoid": "^3.1.31",
     "node-sass": "^4.13.0",
     "polished": "^3.4.2",
     "react": "^16.12.0",
